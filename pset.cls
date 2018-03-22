@@ -223,7 +223,8 @@
 \newcommand{\duedate}[1]{\def\pset@duedate{#1}}
 \newcommand{\dueday}[1]{\def\pset@dueday{#1}}
 % \newcommand{\reading}[1]{\def\pset@reading{#1}}
-\newcommand{\problems}[1]{\forcsvlist{\listadd\pset@problems}{#1}}
+\newcommand{\problems}[1]{\def\pset@problems{#1}
+  \forcsvlist{\saveitem}{#1}\forcsvlist{\listadd\mylist}{#1}}
 \newcommand{\acknowledgements}[1]{\def\pset@acknowledgements{#1}
   \forcsvlist{\othersaveitem}{#1}}
 \newcommand{\onTime}[1]{\def\pset@onTime{#1}}
@@ -233,7 +234,7 @@
 
 \def\saveitem#1{%
   \stepcounter{problemCounter}%
-  \expandafter\def\csname problems\theproblemCounter\endcsname{#1}%
+  \expandafter\def\csname problems\theproblemCounter\endcsname{\phantom#1}%
 }
 
 \def\getProblem#1{\csname problems#1\endcsname}
@@ -320,6 +321,9 @@
   \vspace{1.1cm}
 
   \newcounter{prob}
+  \newcommand{\dostuff}[1]{\stepcounter{prob}
+    #1 &&
+    \raisebox{-.5em}{\getAck{\number\value{prob}}} \\[1em] \hline}
   \begin{center}
     \begin{tabular}{| >{\centering\arraybackslash}m{1cm} |
       >{\centering}m{1.2cm} | >{\centering\arraybackslash}m{9cm} |}
@@ -331,10 +335,9 @@
       >{\centering\arraybackslash}m{1.2cm} |
       >{\centering\arraybackslash}m{9cm} |}
       \hline
-      \renewcommand*{\do}[1]{
-        \expandafter #1\csname \stepcounter{prob} && \raisebox{-.5em}{\getAck{\number\value{prob}}} \\[1em] \hline\endcsname
-      }
-      \docsvlist{1, 2, 3, 4}
+      \forlistloop{\dostuff}{\mylist}
+      % \renewcommand*{\do}[1]{\dostuff}
+      % \dolistloop{\mylist}
       \textbf{Total} & & \\[1em]
       \hline
     \end{tabular}
