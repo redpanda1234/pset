@@ -211,7 +211,7 @@
 \def\pset@duedate{}
 \def\pset@dueday{}
 % \def\pset@reading{}
-\def\pset@problems{}
+% \def\pset@problems{}
 \def\pset@acknowledgements{}
 \def\pset@onTime{}
 
@@ -223,8 +223,7 @@
 \newcommand{\duedate}[1]{\def\pset@duedate{#1}}
 \newcommand{\dueday}[1]{\def\pset@dueday{#1}}
 % \newcommand{\reading}[1]{\def\pset@reading{#1}}
-\newcommand{\problems}[1]{\def\pset@problems{#1}
-  \forcsvlist{\saveitem}{#1}}
+\newcommand{\problems}[1]{\forcsvlist{\listadd\pset@problems}{#1}}
 \newcommand{\acknowledgements}[1]{\def\pset@acknowledgements{#1}
   \forcsvlist{\othersaveitem}{#1}}
 \newcommand{\onTime}[1]{\def\pset@onTime{#1}}
@@ -331,13 +330,11 @@
     \begin{tabular}{| >{\centering\arraybackslash}b{1cm} |
       >{\centering\arraybackslash}m{1.2cm} |
       >{\centering\arraybackslash}m{9cm} |}
-      \renewcommand*{\do}[1]{
-        \stepcounter{prob}
-        \getProblem{\number\value{prob}}
-        && \raisebox{-.5em}{\getAck{\number\value{prob}}} \\[1em]
       \hline
+      \renewcommand*{\do}[1]{
+        \expandafter #1\csname \stepcounter{prob} && \raisebox{-.5em}{\getAck{\number\value{prob}}} \\[1em] \hline\endcsname
       }
-      \dolistloop{\pset@problems}
+      \docsvlist{1, 2, 3, 4}
       \textbf{Total} & & \\[1em]
       \hline
     \end{tabular}
