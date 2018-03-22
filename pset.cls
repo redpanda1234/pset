@@ -223,7 +223,8 @@
 \newcommand{\duedate}[1]{\def\pset@duedate{#1}}
 \newcommand{\dueday}[1]{\def\pset@dueday{#1}}
 % \newcommand{\reading}[1]{\def\pset@reading{#1}}
-\newcommand{\problems}[1]{\def\pset@problems{#1}}
+\newcommand{\problems}[1]{\def\pset@problems{#1}
+  \forcsvlist{\saveitem}{#1}}
 \newcommand{\acknowledgements}[1]{\def\pset@acknowledgements{#1}
   \forcsvlist{\othersaveitem}{#1}}
 \newcommand{\onTime}[1]{\def\pset@onTime{#1}}
@@ -319,32 +320,24 @@
 
   \vspace{1.1cm}
 
-  % \begin{center}
-  %   \begin{tabular}{m{4cm} b{8cm}}
-  %     \textbf{Readings:}
-  %     & \textbf{\underline{\large\makebox[8cm]{\pset@readings}}} \\[1.5em]
-  %   \end{tabular}
-  % \end{center}
-
+  \newcounter{prob}
   \begin{center}
-    \newcounter{prob}
-    \renewcommand*{\do}[1]{%
-      \stepcounter{prob}%
-      \hline%
-      \getProblem{\number\value{prob}} & & %
-      \raisebox{-.5em}{\getAck{\number\value{prob}}}%
-      \\[1em]%
-    }
-
     \begin{tabular}{| >{\centering\arraybackslash}m{1cm} |
       >{\centering}m{1.2cm} | >{\centering\arraybackslash}m{9cm} |}
       \hline
       \textbf{No.} & \textbf{Points} & \textbf{Acknowledgments} \\
       \hline
     \end{tabular}
-    \begin{tabular}{| >{\centering\arraybackslash}b{1cm} | >{\centering\arraybackslash}m{1.2cm} | >{\centering\arraybackslash}m{9cm} |}
-      \docsvlist{\pset@problems}
+    \begin{tabular}{| >{\centering\arraybackslash}b{1cm} |
+      >{\centering\arraybackslash}m{1.2cm} |
+      >{\centering\arraybackslash}m{9cm} |}
+      \renewcommand*{\do}[1]{
+        \stepcounter{prob}
+        \getProblem{\number\value{prob}}
+        && \raisebox{-.5em}{\getAck{\number\value{prob}}} \\[1em]
       \hline
+      }
+      \dolistloop{\pset@problems}
       \textbf{Total} & & \\[1em]
       \hline
     \end{tabular}
