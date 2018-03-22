@@ -1,3 +1,10 @@
+# PSA
+When you try to compile, this will error. However, if you just tell
+LaTeX to keep trying to compile and ignore the error, then it'll
+typeset everything properly. This is because of some weird thing in
+the `\forlistloop` thing in the definition of the headerblock. I don't
+know how to fix this. Please help.
+
 # Pset!
 `pset.cls` is a "small" LaTeX class file for typesetting a cover sheet
 for my problem sets, in addition to typesetting some common commands
