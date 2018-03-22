@@ -214,6 +214,7 @@
 % \def\pset@problems{}
 \def\pset@acknowledgements{}
 \def\pset@onTime{}
+\def\pset@season{}
 
 % Commands to set header block info
 \newcommand{\name}[1]{\def\pset@name{#1}}
@@ -228,6 +229,7 @@
 \newcommand{\acknowledgements}[1]{\def\pset@acknowledgements{#1}
   \forcsvlist{\othersaveitem}{#1}}
 \newcommand{\onTime}[1]{\def\pset@onTime{#1}}
+\newcommand{\season}[1]{\def\pset@season{#1}}
 
 % So that we can iterate through problems to fill the coversheet table
 \newcounter{problemCounter}
@@ -258,28 +260,28 @@
 
 \def\circleMonday{
   \begin{tikzpicture}[remember picture,overlay]
-    \draw[very thick] (7.1,11.6) ellipse (1cm and 0.5cm);
+    \draw[very thick] (5.6,2.6) ellipse (1cm and 0.5cm);
   \end{tikzpicture}
 }
 
 \def\circleTuesday{
   \begin{tikzpicture}[remember picture,overlay]
-    \draw[very thick] (7.1,11.6) ellipse (1cm and 0.5cm);
+    \draw[very thick] (7.4,2.6) ellipse (1cm and 0.5cm);
   \end{tikzpicture}
 }
 \def\circleWednesday{
   \begin{tikzpicture}[remember picture,overlay]
-    \draw[very thick] (9.25,11.6) ellipse (1.04cm and 0.52cm);
+    \draw[very thick] (9.25,2.6) ellipse (1.04cm and 0.52cm);
   \end{tikzpicture}
 }
 \def\circleThursday{
   \begin{tikzpicture}[remember picture,overlay]
-    \draw[very thick] (9.25,11.6) ellipse (1.04cm and 0.52cm);
+    \draw[very thick] (11.15,2.6) ellipse (1.04cm and 0.52cm);
   \end{tikzpicture}
 }
 \def\circleFriday{
   \begin{tikzpicture}[remember picture,overlay]
-    \draw[very thick] (11.2,11.6) ellipse (1.04cm and 0.52cm);
+    \draw[very thick] (12.8,2.6) ellipse (1.04cm and 0.52cm);
   \end{tikzpicture}
 }
 
@@ -295,10 +297,12 @@
   \thispagestyle{empty}
   \newgeometry{left=1.5in,right=1.5in,top=1.5in}
 
-  \begin{flushright}
-    \textbf{\pset@class} \hspace{2.8cm} \mbox{} \\
-    \textbf{\pset@prof} \hspace{2.8cm} \mbox{}
-  \end{flushright}
+  \begin{center}
+    \Huge \textbf{\pset@class}
+
+
+    \large \emph{Prof:} \textbf{\pset@prof}
+  \end{center}
 
   \vspace{1.4cm}
 
@@ -320,9 +324,20 @@
 
   \vspace{1.1cm}
 
+  % Circle the correct day on the cover sheet!
+  \ifthenelse{\equal{\pset@dueday}{Monday}}{\circleMonday}{}
+  \ifthenelse{\equal{\pset@dueday}{monday}}{\circleMonday}{}
+  \ifthenelse{\equal{\pset@dueday}{Tuesday}}{\circleTuesday}{}
+  \ifthenelse{\equal{\pset@dueday}{tuesday}}{\circleTuesday}{}
+  \ifthenelse{\equal{\pset@dueday}{Wednesday}}{\circleWednesday}{}
+  \ifthenelse{\equal{\pset@dueday}{wednesday}}{\circleWednesday}{}
+  \ifthenelse{\equal{\pset@dueday}{Thursday}}{\circleThursday}{}
+  \ifthenelse{\equal{\pset@dueday}{thursday}}{\circleThursday}{}
+  \ifthenelse{\equal{\pset@dueday}{Friday}}{\circleFriday}{}
+  \ifthenelse{\equal{\pset@dueday}{friday}}{\circleFriday}{}
+
   \newcounter{prob}
-  \newcommand{\dostuff}[1]{\stepcounter{prob}
-    #1 &&
+  \newcommand{\dostuff}[1]{\stepcounter{prob} #1 &&
     \raisebox{-.5em}{\getAck{\number\value{prob}}} \\[1em] \hline}
   \begin{center}
     \begin{tabular}{| >{\centering\arraybackslash}m{1cm} |
@@ -336,8 +351,6 @@
       >{\centering\arraybackslash}m{9cm} |}
       \hline
       \forlistloop{\dostuff}{\mylist}
-      % \renewcommand*{\do}[1]{\dostuff}
-      % \dolistloop{\mylist}
       \textbf{Total} & & \\[1em]
       \hline
     \end{tabular}
@@ -350,30 +363,11 @@
     \framebox(25,20){\ifthenelse{\equal{\pset@onTime}{0}}{\drawX}{}}
     On Time
     & \framebox(25,20){\ifthenelse{\equal{\pset@onTime}{1}}{\drawX}{}}
-      2 day extension \#1
+      Late, without deduction
     & \framebox(25,20){\ifthenelse{\equal{\pset@onTime}{2}}{\drawX}{}}
-      2 day extension \# 2 \\
-    \framebox(25,20){\ifthenelse{\equal{\pset@onTime}{3}}{\drawX}{}}
-    2 day extension \#3
-    & \framebox(25,20){\ifthenelse{\equal{\pset@onTime}{4}}{\drawX}{}}
-      2 day extension \#4
-    & \framebox(25,20){\ifthenelse{\equal{\pset@onTime}{5}}{\drawX}{}}
-      Brownie Point Extension \\
-    \framebox(25,20){\ifthenelse{\equal{\pset@onTime}{6}}{\drawX}{}}
-    Late & &
+      Late, with deduction
   \end{tabular}
 
-  % Circle the correct day on the cover sheet!
-  \ifthenelse{\equal{\pset@dueday}{Monday}}{\circleMonday}{}
-  \ifthenelse{\equal{\pset@dueday}{monday}}{\circleMonday}{}
-  \ifthenelse{\equal{\pset@dueday}{Tuesday}}{\circleTuesday}{}
-  \ifthenelse{\equal{\pset@dueday}{tuesday}}{\circleTuesday}{}
-  \ifthenelse{\equal{\pset@dueday}{Wednesday}}{\circleWednesday}{}
-  \ifthenelse{\equal{\pset@dueday}{wednesday}}{\circleWednesday}{}
-  \ifthenelse{\equal{\pset@dueday}{Thursday}}{\circleThursday}{}
-  \ifthenelse{\equal{\pset@dueday}{thursday}}{\circleThursday}{}
-  \ifthenelse{\equal{\pset@dueday}{Friday}}{\circleFriday}{}
-  \ifthenelse{\equal{\pset@dueday}{friday}}{\circleFriday}{}
   \restoregeometry
 }
 
@@ -392,5 +386,5 @@
 \fancyhf{}
 \lhead{\pset@name}
 \chead{Homework \#\pset@assignment}
-\rhead{Math 171 - Spring \the\year}
+\rhead{\pset@class - \pset@season\the\year}
 \rfoot{\thepage\ of \pageref{LastPage}}
