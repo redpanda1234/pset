@@ -199,8 +199,10 @@
 %                                                                    %
 % ================================================================== %
 
-%% header block command rewritten to create Shahriar Shahriari's cover
-%% sheet %% written by Aaron Bagheri %% revised by Forest Kobayashi
+%% headerblock command thing used to create a cover sheet for psets.
+%% Based on a class file written by Aaron Bagheri to replicate
+%% Shahriari Shahriar's homework cover sheet. Modified by Forest
+%% Kobayashi to make `agstract.cls`, on which `pset.cls` was based.
 
 
 % internal state for headerblock
