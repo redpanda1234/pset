@@ -215,6 +215,7 @@
 \def\pset@acknowledgements{}
 \def\pset@onTime{}
 \def\pset@season{}
+\def\pset@comments{}
 
 % Commands to set header block info
 \newcommand{\name}[1]{\def\pset@name{#1}}
@@ -230,6 +231,7 @@
   \forcsvlist{\othersaveitem}{#1}}
 \newcommand{\onTime}[1]{\def\pset@onTime{#1}}
 \newcommand{\season}[1]{\def\pset@season{#1}}
+\newcommand{\comments}[1]{\def\pset@comments{#1}}
 
 % So that we can iterate through problems to fill the coversheet table
 \newcounter{problemCounter}
@@ -260,28 +262,28 @@
 
 \def\circleMonday{
   \begin{tikzpicture}[remember picture,overlay]
-    \draw[very thick] (5.6,2.6) ellipse (1cm and 0.5cm);
+    \draw[very thick] (4.6,2.6) ellipse (1cm and 0.5cm);
   \end{tikzpicture}
 }
 
 \def\circleTuesday{
   \begin{tikzpicture}[remember picture,overlay]
-    \draw[very thick] (7.4,2.6) ellipse (1cm and 0.5cm);
+    \draw[very thick] (6.4,2.6) ellipse (1cm and 0.5cm);
   \end{tikzpicture}
 }
 \def\circleWednesday{
   \begin{tikzpicture}[remember picture,overlay]
-    \draw[very thick] (9.25,2.6) ellipse (1.04cm and 0.52cm);
+    \draw[very thick] (8.25,2.6) ellipse (1.04cm and 0.52cm);
   \end{tikzpicture}
 }
 \def\circleThursday{
   \begin{tikzpicture}[remember picture,overlay]
-    \draw[very thick] (11.15,2.6) ellipse (1.04cm and 0.52cm);
+    \draw[very thick] (10.15,2.6) ellipse (1.04cm and 0.52cm);
   \end{tikzpicture}
 }
 \def\circleFriday{
   \begin{tikzpicture}[remember picture,overlay]
-    \draw[very thick] (12.8,2.6) ellipse (1.04cm and 0.52cm);
+    \draw[very thick] (11.8,2.6) ellipse (1.04cm and 0.52cm);
   \end{tikzpicture}
 }
 
@@ -301,13 +303,13 @@
     \Huge \textbf{\pset@class, \pset@season\ \the\year}
 
 
-    \large \textbf{Prof:} \textbf{\pset@prof}
+    \LARGE \textbf{Prof: \pset@prof}
   \end{center}
 
   \vspace{1.4cm}
 
   \begin{center}
-    \begin{tabular}{m{4cm} b{8cm}}
+    \begin{tabular}{m{2cm} b{8cm}}
       \textbf{Name:}
       & \textbf{\underline{\large\makebox[8cm]{\pset@name}}} \\[1.5em]
       \textbf{HW \#\,:}
@@ -368,6 +370,10 @@
       Late, with deduction
   \end{tabular}
 
+  \vspace{1cm}
+
+  \large \textbf{Note:} \pset@comments
+  \normalsize
   \restoregeometry
 }
 
