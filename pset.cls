@@ -20,66 +20,66 @@
 % ================================================================== %
 
 % Use decent margins
-\usepackage[margin=1in, tmargin=1.25in]{geometry}
+\RequirePackage[margin=1in, tmargin=1.25in]{geometry}
 
 % Make sure we're inputting stuff correctly
-\usepackage[utf8]{inputenc}
+\RequirePackage[utf8]{inputenc}
 
 % And in english!
-\usepackage[english]{babel}
+\RequirePackage[english]{babel}
 
 % Problem and reading set lists, for top of document
-\usepackage{etoolbox}
+\RequirePackage{etoolbox}
 
 % For most of the math symbols, and nice things like align
 % environment
-\usepackage{amsmath, amssymb}
+\RequirePackage{amsmath, amssymb}
 
 % For `\shortintertext{}` and other things.
-\usepackage{mathtools}
+\RequirePackage{mathtools}
 
 % For \includegraphics
-\usepackage{graphicx}
+\RequirePackage{graphicx}
 
 % Fancy page header
-\usepackage{fancyhdr}
+\RequirePackage{fancyhdr}
 
 % For customizing the enumerate environment
-\usepackage{enumitem}
+\RequirePackage{enumitem}
 
 % For multi-column environment
-\usepackage{multicol}
+\RequirePackage{multicol}
 
 % In case you want any diagrams, etc.
-\usepackage{tikz}
+\RequirePackage{tikz}
 \usetikzlibrary{arrows} % Better arrows
 \usetikzlibrary{arrows.meta}
 \usetikzlibrary{calc} % Add coordinates and stuff
 \usetikzlibrary{patterns} % distinguishing shapes
 
 % ...Which you would probably place in figure environments
-\usepackage{float}
+\RequirePackage{float}
 
 % For referencing page count
-\usepackage{lastpage}
+\RequirePackage{lastpage}
 
 % Because I've learned my lesson about manual line breaks
-\usepackage{parskip}
+\RequirePackage{parskip}
 
 % For checkmark and xmark when confirming / denying claims
-\usepackage{pifont}
+\RequirePackage{pifont}
 
 % For cancelling stuff, duh
-\usepackage{cancel}
+\RequirePackage{cancel}
 
 % So that the whitespace around section headers can be made less
 % obnoxiously large
-\usepackage{titlesec}
+\RequirePackage{titlesec}
 
 %% COVERSHEET PACKAGES
-\usepackage{ifthen}
-\usepackage{array}
-\usepackage{stackengine}
+\RequirePackage{ifthen}
+\RequirePackage{array}
+\RequirePackage{stackengine}
 
 
 
@@ -138,11 +138,11 @@
 \newcommand{\pdd}{\mathop{}\!\partial}
 
 % Total differential
-\renewcommand{\dd}{\mathop{}\!\mathrm{d}}
+\newcommand{\dd}{\mathop{}\!\mathrm{d}}
 
 % redefine partial derivative and ordinary derivative things
-\renewcommand{\pd}[3][]{\frac{\pdd^{#1} {#2}}{\pdd {#3}^{#1}}}
-\renewcommand{\od}[3][]{\frac{\dd^{#1} {#2}}{\dd {#3}^{#1}}}
+\newcommand{\pd}[3][]{\frac{\pdd^{#1} {#2}}{\pdd {#3}^{#1}}}
+\newcommand{\od}[3][]{\frac{\dd^{#1} {#2}}{\dd {#3}^{#1}}}
 
 % Found at https://tex.stackexchange.com/a/350287
 \newcommand{\multichoose}[2]{
@@ -160,7 +160,7 @@
 % ------------------------ Physics and such ------------------------ %
 
 % For units
-\usepackage[alsoload=astro, alsoload=hep]{siunitx}
+\RequirePackage[alsoload=astro, alsoload=hep]{siunitx}
 
 
 
@@ -210,7 +210,7 @@
 \def\pset@assignment{}
 \def\pset@duedate{}
 \def\pset@dueday{}
-\def\pset@reading{}
+% \def\pset@reading{}
 \def\pset@problems{}
 \def\pset@acknowledgements{}
 \def\pset@onTime{}
@@ -222,7 +222,7 @@
 \newcommand{\assignment}[1]{\def\pset@assignment{#1}}
 \newcommand{\duedate}[1]{\def\pset@duedate{#1}}
 \newcommand{\dueday}[1]{\def\pset@dueday{#1}}
-\newcommand{\reading}[1]{\def\pset@reading{#1}}
+% \newcommand{\reading}[1]{\def\pset@reading{#1}}
 \newcommand{\problems}[1]{\def\pset@problems{#1}}
 \newcommand{\acknowledgements}[1]{\def\pset@acknowledgements{#1}
   \forcsvlist{\othersaveitem}{#1}}
@@ -250,12 +250,18 @@
 \def\getAck#1{\csname acks#1\endcsname}
 
 
-\newcommand{\readinglist}{\noindent\large\rmfamily{Read Sections
-    \pset@reading}}
+% \newcommand{\readinglist}{\noindent\large\rmfamily{Read Sections
+%     \pset@reading}}
 \newcommand{\problemlist}{\large\rmfamily{Homework
     \pset@assignment\ - \pset@problems}\\[0.1em]}
 
 \def\circleMonday{
+  \begin{tikzpicture}[remember picture,overlay]
+    \draw[very thick] (7.1,11.6) ellipse (1cm and 0.5cm);
+  \end{tikzpicture}
+}
+
+\def\circleTuesday{
   \begin{tikzpicture}[remember picture,overlay]
     \draw[very thick] (7.1,11.6) ellipse (1cm and 0.5cm);
   \end{tikzpicture}
@@ -265,11 +271,17 @@
     \draw[very thick] (9.25,11.6) ellipse (1.04cm and 0.52cm);
   \end{tikzpicture}
 }
+\def\circleThursday{
+  \begin{tikzpicture}[remember picture,overlay]
+    \draw[very thick] (9.25,11.6) ellipse (1.04cm and 0.52cm);
+  \end{tikzpicture}
+}
 \def\circleFriday{
   \begin{tikzpicture}[remember picture,overlay]
     \draw[very thick] (11.2,11.6) ellipse (1.04cm and 0.52cm);
   \end{tikzpicture}
 }
+
 \def\drawX{
   \begin{tikzpicture}
     \draw[very thick] (-.25,.25) -- (.25,-.25);
@@ -290,38 +302,47 @@
   \vspace{1.4cm}
 
   \begin{center}
-    \begin{tabular}{m{4cm} b{5cm}}
+    \begin{tabular}{m{4cm} b{8cm}}
       \textbf{Name:}
-      & \textbf{\underline{\large\makebox[5cm]{\pset@name}}} \\[1.5em]
-      \textbf{Readings:}
-      & \textbf{\underline{\large\makebox[5cm]{\pset@readings}}} \\[1.5em]
+      & \textbf{\underline{\large\makebox[8cm]{\pset@name}}} \\[1.5em]
       \textbf{HW \#\,:}
-      & \textbf{\underline{\makebox[5cm]{\raisebox{.5em}{\large
+      & \textbf{\underline{\makebox[8cm]{\raisebox{.5em}{\large
         \pset@assignment}}}} \\[1.5em]
       \textbf{Day:}
-      & \textbf{Mon.} \hspace{2.5em} \textbf{Tue.} \hspace{2.5em}
-        \textbf{Wed.} \hspace{2.5em} \textbf{Thu.} \hspace{2.5em}
+      & \textbf{Mon.} \hspace{2em} \textbf{Tue.} \hspace{2em}
+        \textbf{Wed.} \hspace{2em} \textbf{Thu.} \hspace{2em}
         \textbf{Fri.} \\[1.5em]
       \textbf{Date:}
-      & \textbf{\underline{\large\makebox[5cm]{\pset@duedate}}}
+      & \textbf{\underline{\large\makebox[8cm]{\pset@duedate}}}
     \end{tabular}
   \end{center}
 
   \vspace{1.1cm}
 
+  % \begin{center}
+  %   \begin{tabular}{m{4cm} b{8cm}}
+  %     \textbf{Readings:}
+  %     & \textbf{\underline{\large\makebox[8cm]{\pset@readings}}} \\[1.5em]
+  %   \end{tabular}
+  % \end{center}
+
   \begin{center}
+    \newcounter{prob}
+    \renewcommand*{\do}[1]{%
+      \stepcounter{prob}%
+      \hline%
+      \getProblem{\number\value{prob}} & & %
+      \raisebox{-.5em}{\getAck{\number\value{prob}}}%
+      \\[1em]%
+    }
+
     \begin{tabular}{| >{\centering\arraybackslash}m{1cm} |
       >{\centering}m{1.2cm} | >{\centering\arraybackslash}m{9cm} |}
       \hline
       \textbf{No.} & \textbf{Points} & \textbf{Acknowledgments} \\
       \hline
     \end{tabular}
-    \begin{tabular}{| >{\centering\arraybackslash}b{1cm} |
-      >{\centering\arraybackslash}m{1.2cm} |
-      >{\centering\arraybackslash}m{9cm} |}
-      \renewcommand*{\do}[1]{%
-      \hline #1 & & \raisebox{-.5em}{\getAck{1}} \\[1em]%
-      }
+    \begin{tabular}{| >{\centering\arraybackslash}b{1cm} | >{\centering\arraybackslash}m{1.2cm} | >{\centering\arraybackslash}m{9cm} |}
       \docsvlist{\pset@problems}
       \hline
       \textbf{Total} & & \\[1em]
@@ -352,14 +373,18 @@
   % Circle the correct day on the cover sheet!
   \ifthenelse{\equal{\pset@dueday}{Monday}}{\circleMonday}{}
   \ifthenelse{\equal{\pset@dueday}{monday}}{\circleMonday}{}
+  \ifthenelse{\equal{\pset@dueday}{Tuesday}}{\circleTuesday}{}
+  \ifthenelse{\equal{\pset@dueday}{tuesday}}{\circleTuesday}{}
   \ifthenelse{\equal{\pset@dueday}{Wednesday}}{\circleWednesday}{}
   \ifthenelse{\equal{\pset@dueday}{wednesday}}{\circleWednesday}{}
+  \ifthenelse{\equal{\pset@dueday}{Thursday}}{\circleThursday}{}
+  \ifthenelse{\equal{\pset@dueday}{thursday}}{\circleThursday}{}
   \ifthenelse{\equal{\pset@dueday}{Friday}}{\circleFriday}{}
   \ifthenelse{\equal{\pset@dueday}{friday}}{\circleFriday}{}
   \restoregeometry
 }
 
-\DeclareOption{anon}{\AtEndDocument{\headerblock}}
+% \DeclareOption{anon}{\AtEndDocument{\headerblock}}
 
 % put id header block at start of document
 \AtBeginDocument{\headerblock}

@@ -1,0 +1,4 @@
+*.aux
+*.log
+/auto
+.DS_Store
