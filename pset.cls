@@ -298,10 +298,10 @@
   \newgeometry{left=1.5in,right=1.5in,top=1.5in}
 
   \begin{center}
-    \Huge \textbf{\pset@class}
+    \Huge \textbf{\pset@class, \pset@season\ \the\year}
 
 
-    \large \emph{Prof:} \textbf{\pset@prof}
+    \large \textbf{Prof:} \textbf{\pset@prof}
   \end{center}
 
   \vspace{1.4cm}
