@@ -296,6 +296,9 @@
   \end{tikzpicture}
 }
 
+\newcounter{prob}
+\newcommand{\dostuff}[1][]{\stepcounter{prob} #1 &&
+  \raisebox{-.5em}{\getAck{\number\value{prob}}} \\[1em] \hline}
 
 \newcommand{\headerblock}{%
   \thispagestyle{empty}
@@ -340,9 +343,6 @@
   \ifthenelse{\equal{\pset@dueday}{Friday}}{\circleFriday}{}
   \ifthenelse{\equal{\pset@dueday}{friday}}{\circleFriday}{}
 
-  \newcounter{prob}
-  \newcommand{\dostuff}[1]{\stepcounter{prob} #1 &&
-    \raisebox{-.5em}{\getAck{\number\value{prob}}} \\[1em] \hline}
   \begin{center}
     \begin{tabular}{| >{\centering\arraybackslash}m{1cm} |
       >{\centering}m{1.2cm} | >{\centering\arraybackslash}m{9cm} |}
