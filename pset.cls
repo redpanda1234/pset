@@ -238,7 +238,10 @@
 % So that we can iterate through problems to fill the coversheet table
 \newcounter{problemCounter}
 
-% This stores the
+% This stores each problem as a new command sequence,
+% `\problems<problem_name>`. This allows us to get each problem back
+% out easily, e.g. typesetting problem `10.3.1` is as easy as
+% `\problems10.3.1`. This is inelegant, but it works.
 \def\saveitem#1{%
   \stepcounter{problemCounter}%
   \expandafter\def\csname problems\theproblemCounter\endcsname{#1}%
@@ -297,6 +300,9 @@
   \end{tikzpicture}
 }
 
+% Define a counter to iterate through the lists passed by the user,
+% and redefine \do to put each entry of the list into the row
+% properly.
 \newcounter{prob}
 \renewcommand*{\do}[1]{\stepcounter{prob}
   \getProblem{\number\value{prob}} &&
