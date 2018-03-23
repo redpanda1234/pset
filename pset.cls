@@ -394,5 +394,5 @@
 \fancyhf{}
 \lhead{\pset@name}
 \chead{Homework \#\pset@assignment}
-\rhead{\pset@class - \pset@season\the\year}
+\rhead{\pset@class\ - \pset@season\ \the\year}
 \rfoot{\thepage\ of \pageref{LastPage}}
