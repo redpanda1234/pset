@@ -238,9 +238,10 @@
 % So that we can iterate through problems to fill the coversheet table
 \newcounter{problemCounter}
 
+% This stores the
 \def\saveitem#1{%
   \stepcounter{problemCounter}%
-  \expandafter\def\csname problems\theproblemCounter\endcsname{\phantom#1}%
+  \expandafter\def\csname problems\theproblemCounter\endcsname{#1}%
 }
 
 \def\getProblem#1{\csname problems#1\endcsname}
@@ -297,7 +298,8 @@
 }
 
 \newcounter{prob}
-\newcommand{\dostuff}[1][]{\stepcounter{prob} #1 &&
+\renewcommand*{\do}[1]{\stepcounter{prob}
+  \getProblem{\number\value{prob}} &&
   \raisebox{-.5em}{\getAck{\number\value{prob}}} \\[1em] \hline}
 
 \newcommand{\headerblock}{%
@@ -354,7 +356,7 @@
       >{\centering\arraybackslash}m{1.2cm} |
       >{\centering\arraybackslash}m{9cm} |}
       \hline
-      \forlistloop{\dostuff}{\mylist}
+      \dolistloop{\mylist}
       \textbf{Total} & & \\[1em]
       \hline
     \end{tabular}
