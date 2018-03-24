@@ -76,10 +76,15 @@
 % obnoxiously large
 \RequirePackage{titlesec}
 
+% For better commands
+\RequirePackage{xifthen}
+
 %% COVERSHEET PACKAGES
 \RequirePackage{ifthen}
 \RequirePackage{array}
 \RequirePackage{stackengine}
+
+
 
 
 
@@ -109,12 +114,75 @@
 
 % Useful commands for paired delimiters that'll adjust to fit whatever
 % argument you pass --> e.g. (<something>), [<something else>]
-\newcommand{\set}[1]{\ensuremath{ \left\{ #1 \right\} }}
-\newcommand{\pn}[1]{\left( #1 \right)}
-\newcommand{\abs}[1]{\left| #1 \right|}
-\newcommand{\bk}[1]{\left[ #1 \right]}
-\newcommand{\ip}[1]{\langle #1 \rangle} % inner product
-\newcommand{\lip}[1]{\left\langle #1 \right\rangle} % large ip
+
+% I spent quite some time trying to get sizes to be optional arguments
+% that I could pass to the commands below, before discovering (to my
+% delight) that somebody had done almost this exact same thing before.
+% I then gleefully copy-pasted the stuff below, which was much less
+% hard-coded than what I had been doing.
+
+% For the source, see https://tex.stackexchange.com/a/1744
+
+% Auto-sized thingies
+\let\size@autol\left  \let\size@autor\right \let\size@autom\middle
+
+% Stop expansion if we have the base thingy
+\let\size@basel\relax \let\size@baser\relax \let\size@basem\relax
+
+% Sizes
+\let\size@bigl\bigl   \let\size@bigr\bigr   \let\size@bigm\big
+\let\size@Bigl\Bigl   \let\size@Bigr\Bigr   \let\size@Bigm\Big
+\let\size@biggl\biggl \let\size@biggr\biggr \let\size@biggm\bigg
+\let\size@Biggl\Biggl \let\size@Biggr\Biggr \let\size@Biggm\Bigg
+
+% idk
+\newcommand{\ldelim}{\relax}
+\newcommand{\rdelim}{\relax}
+\newcommand{\mdelim}{\relax}
+
+% The thing that'll actually implement the command
+% #1 size #2 ldelim #3 rdelim #4 content
+\newcommand{\size@command}[4]{{%
+  \def\ldelim{\csname size@#1l\endcsname}% tack on size to l delim
+  \def\rdelim{\csname size@#1r\endcsname}% tack on size to r delim
+  \def\mdelim{\csname size@#1m\endcsname}%
+  \ldelim#2#4\rdelim#3% put the stuff in between the things
+}}
+
+% Define new delimiter commands with ease!
+% #1 name #2 ldelim #3 rdelim
+\newcommand{\newdelimcommand}[3]{%
+  \expandafter\newcommand\csname size@#1@st\endcsname[1]{%
+    \size@command{base}{#2}{#3}{##1}}% ##1 content
+  \expandafter\newcommand\csname size@#1@ns\endcsname[2][auto]{%
+    % ##1 size ##2 content
+    \size@command{##1}{#2}{#3}{##2}}%
+  \expandafter\DeclareRobustCommand\csname#1\endcsname{%
+    \@ifstar{\csname size@#1@st\endcsname}{\csname size@#1@ns\endcsname}%
+  }%
+}
+
+% syntactically named delimiters
+\newdelimcommand{braces}{\lbrace}{\rbrace}
+\newdelimcommand{angles}{\langle}{\rangle}
+\newdelimcommand{verts}{\lvert}{\rvert}
+\newdelimcommand{Verts}{\lVert}{\rVert}
+\newdelimcommand{brackets}{[}{]}
+\newdelimcommand{parens}{(}{)}
+
+% semantically named delimiters
+\newcommand{\set}{\braces}
+\newcommand{\abs}{\verts}
+\newcommand{\norm}{\Verts}
+\newcommand{\pn}{\parens}
+\newcommand{\ip}{\angles}
+\newcommand{\bk}{\brackets}
+
+% Automagic `such that' for set comprehension. Inside an automagic
+% delimiter command, the vertical bar will resize appropriately
+% Example:
+%   \set{ x \in W \MID x > 0 }
+\newcommand{\MID}{\;\mdelim\vert\;}
 
 % Useful shortcuts for when typing is just too hard
 \newcommand{\mrm}[1]{\mathrm{#1}}
@@ -128,6 +196,7 @@
 \DeclareMathOperator{\lcm}{lcm}
 
 % Useful shortcut commands for common fields
+\newcommand{\FF}{\mathbb{F}}
 \newcommand{\CC}{\mathbb{C}}
 \newcommand{\RR}{\mathbb{R}}
 \newcommand{\QQ}{\mathbb{Q}}
