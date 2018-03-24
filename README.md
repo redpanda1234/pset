@@ -114,22 +114,32 @@ the commands I've defined/redefined in `pset.cls`:
   that you've finished a proof.
 
 * The following commands are all paired delimiters that'll adjust to
-  fit whatever argument you pass them. Essentially, that means things
-  like set braces, parentheses, etc. I was tired of having to use
-  `\left( \right)` to get parentheses that'd automatically scale to
-  whatever I put inside them, and also thought it was a pain to find
-  the corresponding `\left(` to a `\right)** whenever I decided I
-  really wanted brackets. These commands solve these problems, more or
-  less.
-  - `\set{}` wraps the argument you pass it in large,
-    automatically-scaled braces.
-  - `\pn` does the same for parentheses
-  - `\bk` for brackets
-  - `\ip` for angeled brackets (e.g., for expected value of an
-    operator), but _does not scale_ automatically. In case you're
-    wondering, it gets its name from the _inner product_.
-  - `\lip` is for _large inner product_, and is the same thing as
-    `\ip` but it scales automatically to fit whatever you put inside.
+  fit whatever argument you pass them, if that's what you'd like them
+  to do. Essentially, that means things like set braces, parentheses,
+  etc. I was tired of having to use `\left( \right)` to get
+  parentheses that'd automatically scale to whatever I put inside
+  them, and also thought it was a pain to find the corresponding
+  `\left(` to a `\right)` whenever I decided I really wanted brackets.
+  These commands solve these problems, more or less. *HOWEVER*, you
+  should also note that if you know for sure you'd like `\big\{
+  <content> \big\}`, then you can actually just do
+  `\set[big]{<content>}`, and thanks
+  to [this](https://tex.stackexchange.com/a/1744) stackexchange hero,
+  it'll work! And if you'd just like normal sized braces no matter how
+  large the inside argument is, then you do `\set*{<content>}`. Pretty
+  amazing! Anyways, the commands themselves are
+  - `\set{}` --- wraps the argument you pass it in braces, according
+    to the rules above.
+  - `\abs{}` --- does the same, but with vertical rules.
+  - `\norm{}` --- ibid, but with double vertical rules.
+  - `\pn{}` --- parens
+  - `\bk{}` --- brackets
+  - `\ip{}` --- for angeled brackets, e.g. for an inner product, or an
+    operator.
+  - `\MID` --- this one is not like the others. If you put it inside
+    of something like `\set{}`, then this will make a vertical rule
+    that scales to the size of the `\set{}` braces. Useful for set
+    comprehension.
 
 * I've defined three shortcuts for changing the math font face: `\mrm`
   for `\mathrm`, `\mc` for `\mathcal`, and `\mb` for `\mathbf`. Now
