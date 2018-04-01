@@ -168,6 +168,10 @@ the commands I've defined/redefined in `pset.cls`:
 
 * `\od` works similarly.
 
+* `\series[<initial_value>]` typesets
+  `\sum_{n=<initial_value>}^{\infty}`, where `<initial_value>` gives
+  the first index of the sum. Defaults to `0` if not provided.
+
 * `\multichoose{n}{k}` will typeset, you guessed it, the symbol for n
   multichoose k.
 

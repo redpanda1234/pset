@@ -209,9 +209,14 @@
 % Total differential
 \newcommand{\dd}{\mathop{}\!\mathrm{d}}
 
-% redefine partial derivative and ordinary derivative things
+% Define partial derivative and ordinary derivative things
 \newcommand{\pd}[3][]{\frac{\pdd^{#1} {#2}}{\pdd {#3}^{#1}}}
 \newcommand{\od}[3][]{\frac{\dd^{#1} {#2}}{\dd {#3}^{#1}}}
+
+% Make an infinite sum
+\newcommand{\series}[1][0]{
+  \ensuremath\sum_{n=#1}^{\infty}
+}
 
 % Found at https://tex.stackexchange.com/a/350287
 \newcommand{\multichoose}[2]{
@@ -451,7 +456,7 @@
 
   \vspace{1cm}
 
-  \large \textbf{Note:} \pset@comments
+  \pset@comments
   \normalsize
   \restoregeometry
 }
