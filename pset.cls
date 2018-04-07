@@ -79,6 +79,9 @@
 % For better commands
 \RequirePackage{xifthen}
 
+% For quasi-legitimate looking tables
+\RequirePackage{booktabs}
+
 %% COVERSHEET PACKAGES
 \RequirePackage{ifthen}
 \RequirePackage{array}
@@ -286,8 +289,6 @@
 \def\pset@assignment{}
 \def\pset@duedate{}
 \def\pset@dueday{}
-% \def\pset@reading{}
-% \def\pset@problems{}
 \def\pset@acknowledgements{}
 \def\pset@onTime{}
 \def\pset@season{}
@@ -444,7 +445,7 @@
 
   \bigskip
 
-  \noindent This Homework is (check one): \\
+  \noindent This Assignment is (check one): \\
   \begin{tabular}{lll}
     \framebox(25,20){\ifthenelse{\equal{\pset@onTime}{0}}{\drawX}{}}
     On Time
@@ -454,7 +455,7 @@
       Late, with deduction
   \end{tabular}
 
-  \vspace{1cm}
+  \vspace{.5cm}
 
   \pset@comments
   \normalsize
