@@ -194,6 +194,7 @@
 
 % Commands to avoid exiting math mode
 \newcommand{\st}{\mrm{\ st\ }}
+\newcommand{\contra}{\Rightarrow\Leftarrow}
 \DeclareMathOperator{\lub}{lub}
 \DeclareMathOperator{\glb}{glb}
 \DeclareMathOperator{\lcm}{lcm}
@@ -234,11 +235,11 @@
 \newtheorem{corollary}{Corollary}[theorem] % Reset counter w new thm
 \newtheorem{lemma}[theorem]{Lemma} % Same counter as thm
 
+
 % ------------------------ Physics and such ------------------------ %
 
 % For units
 \RequirePackage[alsoload=astro, alsoload=hep]{siunitx}
-
 
 
 % ================================================================== %
@@ -276,13 +277,13 @@
 %                                                                    %
 % ================================================================== %
 
-%% headerblock command thing used to create a cover sheet for psets.
+%% coverblock command thing used to create a cover sheet for psets.
 %% Based on a class file written by Aaron Bagheri to replicate
 %% Shahriari Shahriar's homework cover sheet. Modified by Forest
 %% Kobayashi to make `agstract.cls`, on which `pset.cls` was based.
 
 
-% internal state for headerblock
+% internal state for coverblock
 \def\pset@name{}
 \def\pset@class{}
 \def\pset@prof{}
@@ -383,7 +384,7 @@
   \getProblem{\number\value{prob}} &&
   \raisebox{-.5em}{\getAck{\number\value{prob}}} \\[1em] \hline}
 
-\newcommand{\headerblock}{%
+\newcommand{\coverblock}{%
   \thispagestyle{empty}
   \newgeometry{left=1.5in,right=1.5in,top=1.5in}
 
@@ -462,20 +463,277 @@
   \restoregeometry
 }
 
-% \DeclareOption{anon}{\AtEndDocument{\headerblock}}
-
-% put id header block at start of document
-\AtBeginDocument{\headerblock}
-\AtBeginDocument{% insert empty page
-  \null
-  \thispagestyle{empty}
-  \addtocounter{page}{-2}
-  \newpage
+\newcommand{\makeheaders}{
+  \pagestyle{fancy}
+  \fancyhf{}
+  \lhead{\pset@name}
+  \chead{Homework \#\pset@assignment}
+  \rhead{\pset@class\ - \pset@season\ \the\year}
+  \rfoot{\thepage\ of \pageref{LastPage}}
 }
 
-\pagestyle{fancy}
-\fancyhf{}
-\lhead{\pset@name}
-\chead{Homework \#\pset@assignment}
-\rhead{\pset@class\ - \pset@season\ \the\year}
-\rfoot{\thepage\ of \pageref{LastPage}}
+\DeclareOption{agstract}{
+
+  % ------------------ Agstract-specific commands ------------------ %
+
+  % Also for some other common fields
+  \newcommand{\zmod}[1]{\ZZ/ #1 \ZZ}
+  \newcommand{\zpmod}[1]{(\zmod{#1}, +)}
+  \newcommand{\uzmod}[1]{\pn{\ZZ/#1 \ZZ}^\times}
+  \newcommand{\zmmod}[1]{(\uzmod{#1}, \cdot)}
+
+  % The default mod command is trash for some reason
+  \renewcommand{\mod}[1]{\ \mrm{mod}\ #1}
+
+  % Agstract letters
+  \newcommand{\oo}{\mc{O}}
+  \newcommand{\cc}{\mb{C}}
+  \newcommand{\zz}{\mb{Z}}
+  \newcommand{\nn}{\mb{N}}
+
+  % More tangibly function-flavored agstract objects
+  \newcommand{\conj}[2]{#1#2#1^{-1}}
+  \newcommand{\fix}{\mrm{fix}}
+
+  % Agstract sets / subgroups
+  \newcommand{\orb}{\oo_}
+  \newcommand{\orbo}{\oo_\Omega}
+  \newcommand{\stab}{\mrm{Stab}}
+  \newcommand{\stabg}{\mrm{Stab}}
+  \newcommand{\syl}{\mrm{Syl}}
+  \newcommand{\sylp}{\mrm{Syl}_p}
+
+  % Commutative-flavored things
+  \newcommand{\cl}{\mrm{cl}}
+  \newcommand{\ctr}{\zz}
+  \newcommand{\ctrg}{\zz(G)}
+  \newcommand{\cent}{\cc}
+  \newcommand{\centg}{\cc_G}
+  \newcommand{\nliz}{\mb{N}}
+  \newcommand{\nlizg}{\mb{N}_G}
+  \newcommand{\nrm}{\triangleleft}
+
+  % Homomoprhic things
+  % N.B. \Im gives a hebrew (?) letter
+  \newcommand{\im}{\text{Im}}
+
+  % RINGS!
+  \newcommand{\ring}[2][]{\pn[#1]{#2, +, \cdot}}
+  \newcommand{\uring}[2][]{\pn[#1]{\pn[#1]{#2}^{\times}, +, \cdot}}
+  \newcommand{\zjoin}[2][]{\ZZ\bk[#1]{#2}} % optional size parameter
+  \newcommand{\qjoin}[2][]{\QQ\bk[#1]{#2}}
+  \newcommand{\matring}[2]{M_{#1}\pn{#2}}
+  \newcommand{\cring}[4][]{\pn[#1]{#2, #3, #4}}
+
+  \newcommand{\units}[2][]{\pn[#1]{#2^\times}}
+
+  % GROUPS!
+  \newcommand{\pgroup}[2][]{\pn[#1]{#2, +}}
+  \newcommand{\mgroup}[2][]{\pn[#1]{#2, \cdot}}
+  \newcommand{\cgroup}[3][]{\pn[#1]{#2, #3}}
+
+
+
+  % ================================================================ %
+  %                                                                  %
+  %                         BEGIN COVERSHEET!                        %
+  %                                                                  %
+  % ================================================================ %
+
+  %% header block command rewritten to create Shahriar Shahriari's cover
+  %% sheet %% written by Aaron Bagheri %% revised by Forest Kobayashi
+
+
+  % internal state for coverblock
+  \def\agstract@name{}
+  \def\agstract@number{}
+  \def\agstract@assignment{}
+  \def\agstract@duedate{} % Actual date that it's due
+  \def\agstract@dueday{} % Which day to circle
+  \def\agstract@problems{}
+  \def\agstract@acknowledgements{}
+  \def\agstract@onTime{}
+
+  % Commands to set header block info
+  \renewcommand{\name}[1]{\def\agstract@name{#1}}
+  \newcommand{\orderedNumber}[1]{\def\agstract@number{#1}}
+  \renewcommand{\assignment}[1]{\def\agstract@assignment{#1}}
+  \renewcommand{\duedate}[1]{\def\agstract@duedate{#1}}
+  \renewcommand{\dueday}[1]{\def\agstract@dueday{#1}}
+  % \renewcommand{\reading}[1]{\def\agstract@reading{#1}}
+  \renewcommand{\problems}[1]{\def\agstract@problems{#1}
+    \forcsvlist{\saveitem}{#1}}
+  \renewcommand{\acknowledgements}[1]{\def\agstract@acknowledgements{#1}
+    \forcsvlist{\othersaveitem}{#1}}
+  \renewcommand{\onTime}[1]{\def\agstract@onTime{#1}}
+
+  % So that we can iterate through problems to fill the coversheet table
+  \setcounter{problemCounter}{0}
+
+  \def\saveitem#1{%
+    \stepcounter{problemCounter}%
+    \expandafter\def\csname problems\theproblemCounter\endcsname{#1}%
+  }
+
+  \def\getProblem#1{\csname problems#1\endcsname}
+
+
+  % Acknowledgments counter
+  \setcounter{ackCounter}{0}
+
+  \def\othersaveitem#1{%
+    \stepcounter{ackCounter}%
+    \expandafter\def\csname acks\theackCounter\endcsname{#1}%
+  }
+
+  \def\getAck#1{\csname acks#1\endcsname}
+
+
+  % \renewcommand{\readinglist}{\noindent\large\rmfamily{Read Sections
+  %     \agstract@reading}}
+  \renewcommand{\problemlist}{\large\rmfamily{Homework
+      \agstract@assignment\ - \agstract@problems}\\[0.1em]}
+
+  \def\circleMonday{
+    \begin{tikzpicture}[remember picture,overlay]
+      \draw[very thick] (7.1,11.6) ellipse (1cm and 0.5cm);
+    \end{tikzpicture}
+  }
+  \def\circleWednesday{
+    \begin{tikzpicture}[remember picture,overlay]
+      \draw[very thick] (9.25,11.6) ellipse (1.04cm and 0.52cm);
+    \end{tikzpicture}
+  }
+  \def\circleFriday{
+    \begin{tikzpicture}[remember picture,overlay]
+      \draw[very thick] (11.2,11.6) ellipse (1.04cm and 0.52cm);
+    \end{tikzpicture}
+  }
+  \def\drawX{
+    \begin{tikzpicture}
+      \draw[very thick] (-.25,.25) -- (.25,-.25);
+      \draw[very thick] (-.25,-.25) -- (.25,.25);
+    \end{tikzpicture}
+  }
+
+
+  \renewcommand{\coverblock}{%
+    \thispagestyle{empty}
+    \newgeometry{left=1.5in,right=1.5in,top=1.5in}
+
+    \begin{flushright}
+      \textbf{Math 171} \hspace{2.8cm} \mbox{} \\
+      \textbf{Shahriari} \hspace{2.8cm} \mbox{}
+    \end{flushright}
+
+    \vspace{1.4cm}
+
+    \begin{center}
+      \begin{tabular}{m{4cm} b{5cm}}
+        \textbf{Name:}
+        & \textbf{\underline{\large\makebox[5cm]{\agstract@name}}} \\[1.5em]
+        \vspace*{-2em} \textbf{Ordered Number:}
+        & \framebox(35,28){\bf \agstract@number} \\[1em]
+        \textbf{HW \#\,:}
+        & \textbf{\underline{\makebox[5cm]{\raisebox{.5em}{\large
+          \agstract@assignment}}}} \\[1.5em]
+        \textbf{Day:}
+        & \textbf{Mon.} \hspace{2.5em} \textbf{Wed.} \hspace{2.5em}
+          \textbf{Fri.} \\[1.5em]
+        \textbf{Date:}
+        & \textbf{\underline{\large\makebox[5cm]{\agstract@duedate}}}
+      \end{tabular}
+    \end{center}
+
+    \vspace{1.1cm}
+
+    \begin{center}
+      \begin{tabular}{| >{\centering\arraybackslash}m{1cm} |
+        >{\centering}m{1.2cm} | >{\centering\arraybackslash}m{9cm} |}
+        \hline
+        \textbf{No.} & \textbf{Points} & \textbf{Acknowledgments} \\
+        \hline
+      \end{tabular}
+      \begin{tabular}{| >{\centering\arraybackslash}b{1cm} |
+        >{\centering\arraybackslash}m{1.2cm} |
+        >{\centering\arraybackslash}m{9cm} |}
+        \hline
+        \getProblem{1} & & \raisebox{-.5em}{\getAck{1}} \\[1em]
+        \hline
+        \getProblem{2} & & \raisebox{-.5em}{\getAck{2}} \\[1em]
+        \hline
+        \getProblem{3} & & \raisebox{-.5em}{\getAck{3}} \\[1em]
+        \hline
+        \getProblem{4} & & \raisebox{-.5em}{\getAck{4}} \\[1em]
+        \hline
+        \getProblem{5} & & \raisebox{-.5em}{\getAck{5}} \\[1em]
+        \hline
+        \textbf{Total} & & \\[1em]
+        \hline
+      \end{tabular}
+    \end{center}
+
+    \bigskip
+
+    \noindent This Homework is (check one): \\
+    \begin{tabular}{lll}
+      \framebox(25,20){\ifthenelse{\equal{\agstract@onTime}{0}}{\drawX}{}}
+      On Time
+      & \framebox(25,20){\ifthenelse{\equal{\agstract@onTime}{1}}{\drawX}{}}
+        2 day extension \#1
+      & \framebox(25,20){\ifthenelse{\equal{\agstract@onTime}{2}}{\drawX}{}}
+        2 day extension \# 2 \\
+      \framebox(25,20){\ifthenelse{\equal{\agstract@onTime}{3}}{\drawX}{}}
+      2 day extension \#3
+      & \framebox(25,20){\ifthenelse{\equal{\agstract@onTime}{4}}{\drawX}{}}
+        2 day extension \#4
+      & \framebox(25,20){\ifthenelse{\equal{\agstract@onTime}{5}}{\drawX}{}}
+        Brownie Point Extension \\
+      \framebox(25,20){\ifthenelse{\equal{\agstract@onTime}{6}}{\drawX}{}}
+      Late & &
+    \end{tabular}
+
+    % Circle the correct day on the cover sheet!
+    \ifthenelse{\equal{\agstract@dueday}{Monday}}{\circleMonday}{}
+    \ifthenelse{\equal{\agstract@dueday}{monday}}{\circleMonday}{}
+    \ifthenelse{\equal{\agstract@dueday}{Wednesday}}{\circleWednesday}{}
+    \ifthenelse{\equal{\agstract@dueday}{wednesday}}{\circleWednesday}{}
+    \ifthenelse{\equal{\agstract@dueday}{Friday}}{\circleFriday}{}
+    \ifthenelse{\equal{\agstract@dueday}{friday}}{\circleFriday}{}
+    \restoregeometry
+  }
+
+  \renewcommand{\makeheaders}{
+    \pagestyle{fancy}
+    \fancyhf{}
+    \lhead{\agstract@name}
+    \chead{Homework \#\agstract@assignment}
+    \rhead{Math 171 - Spring \the\year}
+    \rfoot{\thepage\ of \pageref{LastPage}}
+  }
+}
+
+\newcommand{\makecover}{
+  \AtBeginDocument{\coverblock}
+  \AtBeginDocument{% insert empty page
+    \null
+    \thispagestyle{empty}
+    \addtocounter{page}{-2}
+    \newpage
+  }
+}
+
+
+% For classes where profs want names on the back
+\DeclareOption{anon}{%
+  \renewcommand{\makecover}{%
+    \AtEndDocument{\coverblock}%
+  }%
+}
+
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
+\ProcessOptions\relax
+
+
+\makecover{}
+\makeheaders{}
