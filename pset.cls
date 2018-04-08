@@ -302,7 +302,6 @@
 \newcommand{\assignment}[1]{\def\pset@assignment{#1}}
 \newcommand{\duedate}[1]{\def\pset@duedate{#1}}
 \newcommand{\dueday}[1]{\def\pset@dueday{#1}}
-% \newcommand{\reading}[1]{\def\pset@reading{#1}}
 \newcommand{\problems}[1]{\def\pset@problems{#1}
   \forcsvlist{\saveitem}{#1}\forcsvlist{\listadd\mylist}{#1}}
 \newcommand{\acknowledgements}[1]{\def\pset@acknowledgements{#1}
@@ -560,9 +559,8 @@
   \renewcommand{\assignment}[1]{\def\agstract@assignment{#1}}
   \renewcommand{\duedate}[1]{\def\agstract@duedate{#1}}
   \renewcommand{\dueday}[1]{\def\agstract@dueday{#1}}
-  % \renewcommand{\reading}[1]{\def\agstract@reading{#1}}
   \renewcommand{\problems}[1]{\def\agstract@problems{#1}
-    \forcsvlist{\saveitem}{#1}}
+    \forcsvlist{\saveitem}{#1}\forcsvlist{\listadd\mylist}{#1}}
   \renewcommand{\acknowledgements}[1]{\def\agstract@acknowledgements{#1}
     \forcsvlist{\othersaveitem}{#1}}
   \renewcommand{\onTime}[1]{\def\agstract@onTime{#1}}
@@ -596,17 +594,17 @@
 
   \def\circleMonday{
     \begin{tikzpicture}[remember picture,overlay]
-      \draw[very thick] (7.1,11.6) ellipse (1cm and 0.5cm);
+      \draw[very thick] (7.1,1.5) ellipse (1cm and 0.5cm);
     \end{tikzpicture}
   }
   \def\circleWednesday{
     \begin{tikzpicture}[remember picture,overlay]
-      \draw[very thick] (9.25,11.6) ellipse (1.04cm and 0.52cm);
+      \draw[very thick] (9.25,1.5) ellipse (1.04cm and 0.52cm);
     \end{tikzpicture}
   }
   \def\circleFriday{
     \begin{tikzpicture}[remember picture,overlay]
-      \draw[very thick] (11.2,11.6) ellipse (1.04cm and 0.52cm);
+      \draw[very thick] (11.2,1.5) ellipse (1.04cm and 0.52cm);
     \end{tikzpicture}
   }
   \def\drawX{
@@ -615,6 +613,11 @@
       \draw[very thick] (-.25,-.25) -- (.25,.25);
     \end{tikzpicture}
   }
+
+  \setcounter{prob}{0}
+  \renewcommand*{\do}[1]{\stepcounter{prob}
+    \getProblem{\number\value{prob}} &&
+    \raisebox{-.5em}{\getAck{\number\value{prob}}} \\[1em] \hline}
 
 
   \renewcommand{\coverblock}{%
@@ -645,8 +648,16 @@
       \end{tabular}
     \end{center}
 
-    \vspace{1.1cm}
 
+    % Circle the correct day on the cover sheet!
+    \ifthenelse{\equal{\agstract@dueday}{Monday}}{\circleMonday}{}
+    \ifthenelse{\equal{\agstract@dueday}{monday}}{\circleMonday}{}
+    \ifthenelse{\equal{\agstract@dueday}{Wednesday}}{\circleWednesday}{}
+    \ifthenelse{\equal{\agstract@dueday}{wednesday}}{\circleWednesday}{}
+    \ifthenelse{\equal{\agstract@dueday}{Friday}}{\circleFriday}{}
+    \ifthenelse{\equal{\agstract@dueday}{friday}}{\circleFriday}{}
+
+    \vspace{1.1cm}
     \begin{center}
       \begin{tabular}{| >{\centering\arraybackslash}m{1cm} |
         >{\centering}m{1.2cm} | >{\centering\arraybackslash}m{9cm} |}
@@ -658,16 +669,7 @@
         >{\centering\arraybackslash}m{1.2cm} |
         >{\centering\arraybackslash}m{9cm} |}
         \hline
-        \getProblem{1} & & \raisebox{-.5em}{\getAck{1}} \\[1em]
-        \hline
-        \getProblem{2} & & \raisebox{-.5em}{\getAck{2}} \\[1em]
-        \hline
-        \getProblem{3} & & \raisebox{-.5em}{\getAck{3}} \\[1em]
-        \hline
-        \getProblem{4} & & \raisebox{-.5em}{\getAck{4}} \\[1em]
-        \hline
-        \getProblem{5} & & \raisebox{-.5em}{\getAck{5}} \\[1em]
-        \hline
+        \dolistloop{\mylist}
         \textbf{Total} & & \\[1em]
         \hline
       \end{tabular}
@@ -693,13 +695,6 @@
       Late & &
     \end{tabular}
 
-    % Circle the correct day on the cover sheet!
-    \ifthenelse{\equal{\agstract@dueday}{Monday}}{\circleMonday}{}
-    \ifthenelse{\equal{\agstract@dueday}{monday}}{\circleMonday}{}
-    \ifthenelse{\equal{\agstract@dueday}{Wednesday}}{\circleWednesday}{}
-    \ifthenelse{\equal{\agstract@dueday}{wednesday}}{\circleWednesday}{}
-    \ifthenelse{\equal{\agstract@dueday}{Friday}}{\circleFriday}{}
-    \ifthenelse{\equal{\agstract@dueday}{friday}}{\circleFriday}{}
     \restoregeometry
   }
 
