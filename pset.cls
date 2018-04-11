@@ -634,7 +634,8 @@
     \begin{center}
       \begin{tabular}{m{4cm} b{5cm}}
         \textbf{Name:}
-        & \textbf{\underline{\large\makebox[5cm]{\agstract@name}}} \\[1.5em]
+        & \textbf{\underline{\large\makebox[5cm]{\agstract@name}}}
+        \\[1.5em]
         \vspace*{-2em} \textbf{Ordered Number:}
         & \framebox(35,28){\bf \agstract@number} \\[1em]
         \textbf{HW \#\,:}
@@ -659,13 +660,13 @@
 
     \vspace{1.1cm}
     \begin{center}
-      \begin{tabular}{| >{\centering\arraybackslash}m{1cm} |
+      \begin{tabular}{| >{\centering\arraybackslash}m{1.2cm} |
         >{\centering}m{1.2cm} | >{\centering\arraybackslash}m{9cm} |}
         \hline
         \textbf{No.} & \textbf{Points} & \textbf{Acknowledgments} \\
         \hline
       \end{tabular}
-      \begin{tabular}{| >{\centering\arraybackslash}b{1cm} |
+      \begin{tabular}{| >{\centering\arraybackslash}b{1.2cm} |
         >{\centering\arraybackslash}m{1.2cm} |
         >{\centering\arraybackslash}m{9cm} |}
         \hline
