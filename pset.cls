@@ -113,6 +113,9 @@
 % Put the qed box all the way to the right
 \newcommand{\qed}{\hfill $\blacksquare$}
 
+% Is this even necessary?
+\newcommand{\by}{\times}
+
 % ----------------------- General Math stuff ----------------------- %
 
 % Useful commands for paired delimiters that'll adjust to fit whatever
@@ -529,7 +532,9 @@
   \newcommand{\mgroup}[2][]{\pn[#1]{#2, \cdot}}
   \newcommand{\cgroup}[3][]{\pn[#1]{#2, #3}}
 
-  \newcommand{\psl}{\mrm{PSL}}
+  \newcommand{\PSL}{\mrm{PSL}}
+  \newcommand{\SL}{\mrm{SL}}
+  \newcommand{\GL}{\mrm{GL}}
 
   % ================================================================ %
   %                                                                  %
