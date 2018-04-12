@@ -709,6 +709,8 @@
     \chead{Homework \#\agstract@assignment}
     \rhead{Math 171 - Spring \the\year}
     \rfoot{\thepage\ of \pageref{LastPage}}
+    % \setlength{\headheight}{15.2pt}
+    \setlength{\headsep}{10pt}
   }
 }
 
