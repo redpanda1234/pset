@@ -258,7 +258,7 @@
 \setlength\parindent{0pt}
 
 % Finally, enumerate formatting
-\setenumerate[0]{label=(\alph*)}
+\setenumerate[0]{label=$($\alph*$)$}
 
 % And shorten the vspace after section headers. How to read?
 %
@@ -505,7 +505,7 @@
 
   % Commutative-flavored things
   \newcommand{\cl}{\mrm{cl}}
-  \newcommand{\ctr}{\zz}
+  \newcommand{\ctr}[1]{\zz{#1}}
   \newcommand{\ctrg}{\zz(G)}
   \newcommand{\cent}{\cc}
   \newcommand{\centg}{\cc_G}
