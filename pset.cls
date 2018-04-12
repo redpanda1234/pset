@@ -265,11 +265,9 @@
 %  - plus 4pt means that TeX can stretch it by at most 4pt
 %  - minus 2pt means that TeX can shrink it by at most 2pt
 
-\titlespacing\section{0pt}{
-  0pt plus 1pt minus 1pt}{
-  0pt plus 1pt minus 1pt}
-
-
+\titlespacing{\section}{0pt}{\parskip}{-\parskip}
+\titlespacing{\subsection}{0pt}{\parskip}{-\parskip}
+\titlespacing{\subsubsection}{0pt}{\parskip}{-\parskip}
 
 % ================================================================== %
 %                                                                    %
@@ -531,7 +529,7 @@
   \newcommand{\mgroup}[2][]{\pn[#1]{#2, \cdot}}
   \newcommand{\cgroup}[3][]{\pn[#1]{#2, #3}}
 
-
+  \newcommand{\psl}{\mrm{PSL}}
 
   % ================================================================ %
   %                                                                  %
