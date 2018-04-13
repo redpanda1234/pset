@@ -667,13 +667,13 @@
 
     \vspace{1.1cm}
     \begin{center}
-      \begin{tabular}{| >{\centering\arraybackslash}m{1.2cm} |
+      \begin{tabular}{| >{\centering\arraybackslash}m{1.3cm} |
         >{\centering}m{1.2cm} | >{\centering\arraybackslash}m{9cm} |}
         \hline
         \textbf{No.} & \textbf{Points} & \textbf{Acknowledgments} \\
         \hline
       \end{tabular}
-      \begin{tabular}{| >{\centering\arraybackslash}b{1.2cm} |
+      \begin{tabular}{| >{\centering\arraybackslash}b{1.3cm} |
         >{\centering\arraybackslash}m{1.2cm} |
         >{\centering\arraybackslash}m{9cm} |}
         \hline
