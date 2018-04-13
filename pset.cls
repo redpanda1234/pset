@@ -90,7 +90,6 @@
 
 
 
-
 % ================================================================== %
 %                                                                    %
 %                          Control Sequences                         %
@@ -502,12 +501,15 @@
   \newcommand{\stabg}{\mrm{Stab}}
   \newcommand{\syl}{\mrm{Syl}}
   \newcommand{\sylp}{\mrm{Syl}_p}
+  \newcommand{\perm}{\mrm{Perm}}
+
 
   % Commutative-flavored things
   \newcommand{\cl}{\mrm{cl}}
-  \newcommand{\ctr}[1]{\zz{#1}}
+  \newcommand{\ctr}[1]{\zz\pn{#1}}
   \newcommand{\ctrg}{\zz(G)}
   \newcommand{\cent}{\cc}
+  \newcommand{\cliz}{\cc}
   \newcommand{\centg}{\cc_G}
   \newcommand{\nliz}{\mb{N}}
   \newcommand{\nlizg}{\mb{N}_G}
@@ -733,7 +735,7 @@
 }
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
-\ProcessOptions\relax
+\ProcessOptions*
 
 
 \makecover{}
