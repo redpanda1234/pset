@@ -538,6 +538,8 @@
   \newcommand{\SL}{\mrm{SL}}
   \newcommand{\GL}{\mrm{GL}}
 
+  \newcommand{\z}[1]{\ZZ_{(#1)}}
+
   % ================================================================ %
   %                                                                  %
   %                         BEGIN COVERSHEET!                        %
