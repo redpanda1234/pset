@@ -271,24 +271,8 @@
 \titlespacing{\subsection}{0pt}{\parskip}{-\parskip}
 \titlespacing{\subsubsection}{0pt}{\parskip}{-\parskip}
 
-
-\newcommand{\makeheaders}{
-  \pagestyle{fancy}
-  \fancyhf{}
-  \lhead{\pset@name}
-  \chead{Homework \#\pset@assignment}
-  \rhead{\pset@class\ - \pset@season\ \the\year}
-  \rfoot{\thepage\ of \pageref{LastPage}}
-  \setlength{\headheight}{15.2pt}
-  \setlength{\headsep}{10pt}
-}
-
-% For classes where profs want names on the back
-\DeclareOption{anon}{%
-  \renewcommand{\makecover}{%
-    \AtEndDocument{\coverblock}%
-  }%
-}
+\newcommand{\makeheaders}{}
+\newcommand{\makecover}{}
 
 \newboolean{agstract}
 \newboolean{cover}
@@ -299,8 +283,21 @@
 \DeclareOption{cover}{
   \setboolean{cover}{true}}
 
+\DeclareOption{nocover}{
+  \setboolean{cover}{false}
+}
+
+% For classes where profs want names on the back
+\DeclareOption{anon}{%
+  \renewcommand{\makecover}{%
+    \AtEndDocument{\coverblock}%
+  }%
+}
+
 \ExecuteOptions{cover}
 \ProcessOptions\relax
+
+
 
 \ifthenelse{\boolean{cover}}{
   \RequirePackage{cover}}{}
@@ -308,7 +305,7 @@
 \ifthenelse{\boolean{agstract}}{
   \RequirePackage{agstract}}{}
 
-
-
 \makecover{}
 \makeheaders{}
+
+\endinput

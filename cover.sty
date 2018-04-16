@@ -192,8 +192,18 @@
   \restoregeometry
 }
 
+\renewcommand{\makeheaders}{
+  \pagestyle{fancy}
+  \fancyhf{}
+  \lhead{\pset@name}
+  \chead{Homework \#\pset@assignment}
+  \rhead{\pset@class\ - \pset@season\ \the\year}
+  \rfoot{\thepage\ of \pageref{LastPage}}
+  \setlength{\headheight}{15.2pt}
+  \setlength{\headsep}{10pt}
+}
 
-\newcommand{\makecover}{
+\renewcommand{\makecover}{
   \AtBeginDocument{\coverblock}
   \AtBeginDocument{% insert empty page
     \null
