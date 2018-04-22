@@ -47,7 +47,7 @@
 % And so on with definitions!
 \newtheoremstyle{snazzydefinition}  % name
     {1.5em}                         % Space above
-    {.5em}                           % Space below
+    {0em}                          % Space below
     {\rmfamily}                     % Body font
     {}                              % Indent amount
     {\scshape}                      % Theorem head font
@@ -69,12 +69,21 @@
   {\popQED\enddefinitionx}
 
 
+% Use centered, not-boldfaced, smallcaps font face for sections, make
+% them appropriately sized, and what have you.
+\titleformat{\section}
+  {\normalfont\large\scshape\filcenter}{\scshape\thesection.}{.5em}{}
+\titleformat{\subsection}
+  {\normalfont\scshape\filcenter}{\scshape\thesubsection.}{.5em}{}
+\titleformat{\subsubsection}
+  {\normalfont\scshape\filcenter}{\scshape\thesubsubsection.}{.5em}{}
+
 % Ha-ha-ha-ha, harrrr-a-ha-ha-ha-hA, ha-HA, ha-HA...
-\titlespacing*{\section}{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt
+\titlespacing{\section}{0pt}{10pt plus 4pt minus 2pt}{-5pt plus 2pt
   minus 2pt}
-\titlespacing*{\subsection}{0pt}{8pt plus 4pt minus 2pt}{0pt plus 2pt
-  minus 2pt}
-\titlespacing*{\subsubsection}{0pt}{12pt plus 4pt minus 2pt}{0pt plus
+\titlespacing{\subsection}{0pt}{10pt plus 4pt minus 2pt}{-3pt plus 0pt
+  minus 0pt}
+\titlespacing{\subsubsection}{0pt}{10pt plus 4pt minus 2pt}{0pt plus
   2pt minus 2pt}
 
 % Make the double column format more appealing by spacing things out a
@@ -87,14 +96,6 @@
 % And a mild indentation
 \setlength\parindent{8pt}
 
-% Use centered, not-boldfaced, smallcaps font face for sections, make
-% them appropriately sized, and what have you.
-\titleformat{\section}
-  {\normalfont\large\scshape\filcenter}{\thesection.}{.5em}{}
-\titleformat{\subsection}
-  {\normalfont\scshape\filcenter}{\thesubsection.}{.5em}{}
-\titleformat{\subsubsection}
-  {\normalfont\scshape\filcenter}{\thesubsubsection.}{.5em}{}
 
 % Change enumerate item spacing, and declare default enumerate label.
 \setlist[enumerate]{itemsep=4pt, parsep=0pt, label=$($\alph*$)$}
@@ -117,18 +118,22 @@
 \def\paper@title{}
 \def\paper@author{}
 \def\paper@author@affiliation{}
+% \def\paper@author@altaffiliation{}
 
 \renewcommand{\title}[1]{\def\paper@title{#1}}
 \renewcommand{\author}[1]{\def\paper@author{#1}}
 \newcommand{\affiliation}[1]{\def\paper@author@affiliation{#1}}
 
+
 \newcommand{\makepapertitle}{
   \thispagestyle{empty}
   \begin{center}
-    \uppercase{\large\paper@title}
+    \uppercase{\paper@title}
 
-    {\scshape \paper@author}
-    {\footnotesize \paper@affiliation}
+    {\scshape \small \paper@author}
+
+    \vspace{-.3cm}
+    {\footnotesize \paper@author@affiliation}
   \end{center}
 }
 
