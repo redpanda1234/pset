@@ -19,6 +19,9 @@
 %                                                                    %
 % ================================================================== %
 
+% Sensible margins
+\RequirePackage[margin=1in, tmargin=1.25in]{geometry}
+
 % Better fonts
 \RequirePackage{lmodern}
 
@@ -65,10 +68,6 @@
 
 % For customizing the enumerate environment
 \RequirePackage{enumitem}
-\setlist[enumerate]{itemsep=1pt, parsep=0pt, label=$($\alph*$)$}
-
-% Finally, enumerate formatting
-% \setenumerate[0]{label=$($\alph*$)$}
 
 % For checkmark and xmark when confirming / denying claims
 \RequirePackage{pifont}
@@ -117,6 +116,8 @@
 \let\oldqed\qed
 \renewcommand{\qed}{\hfill $\blacksquare$}
 
+% Finally, enumerate formatting
+\setenumerate[0]{label=$($\alph*$)$}
 
 % Is this even necessary?
 \newcommand{\by}{\ensuremath{\times}}
@@ -243,47 +244,15 @@
   {\left(\kern-0.30em\ch{\smash{#1}}{\smash{#2}}\kern-0.30em\right)}
 \right.}
 
-\newtheoremstyle{snazzytheorem}  % name
-    {.25em}                      % Space above
-    {1em}                        % Space below
-    {\itshape}                   % Body font
-    {}                           % Indent amount
-    {\scshape}                   % Theorem head font
-    {.}                          % Punctuation after theorem head
-    {.5em}                       % Space after theorem head
-    {}  % Theorem head spec (can be left empty, meaning ‘normal’)
-    \theoremstyle{snazzytheorem}
 
-\newtheorem{theoremx}{Theorem}[section]
-\newtheorem{corollaryx}{Corollary}[theoremx] % Reset counter w new thm
-\newtheorem{lemmax}[theoremx]{Lemma} % Same counter as thm
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem] % Reset counter w new thm
+\newtheorem{lemma}[theorem]{Lemma} % Same counter as thm
 
-\newenvironment{theorem}
-  {\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\triangle$}\theoremx}
-  {\popQED\endtheoremx}
+\theoremstyle{definition}
 
-
-\newenvironment{corollary}
-  {\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\triangle$}\corollaryx}
-  {\popQED\endcorollaryx}
-
-
-\newenvironment{lemma}
-  {\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\triangle$}\lemmax}
-  {\popQED\endlemmax}
-
-% \theoremstyle{definition}
-\newtheorem{definitionx}{Definition}[section]
-\newtheorem{examplex}{Example}[definitionx]
-
-
-\newenvironment{example}
-  {\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\triangle$}\examplex}
-  {\popQED\endexamplex}
-
-\newenvironment{definition}
-  {\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\triangle$}\definitionx}
-  {\popQED\enddefinitionx}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[definition]
 
 % ------------------------ Physics and such ------------------------ %
 
@@ -320,7 +289,7 @@
 
 \newboolean{agstract}
 \newboolean{cover}
-\newboolean{paper}
+\newboolean{scipaper}
 
 \DeclareOption{agstract}{
   \setboolean{agstract}{true}
@@ -334,8 +303,8 @@
   \setboolean{cover}{false}
 }
 
-\DeclareOption{paper}{
-  \setboolean{paper}{true}
+\DeclareOption{scipaper}{
+  \setboolean{scipaper}{true}
 }
 
 % For classes where profs want names on the back
@@ -355,7 +324,7 @@
 \ifthenelse{\boolean{agstract}}{
   \RequirePackage{agstract}}{}
 
-\ifthenelse{\boolean{paper}}{
+\ifthenelse{\boolean{scipaper}}{
   \RequirePackage{paper}}{}
 
 \makecover{}
