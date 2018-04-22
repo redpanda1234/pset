@@ -19,10 +19,6 @@
 %                                                                    %
 % ================================================================== %
 
-% Use decent margins
-% \RequirePackage[margin=1in, tmargin=1.25in]{geometry}
-\RequirePackage[margin=.75in]{geometry} % For writing quantum paper
-
 % Better fonts
 \RequirePackage{lmodern}
 
@@ -256,7 +252,8 @@
     {.}                          % Punctuation after theorem head
     {.5em}                       % Space after theorem head
     {}  % Theorem head spec (can be left empty, meaning ‘normal’)
-\theoremstyle{snazzytheorem}
+    \theoremstyle{snazzytheorem}
+
 \newtheorem{theoremx}{Theorem}[section]
 \newtheorem{corollaryx}{Corollary}[theoremx] % Reset counter w new thm
 \newtheorem{lemmax}[theoremx]{Lemma} % Same counter as thm
@@ -323,15 +320,22 @@
 
 \newboolean{agstract}
 \newboolean{cover}
+\newboolean{paper}
 
 \DeclareOption{agstract}{
-  \setboolean{agstract}{true}}
+  \setboolean{agstract}{true}
+}
 
 \DeclareOption{cover}{
-  \setboolean{cover}{true}}
+  \setboolean{cover}{true}
+}
 
 \DeclareOption{nocover}{
   \setboolean{cover}{false}
+}
+
+\DeclareOption{paper}{
+  \setboolean{paper}{true}
 }
 
 % For classes where profs want names on the back
@@ -341,24 +345,18 @@
   }%
 }
 
-% \def\@@ptsize{12pt}
-% \DeclareOption{8pt}{\def@@ptsize{8pt}}
-% \DeclareOption{9pt}{\def@@ptsize{9pt}}
-% \DeclareOption{10pt}{\def\@@ptsize{10pt}}
-% \DeclareOption{11pt}{\def\@@ptsize{11pt}}
-% \DeclareOption{12pt}{\def\@@ptsize{12pt}}
-
 \ExecuteOptions{cover}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
-
-
 
 \ifthenelse{\boolean{cover}}{
   \RequirePackage{cover}}{}
 
 \ifthenelse{\boolean{agstract}}{
   \RequirePackage{agstract}}{}
+
+\ifthenelse{\boolean{paper}}{
+  \RequirePackage{paper}}{}
 
 \makecover{}
 \makeheaders{}
