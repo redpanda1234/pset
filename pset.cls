@@ -20,7 +20,11 @@
 % ================================================================== %
 
 % Use decent margins
-\RequirePackage[margin=1in, tmargin=1.25in]{geometry}
+% \RequirePackage[margin=1in, tmargin=1.25in]{geometry}
+\RequirePackage[margin=.75in]{geometry} % For writing quantum paper
+
+% Better fonts
+\RequirePackage{lmodern}
 
 % Make sure we're inputting stuff correctly
 \RequirePackage[utf8]{inputenc}
@@ -33,7 +37,7 @@
 
 % For most of the math symbols, and nice things like align
 % environment
-\RequirePackage{amsmath, amssymb}
+\RequirePackage{amsmath, amssymb, amsthm}
 
 % For `\shortintertext{}` and other things.
 \RequirePackage{mathtools}
@@ -43,9 +47,6 @@
 
 % Fancy page header
 \RequirePackage{fancyhdr}
-
-% For customizing the enumerate environment
-\RequirePackage{enumitem}
 
 % For multi-column environment
 \RequirePackage{multicol}
@@ -66,6 +67,13 @@
 % Because I've learned my lesson about manual line breaks
 \RequirePackage{parskip}
 
+% For customizing the enumerate environment
+\RequirePackage{enumitem}
+\setlist[enumerate]{itemsep=1pt, parsep=0pt, label=$($\alph*$)$}
+
+% Finally, enumerate formatting
+% \setenumerate[0]{label=$($\alph*$)$}
+
 % For checkmark and xmark when confirming / denying claims
 \RequirePackage{pifont}
 
@@ -74,7 +82,7 @@
 
 % So that the whitespace around section headers can be made less
 % obnoxiously large
-\RequirePackage{titlesec}
+\RequirePackage[center]{titlesec}
 
 % For better commands
 \RequirePackage{xifthen}
@@ -110,7 +118,9 @@
 \newcommand{\ph}{\phantom{-}}
 
 % Put the qed box all the way to the right
-\newcommand{\qed}{\hfill $\blacksquare$}
+\let\oldqed\qed
+\renewcommand{\qed}{\hfill $\blacksquare$}
+
 
 % Is this even necessary?
 \newcommand{\by}{\ensuremath{\times}}
@@ -174,6 +184,8 @@
 \newdelimcommand{Verts}{\lVert}{\rVert}
 \newdelimcommand{brackets}{[}{]}
 \newdelimcommand{parens}{(}{)}
+\newdelimcommand{bras}{\langle}{\rvert}
+\newdelimcommand{kets}{\lvert}{\rangle}
 
 % semantically named delimiters
 \newcommand{\set}{\braces}
@@ -182,6 +194,8 @@
 \newcommand{\pn}{\parens}
 \newcommand{\ip}{\angles}
 \newcommand{\bk}{\brackets}
+\newcommand{\bra}{\bras}
+\newcommand{\ket}{\kets}
 
 % Automagic `such that' for set comprehension. Inside an automagic
 % delimiter command, the vertical bar will resize appropriately
@@ -233,10 +247,46 @@
   {\left(\kern-0.30em\ch{\smash{#1}}{\smash{#2}}\kern-0.30em\right)}
 \right.}
 
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{corollary}{Corollary}[theorem] % Reset counter w new thm
-\newtheorem{lemma}[theorem]{Lemma} % Same counter as thm
+\newtheoremstyle{snazzytheorem} % name
+    {.25em}                    % Space above
+    {1em}                    % Space below
+    {\itshape}                   % Body font
+    {}                           % Indent amount
+    {\scshape}                   % Theorem head font
+    {.}                          % Punctuation after theorem head
+    {.5em}                       % Space after theorem head
+    {}  % Theorem head spec (can be left empty, meaning ‘normal’)
+\theoremstyle{snazzytheorem}
+\newtheorem{theoremx}{Theorem}[section]
+\newtheorem{corollaryx}{Corollary}[theoremx] % Reset counter w new thm
+\newtheorem{lemmax}[theoremx]{Lemma} % Same counter as thm
 
+\newenvironment{theorem}
+  {\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\triangle$}\theoremx}
+  {\popQED\endtheoremx}
+
+
+\newenvironment{corollary}
+  {\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\triangle$}\corollaryx}
+  {\popQED\endcorollaryx}
+
+
+\newenvironment{lemma}
+  {\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\triangle$}\lemmax}
+  {\popQED\endlemmax}
+
+% \theoremstyle{definition}
+\newtheorem{definitionx}{Definition}[section]
+\newtheorem{examplex}{Example}[definitionx]
+
+
+\newenvironment{example}
+  {\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\triangle$}\examplex}
+  {\popQED\endexamplex}
+
+\newenvironment{definition}
+  {\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\triangle$}\definitionx}
+  {\popQED\enddefinitionx}
 
 % ------------------------ Physics and such ------------------------ %
 
@@ -255,9 +305,6 @@
 
 % I don't like autoindentation for new paragraphs in proofs
 \setlength\parindent{0pt}
-
-% Finally, enumerate formatting
-\setenumerate[0]{label=$($\alph*$)$}
 
 % And shorten the vspace after section headers. How to read?
 %
@@ -294,7 +341,15 @@
   }%
 }
 
+% \def\@@ptsize{12pt}
+% \DeclareOption{8pt}{\def@@ptsize{8pt}}
+% \DeclareOption{9pt}{\def@@ptsize{9pt}}
+% \DeclareOption{10pt}{\def\@@ptsize{10pt}}
+% \DeclareOption{11pt}{\def\@@ptsize{11pt}}
+% \DeclareOption{12pt}{\def\@@ptsize{12pt}}
+
 \ExecuteOptions{cover}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
 
 
