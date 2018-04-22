@@ -1,55 +1,64 @@
 \NeedsTeXFormat{LaTeX2e}
-
 \ProvidesPackage{paper}[2018/04/21 v0.01 paper package]
 
+% ================================================================== %
+%                                                                    %
+%                  Formatting for Scientific Papers!                 %
+%                                                                    %
+% ================================================================== %
+
+% Use tighter margins
 \newgeometry{margin=.75in}
 
-\RequirePackage{titlesec}
-
-
+% Define theorems and the like with a less eye-popping layout
 \newtheoremstyle{snazzytheorem}  % name
-    {.25em}                      % Space above
-    {1em}                        % Space below
+    {1.5em}                      % Space above
+    {.5em}                       % Space below
     {\itshape}                   % Body font
     {}                           % Indent amount
     {\scshape}                   % Theorem head font
     {.}                          % Punctuation after theorem head
     {.5em}                       % Space after theorem head
     {}  % Theorem head spec (can be left empty, meaning ‘normal’)
-    \theoremstyle{snazzytheorem}
 
+% Use new snazzy theorem
+\theoremstyle{snazzytheorem}
+
+% Define _____x so that we can modify qed behavior below
 \newtheorem{theoremx}{Theorem}[section]
 \newtheorem{corollaryx}{Corollary}[theoremx] % Reset counter w new thm
 \newtheorem{lemmax}[theoremx]{Lemma} % Same counter as thm
 
+% End with a hollow triangle, to visualy separate from text. Add
+% \qedhere, which can be used to control where the qed gets placed,
+% avoiding unnecessary line breaks and hfills.
 \renewenvironment{theorem}
   {\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\triangle$}\theoremx}
   {\popQED\endtheoremx}
-
 
 \renewenvironment{corollary}
   {\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\triangle$}\corollaryx}
   {\popQED\endcorollaryx}
 
-
 \renewenvironment{lemma}
   {\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\triangle$}\lemmax}
   {\popQED\endlemmax}
 
-
+% And so on with definitions!
 \newtheoremstyle{snazzydefinition}  % name
-    {.25em}                         % Space above
-    {1em}                           % Space below
+    {1.5em}                         % Space above
+    {.5em}                           % Space below
     {\rmfamily}                     % Body font
     {}                              % Indent amount
     {\scshape}                      % Theorem head font
     {.}                             % Punctuation after theorem head
     {.5em}                          % Space after theorem head
     {}  % Theorem head spec (can be left empty, meaning ‘normal’)
-    \theoremstyle{snazzytheorem}
+
+\theoremstyle{snazzydefinition}
+
 \newtheorem{definitionx}{Definition}[section]
 \newtheorem{examplex}{Example}[definitionx]
-
 
 \renewenvironment{example}
   {\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\triangle$}\examplex}
@@ -60,14 +69,26 @@
   {\popQED\enddefinitionx}
 
 
-\titlespacing*{\section}{0pt}{\parskip}{-\parskip}
-\titlespacing*{\subsection}{0pt}{\parskip}{-\parskip}
-\titlespacing*{\subsubsection}{0pt}{\parskip}{-\parskip}
+% Ha-ha-ha-ha, harrrr-a-ha-ha-ha-hA, ha-HA, ha-HA...
+\titlespacing*{\section}{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt
+  minus 2pt}
+\titlespacing*{\subsection}{0pt}{8pt plus 4pt minus 2pt}{0pt plus 2pt
+  minus 2pt}
+\titlespacing*{\subsubsection}{0pt}{12pt plus 4pt minus 2pt}{0pt plus
+  2pt minus 2pt}
 
+% Make the double column format more appealing by spacing things out a
+% little more
 \setlength\columnsep{25pt}
+
+% Put text lines a little closer together
 \renewcommand{\baselinestretch}{.9}
+
+% And a mild indentation
 \setlength\parindent{8pt}
 
+% Use centered, not-boldfaced, smallcaps font face for sections, make
+% them appropriately sized, and what have you.
 \titleformat{\section}
   {\normalfont\large\scshape\filcenter}{\thesection.}{.5em}{}
 \titleformat{\subsection}
@@ -75,4 +96,5 @@
 \titleformat{\subsubsection}
   {\normalfont\scshape\filcenter}{\thesubsubsection.}{.5em}{}
 
-\setlist[enumerate]{itemsep=1pt, parsep=0pt, label=$($\alph*$)$}
+% Change enumerate item spacing, and declare default enumerate label.
+\setlist[enumerate]{itemsep=4pt, parsep=0pt, label=$($\alph*$)$}
