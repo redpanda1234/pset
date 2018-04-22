@@ -247,9 +247,9 @@
   {\left(\kern-0.30em\ch{\smash{#1}}{\smash{#2}}\kern-0.30em\right)}
 \right.}
 
-\newtheoremstyle{snazzytheorem} % name
-    {.25em}                    % Space above
-    {1em}                    % Space below
+\newtheoremstyle{snazzytheorem}  % name
+    {.25em}                      % Space above
+    {1em}                        % Space below
     {\itshape}                   % Body font
     {}                           % Indent amount
     {\scshape}                   % Theorem head font
@@ -314,9 +314,9 @@
 %  - plus 4pt means that TeX can stretch it by at most 4pt
 %  - minus 2pt means that TeX can shrink it by at most 2pt
 
-\titlespacing{\section}{0pt}{\parskip}{-\parskip}
-\titlespacing{\subsection}{0pt}{\parskip}{-\parskip}
-\titlespacing{\subsubsection}{0pt}{\parskip}{-\parskip}
+\titlespacing*{\section}{0pt}{\parskip}{-\parskip}
+\titlespacing*{\subsection}{0pt}{\parskip}{-\parskip}
+\titlespacing*{\subsubsection}{0pt}{\parskip}{-\parskip}
 
 \newcommand{\makeheaders}{}
 \newcommand{\makecover}{}
