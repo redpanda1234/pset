@@ -8,7 +8,7 @@
 % ================================================================== %
 
 % Use tighter margins
-\newgeometry{margin=.75in}
+\newgeometry{margin=.75in, tmargin=1in}
 
 % Define theorems and the like with a less eye-popping layout
 \newtheoremstyle{snazzytheorem}  % name
@@ -98,3 +98,40 @@
 
 % Change enumerate item spacing, and declare default enumerate label.
 \setlist[enumerate]{itemsep=4pt, parsep=0pt, label=$($\alph*$)$}
+
+
+
+% Make headers
+\renewcommand{\makeheaders}{
+  \pagestyle{fancy}
+  \renewcommand{\headrulewidth}{0pt}
+  \fancyhf{}
+  \lhead{\thepage}
+  \chead{\scshape Forest Kobayashi}
+  \rhead{}
+  \setlength{\headheight}{15.2pt}
+  \setlength{\headsep}{10pt}
+}
+
+
+\def\paper@title{}
+\def\paper@author{}
+\def\paper@author@affiliation{}
+
+\renewcommand{\title}[1]{\def\paper@title{#1}}
+\renewcommand{\author}[1]{\def\paper@author{#1}}
+\newcommand{\affiliation}[1]{\def\paper@author@affiliation{#1}}
+
+\newcommand{\makepapertitle}{
+  \thispagestyle{empty}
+  \begin{center}
+    \uppercase{\large\paper@title}
+
+    {\scshape \paper@author}
+    {\footnotesize \paper@affiliation}
+  \end{center}
+}
+
+\renewcommand{\makecover}{
+  \AtBeginDocument{\makepapertitle}
+}
