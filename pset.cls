@@ -77,7 +77,7 @@
 
 % So that the whitespace around section headers can be made less
 % obnoxiously large
-\RequirePackage[center]{titlesec}
+\RequirePackage{titlesec}
 
 % For better commands
 \RequirePackage{xifthen}
