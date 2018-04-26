@@ -52,6 +52,13 @@
 \newcommand{\uring}[2][]{\pn[#1]{\pn[#1]{#2}^{\times}, +, \cdot}}
 \newcommand{\join}[2][]{\bk[#1]{#2}}
 \newcommand{\zjoin}[2][]{\ZZ\bk[#1]{#2}} % optional size parameter
+\newcommand{\zjoinx}{\zjoin{x}}
+\newcommand{\qjoinx}{\qjoin{x}}
+\newcommand{\rjoinx}{\RR\join{x}}
+\newcommand{\cjoinx}{\CC\join{x}}
+\newcommand{\zmodjoin}[3][]{(\zmod{#2})\bk[#1]{#3}}
+\newcommand{\zmodjoinx}{\zmodjoin{x}}
+\newcommand{\quadring}[2][]{\zjoin[#1]{\sqrt{#2}}}
 \newcommand{\qjoin}[2][]{\QQ\bk[#1]{#2}}
 \newcommand{\matring}[2]{M_{#1}\pn{#2}}
 \newcommand{\cring}[4][]{\pn[#1]{#2, #3, #4}}
