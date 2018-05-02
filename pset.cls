@@ -56,6 +56,7 @@
 \usetikzlibrary{arrows.meta}
 \usetikzlibrary{calc} % Add coordinates and stuff
 \usetikzlibrary{patterns} % distinguishing shapes
+\usetikzlibrary{decorations.pathreplacing} % For braces and such
 
 % ...Which you would probably place in figure environments
 \RequirePackage{float}
