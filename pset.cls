@@ -244,6 +244,8 @@
   {\left(\kern-0.30em\ch{\smash{#1}}{\smash{#2}}\kern-0.30em\right)}
 \right.}
 
+% Overline, more tersely
+\newcommand{\ol}[1]{\overline{#1}}
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{corollary}{Corollary}[theorem] % Reset counter w new thm
