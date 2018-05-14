@@ -1,0 +1,130 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{189}[2018/05/14 v0.01 macro package for big data course]
+
+\long\def\comment#1{}
+
+% Math operators
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\DeclareMathOperator{\sinc}{sinc}
+\DeclareMathOperator{\diag}{diag}
+% \DeclareMathOperator{\det}{det}
+\DeclareMathOperator{\trace}{tr}
+\DeclareMathOperator{\tr}{\trace}
+\DeclareMathOperator{\sign}{sign}
+% \DeclareMathOperator{\arg}{arg}
+\DeclareMathOperator{\var}{var}
+\DeclareMathOperator{\cov}{cov}
+
+\renewcommand{\Re}{\mrm{Re}}
+\renewcommand{\Im}{\mrm{Im}}
+\newcommand{\eqdef}{\stackrel{\Delta}{=}}
+\newcommand{\defines}{{\,\,\stackrel{\scriptscriptstyle
+      \bigtriangleup}{=}\,\,}}
+\newcommand{\Psf}{{\sf P}}
+\newcommand{\T}{\top}
+
+% bb font symbols
+\newfont{\bbb}{msbm10 scaled 700}
+\newcommand{\CCC}{\mbox{\bbb C}}
+
+\newfont{\bbf}{msbm10 scaled 1100}
+\renewcommand{\CC}{\mbox{\bbf C}}
+\newcommand{\PP}{\mbox{\bbf P}}
+\renewcommand{\RR}{\mbox{\bbf R}}
+\renewcommand{\QQ}{\mbox{\bbf Q}}
+\renewcommand{\ZZ}{\mbox{\bbf Z}}
+\renewcommand{\SS}{\mbox{\bbf S}}
+\renewcommand{\FF}{\mbox{\bbf F}}
+\newcommand{\GG}{\mbox{\bbf G}}
+\newcommand{\EE}{\mbox{\bbf E}}
+\renewcommand{\NN}{\mbox{\bbf N}}
+\newcommand{\KK}{\mbox{\bbf K}}
+\newcommand{\KL}{\mbox{\bbf KL}}
+
+% Vectors
+\newcommand{\va}{{\mb a}}
+\newcommand{\vb}{{\mb b}}
+\newcommand{\vc}{{\mb c}}
+\newcommand{\vd}{{\mb d}}
+\newcommand{\ve}{{\mb e}}
+\newcommand{\vf}{{\mb f}}
+\newcommand{\vg}{{\mb g}}
+\newcommand{\vh}{{\mb h}}
+\newcommand{\vi}{{\mb i}}
+\newcommand{\vj}{{\mb j}}
+\newcommand{\vk}{{\mb k}}
+\newcommand{\vl}{{\mb l}}
+\newcommand{\vm}{{\mb m}}
+\newcommand{\vn}{{\mb n}}
+\newcommand{\vo}{{\mb o}}
+\newcommand{\vp}{{\mb p}}
+\newcommand{\vq}{{\mb q}}
+\newcommand{\vr}{{\mb r}}
+\newcommand{\vs}{{\mb s}}
+\newcommand{\vt}{{\mb t}}
+\newcommand{\vu}{{\mb u}}
+\newcommand{\vw}{{\mb w}}
+\newcommand{\vv}{{\mb v}}
+\newcommand{\vx}{{\mb x}}
+\newcommand{\vy}{{\mb y}}
+\newcommand{\vz}{{\mb z}}
+\newcommand{\0}{{\mb 0}}
+\newcommand{\1}{{\mb 1}}
+
+% Matrices
+\newcommand{\bA}{{\mb A}}
+\newcommand{\bB}{{\mb B}}
+\newcommand{\bC}{{\mb C}}
+\newcommand{\bD}{{\mb D}}
+\newcommand{\bE}{{\mb E}}
+\newcommand{\bF}{{\mb F}}
+\newcommand{\bG}{{\mb G}}
+\newcommand{\bH}{{\mb H}}
+\newcommand{\bI}{{\mb I}}
+\newcommand{\bJ}{{\mb J}}
+\newcommand{\bK}{{\mb K}}
+\newcommand{\bL}{{\mb L}}
+\newcommand{\bM}{{\mb M}}
+\newcommand{\bN}{{\mb N}}
+\newcommand{\bO}{{\mb O}}
+\newcommand{\bP}{{\mb P}}
+\newcommand{\bQ}{{\mb Q}}
+\newcommand{\bR}{{\mb R}}
+\newcommand{\bS}{{\mb S}}
+\newcommand{\bT}{{\mb T}}
+\newcommand{\bU}{{\mb U}}
+\newcommand{\bW}{{\mb W}}
+\newcommand{\bV}{{\mb V}}
+\newcommand{\bX}{{\mb X}}
+\newcommand{\bY}{{\mb Y}}
+\newcommand{\bZ}{{\mb Z}}
+
+% Calligraphic
+\newcommand{\cA}{{\mc A}}
+\newcommand{\cB}{{\mc B}}
+\newcommand{\cC}{{\mc C}}
+\newcommand{\cD}{{\mc D}}
+\newcommand{\cE}{{\mc E}}
+\newcommand{\cF}{{\mc F}}
+\newcommand{\cG}{{\mc G}}
+\newcommand{\cH}{{\mc H}}
+\newcommand{\cI}{{\mc I}}
+\newcommand{\cJ}{{\mc J}}
+\newcommand{\cK}{{\mc K}}
+\newcommand{\cL}{{\mc L}}
+\newcommand{\cM}{{\mc M}}
+\newcommand{\cN}{{\mc N}}
+\newcommand{\cO}{{\mc O}}
+\newcommand{\cP}{{\mc P}}
+\newcommand{\cQ}{{\mc Q}}
+\newcommand{\cR}{{\mc R}}
+\newcommand{\cS}{{\mc S}}
+\newcommand{\cT}{{\mc T}}
+\newcommand{\cU}{{\mc U}}
+\newcommand{\cW}{{\mc W}}
+\newcommand{\cV}{{\mc V}}
+\newcommand{\cX}{{\mc X}}
+\newcommand{\cY}{{\mc Y}}
+\newcommand{\cZ}{{\mc Z}}

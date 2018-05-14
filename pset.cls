@@ -86,6 +86,9 @@
 % For quasi-legitimate looking tables
 \RequirePackage{booktabs}
 
+% For bold math things
+\RequirePackage{bm}
+
 %% COVERSHEET PACKAGES
 \RequirePackage{ifthen}
 \RequirePackage{array}
@@ -287,15 +290,24 @@
 \titlespacing*{\subsection}{0pt}{\parskip}{-\parskip}
 \titlespacing*{\subsubsection}{0pt}{\parskip}{-\parskip}
 
+\titleformat{\section}
+  {\Large\bfseries}{\Large\bfseries Problem \thesection.}{.5em}{}
+
 \newcommand{\makeheaders}{}
 \newcommand{\makecover}{}
 
 \newboolean{agstract}
+\newboolean{load189}
 \newboolean{cover}
 \newboolean{scipaper}
 
+
 \DeclareOption{agstract}{
   \setboolean{agstract}{true}
+}
+
+\DeclareOption{189}{
+  \setboolean{load189}{true}
 }
 
 \DeclareOption{cover}{
@@ -323,6 +335,9 @@
 
 \ifthenelse{\boolean{cover}}{
   \RequirePackage{cover}}{}
+
+\ifthenelse{\boolean{load189}}{
+  \RequirePackage{189}}{}
 
 \ifthenelse{\boolean{agstract}}{
   \RequirePackage{agstract}}{}

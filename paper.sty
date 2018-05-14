@@ -60,6 +60,7 @@
 \newtheorem{definitionx}{Definition}[section]
 \newtheorem{examplex}{Example}[definitionx]
 
+
 \renewenvironment{example}
   {\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\triangle$}\examplex}
   {\popQED\endexamplex}
@@ -68,6 +69,23 @@
   {\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\triangle$}\definitionx}
   {\popQED\enddefinitionx}
 
+% Axioms
+\newtheoremstyle{axiom}             % name
+    {1.5em}                         % Space above
+    {0em}                           % Space below
+    {\rmfamily}                     % Body font
+    {}                              % Indent amount
+    {\scshape}                      % Theorem head font
+    {.}                             % Punctuation after theorem head
+    {.5em}                          % Space after theorem head
+    {}  % Theorem head spec (can be left empty, meaning ‘normal’)
+
+\theoremstyle{axiom}
+\newtheorem{axiomx}{Axiom}[section]
+
+\newenvironment{axiom}
+  {\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\triangle$}\axiomx}
+  {\popQED\endaxiomx}
 
 % Use centered, not-boldfaced, smallcaps font face for sections, make
 % them appropriately sized, and what have you.
@@ -100,7 +118,8 @@
 % Change enumerate item spacing, and declare default enumerate label.
 \setlist[enumerate]{itemsep=4pt, parsep=0pt, label=$($\alph*$)$}
 
-
+% block quote environment
+\AtBeginEnvironment{quote}{\small}
 
 % Make headers
 \renewcommand{\makeheaders}{
