@@ -248,6 +248,14 @@
   {\left(\kern-0.30em\ch{\smash{#1}}{\smash{#2}}\kern-0.30em\right)}
 \right.}
 
+% For augmented matrices
+\newenvironment{amatrix}[1]{%
+  \left[\begin{array}{@{}*{#1}{c}|c@{}}
+}{%
+  \end{array}\right]
+}
+
+
 % Overline, more tersely
 \newcommand{\ol}[1]{\overline{#1}}
 
