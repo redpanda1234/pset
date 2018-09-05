@@ -224,6 +224,9 @@
 \newcommand{\ZZ}{\mathbb{Z}}
 \newcommand{\NN}{\mathbb{N}}
 
+% Expected value
+\newcommand{\EE}{\mathbb{E}}
+
 % Partial differential
 \newcommand{\pdd}{\mathop{}\!\partial}
 
