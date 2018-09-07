@@ -126,6 +126,16 @@
 % Is this even necessary?
 \newcommand{\by}{\ensuremath{\times}}
 
+% Check if command exists
+\newcommand{\checkfor}[1]{%
+  \ifcsname#1\endcsname%
+    Command \texttt{\textbackslash#1} is defined already. Choose
+    another macro!
+  \else%
+    Command \texttt{\textbackslash#1} is not defined yet. Go ahead!
+  \fi%
+}
+
 % ----------------------- General Math stuff ----------------------- %
 
 % Useful commands for paired delimiters that'll adjust to fit whatever
@@ -187,6 +197,8 @@
 \newdelimcommand{parens}{(}{)}
 \newdelimcommand{bras}{\langle}{\rvert}
 \newdelimcommand{kets}{\lvert}{\rangle}
+\newdelimcommand{floors}{\lfloor}{\rfloor}
+\newdelimcommand{ceils}{\lceil}{\rceil}
 
 % semantically named delimiters
 \newcommand{\set}{\braces}
@@ -197,6 +209,9 @@
 \newcommand{\bk}{\brackets}
 \newcommand{\bra}{\bras}
 \newcommand{\ket}{\kets}
+\newcommand{\floor}{\floors}
+\newcommand{\ceil}{\ceils}
+
 
 % Automagic `such that' for set comprehension. Inside an automagic
 % delimiter command, the vertical bar will resize appropriately
