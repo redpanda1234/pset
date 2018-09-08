@@ -239,6 +239,11 @@
 \newcommand{\ZZ}{\mathbb{Z}}
 \newcommand{\NN}{\mathbb{N}}
 
+% Span
+\newcommand{\vspan}[1]{
+  \ensuremath{\mathrm{span}\pn{#1}}
+}
+
 % Expected value
 \newcommand{\EE}{\mathbb{E}}
 
