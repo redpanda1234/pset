@@ -89,6 +89,12 @@
 % For bold math things
 \RequirePackage{bm}
 
+% For leftbar environment (useful in proving lemmas, etc)
+\RequirePackage{mdframed}
+
+% For margin modification in subsections
+\RequirePackage{changepage}
+
 %% COVERSHEET PACKAGES
 \RequirePackage{ifthen}
 \RequirePackage{array}
@@ -279,17 +285,81 @@
 }
 
 
+% Upper and lower sums, under various schemes of integration.
+\def\upint{\mathchoice%
+    {\mkern13mu\overline{\vphantom{\intop}\mkern7mu}\mkern-20mu}%
+    {\mkern7mu\overline{\vphantom{\intop}\mkern7mu}\mkern-14mu}%
+    {\mkern7mu\overline{\vphantom{\intop}\mkern7mu}\mkern-14mu}%
+    {\mkern7mu\overline{\vphantom{\intop}\mkern7mu}\mkern-14mu}%
+  \int}
+\def\lowint{\mkern3mu\underline{\vphantom{\intop}\mkern7mu}\mkern-10mu\int}
+
+% Category theory stuff?
+\newcommand{\dom}{\mrm{dom}}
+\newcommand{\cod}{\mrm{cod}}
+\newcommand{\ob}{\mrm{ob}}
+\newcommand{\homm}{\mrm{hom}}
+\newcommand{\id}{\mrm{\id}}
+
 % Overline, more tersely
 \newcommand{\ol}[1]{\overline{#1}}
 
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{corollary}{Corollary}[theorem] % Reset counter w new thm
-\newtheorem{lemma}[theorem]{Lemma} % Same counter as thm
+% \newtheorem{theorem}{Theorem}[section]
+% \newtheorem{corollary}{Corollary}[theorem] % Reset counter w new thm
+% \newtheorem{lemma}[theorem]{Lemma} % Same counter as thm
+% \theoremstyle{definition}
+% \newtheorem{definition}{Definition}[section]
+% \newtheorem{example}{Example}[definition]
 
-\theoremstyle{definition}
+% leftbar --> useful environment for proving lemmas and the like
+\newmdenv[
+  skipabove=5,
+  skipbelow=5,
+  innerleftmargin = 1em,
+  innertopmargin = .5em,
+  innerbottommargin = .5em,
+  innerrightmargin = 0pt,
+  rightmargin = 0pt,
+  leftmargin = 1em,
+  linewidth = 2pt,
+  topline = false,
+  rightline = false,
+  bottomline = false
+  ]{leftbar}
 
-\newtheorem{definition}{Definition}[section]
-\newtheorem{example}{Example}[definition]
+\newmdtheoremenv[
+  leftline=false,
+  rightline=false,
+  skipabove=10,
+  linewidth=.8pt,
+  linecolor=gray!50,
+  backgroundcolor=gray!10,
+  innertopmargin=\topskip,
+  splittopskip=\topskip,
+  ntheorem=true,
+  ]{theorem}{\scshape Theorem}[section]
+
+\mdfdefinestyle{theoremstyle}{%
+  leftmargin=2em,
+  rightmargin=2em,
+  skipabove=10,
+  skipbelow=10,
+  linecolor=black!90,
+  linewidth=1pt,
+  frametitlerule=true,
+  frametitlebackgroundcolor=gray!20,
+  innertopmargin=.75\topskip,
+  innerbottommargin=.75\topskip,
+}
+
+\mdtheorem[style=theoremstyle]{definition}{Definition}
+
+% \titleformat{\chapter}[display]
+%   {\normalfont\sffamily\huge\bfseries\color{blue}}
+%   {\chaptertitlename\ \thechapter}{20pt}{\Huge}
+% \titleformat{\section}
+%   {\normalfont\sffamily\Large\bfseries\color{cyan}}
+%   {\thesection}{1em}{}
 
 % ------------------------ Physics and such ------------------------ %
 
@@ -320,9 +390,6 @@
 \titlespacing*{\section}{0pt}{\parskip}{-\parskip}
 \titlespacing*{\subsection}{0pt}{\parskip}{-\parskip}
 \titlespacing*{\subsubsection}{0pt}{\parskip}{-\parskip}
-
-\titleformat{\section}
-  {\Large\bfseries}{\Large\bfseries Problem \thesection.}{.5em}{}
 
 \newcommand{\makeheaders}{}
 \newcommand{\makecover}{}
