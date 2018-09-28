@@ -113,7 +113,7 @@
 
 % For referencing labeled equations w/ number in parens
 \let\oldref\ref
-\renewcommand{\ref}[1]{(\oldref{#1})}
+\renewcommand{\ref}[1]{\textup{(\oldref{#1})}}
 
 % For confirming or denying various statements
 \newcommand{\cmark}{\text{\ding{51}}}%
@@ -299,7 +299,8 @@
 \newcommand{\cod}{\mrm{cod}}
 \newcommand{\ob}{\mrm{ob}}
 \newcommand{\homm}{\mrm{hom}}
-\newcommand{\id}{\mrm{\id}}
+\newcommand{\id}{\mrm{id}}
+\newcommand{\op}{^\mrm{op}}
 
 % Overline, more tersely
 \newcommand{\ol}[1]{\overline{#1}}
@@ -316,11 +317,11 @@
   skipabove=5,
   skipbelow=5,
   innerleftmargin = 1em,
-  innertopmargin = .5em,
+  innertopmargin = 0em,
   innerbottommargin = .5em,
   innerrightmargin = 0pt,
   rightmargin = 0pt,
-  leftmargin = 1em,
+  leftmargin = 2em,
   linewidth = 2pt,
   topline = false,
   rightline = false,
@@ -337,7 +338,20 @@
   innertopmargin=\topskip,
   splittopskip=\topskip,
   ntheorem=true,
-  ]{theorem}{\scshape Theorem}[section]
+  ]{theorem}{Theorem}[section]
+
+\newmdtheoremenv[
+  leftline=false,
+  rightline=false,
+  skipabove=10,
+  linewidth=.8pt,
+  linecolor=gray!50,
+  backgroundcolor=gray!10,
+  innertopmargin=\topskip,
+  splittopskip=\topskip,
+  ntheorem=true,
+  ]{lemma}{Lemma}[section]
+
 
 \mdfdefinestyle{theoremstyle}{%
   leftmargin=2em,
@@ -347,12 +361,13 @@
   linecolor=black!90,
   linewidth=1pt,
   frametitlerule=true,
-  frametitlebackgroundcolor=gray!20,
+  frametitlebackgroundcolor=gray!15,
   innertopmargin=.75\topskip,
   innerbottommargin=.75\topskip,
+  ntheorem=true,
 }
 
-\mdtheorem[style=theoremstyle]{definition}{Definition}
+\mdtheorem[style=theoremstyle]{definition}{Definition}[section]
 
 % \titleformat{\chapter}[display]
 %   {\normalfont\sffamily\huge\bfseries\color{blue}}
