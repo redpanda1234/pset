@@ -3,14 +3,8 @@
 
 % ------------------ Agstract-specific commands ------------------ %
 
-% Also for some other common fields
-\newcommand{\zmod}[1]{\ZZ/ #1 \ZZ}
-\newcommand{\zpmod}[1]{(\zmod{#1}, +)}
+% Units of group of integers mod n
 \newcommand{\uzmod}[1]{\pn{\ZZ/#1 \ZZ}^\times}
-\newcommand{\zmmod}[1]{(\uzmod{#1}, \cdot)}
-
-% The default mod command is trash for some reason
-\renewcommand{\mod}[1]{\ \mrm{mod}\ #1}
 
 % Agstract letters
 \newcommand{\oo}{\mc{O}}
@@ -31,7 +25,6 @@
 \newcommand{\sylp}{\mrm{Syl}_p}
 \newcommand{\perm}{\mrm{Perm}}
 
-
 % Commutative-flavored things
 \newcommand{\cl}{\mrm{cl}}
 \newcommand{\ctr}[1]{\zz\pn{#1}}
@@ -48,7 +41,6 @@
 \newcommand{\im}{\text{Im}}
 
 % RINGS!
-\newcommand{\ring}[2][]{\pn[#1]{#2, +, \cdot}}
 \newcommand{\uring}[2][]{\pn[#1]{\pn[#1]{#2}^{\times}, +, \cdot}}
 \newcommand{\join}[2][]{\bk[#1]{#2}}
 \newcommand{\zjoin}[2][]{\ZZ\bk[#1]{#2}} % optional size parameter
@@ -62,7 +54,6 @@
 \newcommand{\qjoin}[2][]{\QQ\bk[#1]{#2}}
 \newcommand{\matring}[2]{M_{#1}\pn{#2}}
 \newcommand{\cring}[4][]{\pn[#1]{#2, #3, #4}}
-
 \newcommand{\units}[2][]{\pn[#1]{#2}^\times}
 
 % GROUPS!
@@ -78,7 +69,7 @@
 
 % ================================================================ %
 %                                                                  %
-% BEGIN COVERSHEET!                        %
+%                         BEGIN COVERSHEET!                        %
 %                                                                  %
 % ================================================================ %
 
