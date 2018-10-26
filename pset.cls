@@ -111,10 +111,6 @@
   \fi%
 }
 
-
-
-% ------------------------ Physics and such ------------------------ %
-
 % For units
 \RequirePackage[alsoload=astro, alsoload=hep]{siunitx}
 
@@ -128,7 +124,7 @@
 % Let align environments overflow page breaks
 \allowdisplaybreaks
 
-% I don't like autoindentation for new paragraphs in proofs
+% I don't like autoindentation for new paragraphs
 \setlength\parindent{0pt}
 
 % And shorten the vspace after section headers. How to read?
@@ -146,19 +142,8 @@
 \newcommand{\makeheaders}{}
 \newcommand{\makecover}{}
 
-\newboolean{agstract}
-\newboolean{load189}
 \newboolean{cover}
-\newboolean{scipaper}
-
-
-\DeclareOption{agstract}{
-  \setboolean{agstract}{true}
-}
-
-\DeclareOption{189}{
-  \setboolean{load189}{true}
-}
+\newboolean{newcover}
 
 \DeclareOption{cover}{
   \setboolean{cover}{true}
@@ -168,8 +153,9 @@
   \setboolean{cover}{false}
 }
 
-\DeclareOption{scipaper}{
-  \setboolean{scipaper}{true}
+\DeclareOption{newcover}{
+  \setboolean{newcover}{true}
+  \setboolean{cover}{false}
 }
 
 % For classes where profs want names on the back
@@ -186,14 +172,8 @@
 \ifthenelse{\boolean{cover}}{
   \RequirePackage{cover}}{}
 
-\ifthenelse{\boolean{load189}}{
-  \RequirePackage{189}}{}
-
-\ifthenelse{\boolean{agstract}}{
-  \RequirePackage{agstract}}{}
-
-\ifthenelse{\boolean{scipaper}}{
-  \RequirePackage{paper}}{}
+\ifthenelse{\boolean{newcover}}{
+  \RequirePackage{newcover}}{}
 
 \makecover{}
 \makeheaders{}

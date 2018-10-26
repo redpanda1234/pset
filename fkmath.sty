@@ -39,7 +39,8 @@
 % Super dank matrix package
 \RequirePackage{nicematrix}
 
-
+% For iff proof environment
+\RequirePackage{enumitem}
 
 % ================================================================== %
 %                                                                    %
@@ -193,6 +194,18 @@
 % Ez contradiction
 \newcommand{\contra}{\ensuremath{(\Rightarrow\Leftarrow)}}
 
+% The indentation for customized iff labels really grinds my gears.
+% Hence, a new environment to make everything right in the world
+% again.
+\newcommand*{\iffenum}[1]{\expandafter\@iffenum\csname c@#1\endcsname}
+\newcommand*{\@iffenum}[1]{%
+  \ifcase#1\or {$(\Rightarrow):$}\or {$(\Leftarrow):$}\else\@ctrerr\fi
+}
+\AddEnumerateCounter{\iffenum}{\@iffenum}{$(\Rightarrow):$}
+\newenvironment{iffproof}{%
+  \begin{enumerate}[label=\iffenum*, leftmargin=4em]%
+  }{\end{enumerate}}
+
 % TODO: make these less ugly
 
 % leftbar --> useful environment for proving lemmas and the like
@@ -216,7 +229,7 @@
   rightline=false,
   skipabove=10,
   linewidth=.8pt,
-  linecolor=gray!50,
+  linecolor=black!80,
   backgroundcolor=gray!10,
   innertopmargin=\topskip,
   splittopskip=\topskip,
@@ -234,6 +247,18 @@
   splittopskip=\topskip,
   ntheorem=true,
   ]{lemma}{Lemma}[section]
+
+\newmdtheoremenv[
+  leftline=false,
+  rightline=false,
+  skipabove=10,
+  linewidth=.8pt,
+  linecolor=gray!50,
+  backgroundcolor=gray!10,
+  innertopmargin=\topskip,
+  splittopskip=\topskip,
+  ntheorem=true,
+  ]{corollary}{Corollary}[section]
 
 
 \mdfdefinestyle{theoremstyle}{%
