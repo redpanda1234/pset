@@ -114,6 +114,13 @@
 % For units
 \RequirePackage[alsoload=astro, alsoload=hep]{siunitx}
 
+% TODO: Come back and make more robust environments, perhaps with
+% framed boxes and things (tbt)
+\newenvironment{problem}[1][Problem \thesection.]
+{\stepcounter{section}\section*{#1}}
+{
+
+  \hrulefill}
 
 % ================================================================== %
 %                                                                    %
