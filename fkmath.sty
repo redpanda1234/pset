@@ -77,14 +77,14 @@
 \newcommand{\EE}{\mathbb{E}}
 
 % Partial differential
-\newcommand{\pdd}{\mathop{}\,\partial\!}
+\newcommand{\pdd}{\mathop{}\,\partial}
 
 % Total differential
-\newcommand{\dd}{\mathop{}\,\mathrm{d}\!}
+\newcommand{\dd}{\mathop{}\,\mathrm{d}}
 
 % Define partial derivative and ordinary derivative things
-\newcommand{\pd}[3][]{\frac{\pdd^{#1} {#2}}{\pdd {#3}^{#1}}}
-\newcommand{\od}[3][]{\frac{\dd^{#1} {#2}}{\dd {#3}^{#1}}}
+\newcommand{\pd}[3][]{\frac{\partial^{#1}\! {#2}}{\partial {#3}^{#1}}}
+\newcommand{\od}[3][]{\frac{\mrm{d}^{#1}\! {#2}}{\mrm{d} {#3}^{#1}}}
 
 % Make an infinite sum (saves time when doing lots of method of
 % frobenius and stuff)
@@ -103,6 +103,9 @@
 % Overline, more tersely. For things like complements, closures, etc.
 \newcommand{\ol}[1]{\overline{#1}}
 
+% Centered vdots in align-like environments
+% \newcommand{\cvdots}{\mathrel{\makebox[\widthof{=}]{\vdots}}}
+\newcommand{\cvdots}{\setbox0\hbox{=}\mathrel{\makebox[\wd0]{\hfil\vdots\hfil}}}
 
 % ----------------------------- Linalg ----------------------------- %
 
@@ -121,6 +124,12 @@
 
 % Projection onto something
 \newcommand{\proj}[3][]{\ensuremath{\mrm{proj}_{#2}\pn[#1]{#3}}}
+
+% Transpose
+\newcommand{\T}{\mathsf{T}}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
 
 % ---------------------------- Analysis ---------------------------- %
 
@@ -213,7 +222,7 @@
   skipabove=5,
   skipbelow=5,
   innerleftmargin = 1em,
-  innertopmargin = 0em,
+  innertopmargin = .5em,
   innerbottommargin = .5em,
   innerrightmargin = 0pt,
   rightmargin = 0pt,
