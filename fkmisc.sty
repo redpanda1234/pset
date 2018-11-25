@@ -1,0 +1,89 @@
+% ================================================================== %
+%                                                                    %
+%                         Requirement Things                         %
+%                                                                    %
+% ================================================================== %
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{fkmisc}[2018/11/23 v0.01 misc macro package]
+%% Just to be extra clear: called fkmisc because those are my
+%% initials. Not an explitive. I guess it is a little weird to brand
+%% software with my own name, though. I just couldn't think of
+%% anything else that wasn't tacky.
+
+
+
+% ================================================================== %
+%                                                                    %
+%                              Packages                              %
+%                                                                    %
+% ================================================================== %
+
+% For code listings
+\RequirePackage{listings}
+
+% So that you can insert easy IPA transcriptions of things
+% \RequirePackage{tipa}
+
+% For link customization
+% \RequirePackage{hyperref}
+
+% ================================================================== %
+%                                                                    %
+%                               Macros                               %
+%                                                                    %
+% ================================================================== %
+
+
+% \newcommand{\ipa}[1]{[\textipa{#1}]}
+
+
+
+% ================================================================== %
+%                                                                    %
+%                          Misc. Formattings                         %
+%                                                                    %
+% ================================================================== %
+
+% For code styling below
+\colorlet{mygreen}{green!40!black}
+\definecolor{numgray}{rgb}{0.5,0.5,0.5}
+\definecolor{mygray}{rgb}{.6,.6,.6}
+
+% Apparently can't have newlines in the lstset portion lol
+\lstset{
+  % Colors and stuff
+  backgroundcolor=\color{white},     % choose the background color
+  basicstyle=\footnotesize\ttfamily, % set size + style of font
+  %
+  commentstyle=\color{mygray},% comment style
+  identifierstyle=\color{blue},
+  keywordstyle=\color{mygreen},      % keyword style
+  stringstyle=\color{orange},        % string literal style
+  %
+  % Whitespace handling
+  breakatwhitespace=false,           %
+  breaklines=true,                   % sets automatic line breaking
+  keepspaces=true,                   % needs (columns=flexible)?
+  showspaces=false,                  % Don't add weird underscores
+  showstringspaces=false,            % Same
+  showtabs=false,                    % Same
+  tabsize=4,	                     % 1 tab = 4 spaces
+  xleftmargin=2em,                   % Properly indent listing
+  %
+  % Caption
+  belowcaptionskip=1\baselineskip,   % Spacing to caption
+  captionpos=b,                      % caption at bottom
+  title=\lstname,                    % show fname w/ \lstinputlisting
+  %
+  % Framing & Numbering
+  frame=L,	                     % adds a frame on the left
+  numbers=left,                      % linum loc. (none, left, right)
+  numbersep=10pt,                    % distance of linum to code
+  numberstyle=\tiny\color{numgray},  % style used for the line-numbers
+  rulecolor=\color{black},           %
+  stepnumber=1,                      % number every line
+  %
+  % Misc
+  language=Python,                   % default language
+}

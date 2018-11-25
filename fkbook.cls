@@ -37,9 +37,6 @@
 % For \includegraphics
 \RequirePackage{graphicx}
 
-% Fancy page header
-\RequirePackage{fancyhdr}
-
 % For multi-column environment
 \RequirePackage{multicol}
 
@@ -65,7 +62,7 @@
 
 % So that the whitespace around section headers can be made less
 % obnoxiously large
-\RequirePackage{titlesec}
+\RequirePackage[pagestyles]{titlesec}
 
 % For better commands
 \RequirePackage{xifthen}
@@ -79,10 +76,8 @@
 % Problem and reading set lists, for top of document
 \RequirePackage{etoolbox}
 
-%% COVERSHEET PACKAGES
-\RequirePackage{ifthen}
-\RequirePackage{array}
-\RequirePackage{stackengine}
+% Add some extra stuff for colors and ipa
+\RequirePackage{fkmisc}
 
 
 % ================================================================== %
@@ -132,15 +127,32 @@
 %  - plus 4pt means that TeX can stretch it by at most 4pt
 %  - minus 2pt means that TeX can shrink it by at most 2pt
 
+\newcommand{\chapterrule}{\rule{\textwidth}{.8pt}}
+
+\titleformat{\chapter}[block]
+  {\chapterrule\vspace*{.5cm}\\\bfseries\Large\centering}%
+  {\thechapter.}%
+  {.5em}%
+  {\Large}%
+  [\chapterrule]
+
+\titlespacing*{\chapter}{0pt}{-6em}{2.5em}
+
+
 \titlespacing*{\section}{0pt}{\parskip}{-\parskip}
 \titlespacing*{\subsection}{0pt}{\parskip}{-\parskip}
 \titlespacing*{\subsubsection}{0pt}{\parskip}{-\parskip}
 
-\newcommand{\makeheaders}{}
+\newpagestyle{main}{
+  \sethead{Forest Kobayashi}{\scshape\chaptertitle}{Analysis II Notes}
+  \headrule
+  \setfoot{Last Updated \today}{}{\thepage\ of \pageref{LastPage}}
+} % odd
+% \pagestyle{main}
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
 \ProcessOptions\relax
 
-\makeheaders{}
+% \makeheaders{}
 
 \endinput

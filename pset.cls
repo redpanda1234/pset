@@ -79,10 +79,8 @@
 % Problem and reading set lists, for top of document
 \RequirePackage{etoolbox}
 
-%% COVERSHEET PACKAGES
-\RequirePackage{ifthen}
-\RequirePackage{array}
-\RequirePackage{stackengine}
+% Add a color package for color manipulations.
+\RequirePackage{xcolor}
 
 
 % ================================================================== %
@@ -160,6 +158,7 @@
   \setboolean{cover}{false}
 }
 
+% For testing a newer, less-stupid cover
 \DeclareOption{newcover}{
   \setboolean{newcover}{true}
   \setboolean{cover}{false}
