@@ -42,6 +42,8 @@
 % For iff proof environment
 \RequirePackage{enumitem}
 
+% For defining big math macros
+\RequirePackage{scalerel}
 
 % ================================================================== %
 %                                                                    %
@@ -84,7 +86,7 @@
 \newcommand{\dd}{\mathop{}\,\mathrm{d}}
 
 % Define partial derivative and ordinary derivative things
-\newcommand{\pd}[3][]{\frac{\partial^{#1}\! {#2}}{\partial {#3}^{#1}}}
+\newcommand{\pd}[3][]{\frac{\partial^{#1} {#2}}{\partial {#3}^{#1}}}
 \newcommand{\od}[3][]{\frac{\mrm{d}^{#1}\! {#2}}{\mrm{d} {#3}^{#1}}}
 
 % Make an infinite sum (saves time when doing lots of method of
@@ -181,14 +183,29 @@
 \newcommand{\cod}[2][]{\mrm{cod}\pn[#1]{#2}}
 
 % Identity morphism
-\newcommand{\id}[1]{\mrm{id}_{#1}}
+\newcommand{\id}[1][]{\mrm{id}_{#1}}
 
 % TODO: Rethink what exactly needs to be kept here, and how best to
 % use it
-% \newcommand{\ob}{\mrm{ob}}
-% \newcommand{\homm}{\mrm{hom}}
-% \newcommand{\op}{^\mrm{op}}
+\newcommand{\ob}{\mrm{ob}}
+\newcommand{\homm}{\mrm{hom}}
+\newcommand{\op}{^\mrm{op}}
 
+
+% ------------------------ Topological stuff ------------------------%
+
+% Big connected sum
+\DeclareMathOperator*{\csum}{\scalerel*{\#}{\sum}}
+
+% Homotopy Equivalence
+\newcommand{\htop}[1][A]{\ensuremath\simeq_{\mrm{rel}\, #1}}
+
+% \newcommand{\into}[2][]{\ensuremath\xhookrightarrow[#1]{#2}}
+\newcommand{\into}{\ensuremath\hookrightarrow}
+\newcommand{\onto}{\ensuremath\twoheadrightarrow}
+% See
+% https://tex.stackexchange.com/questions/281732/special-mathematics-arrow-for-1-1-and-onto-functions
+\newcommand{\bij}{\ensuremath\lhook\joinrel\twoheadrightarrow}
 
 % ---------------------- Statements and Proofs --------------------- %
 
@@ -222,7 +239,7 @@
 \newmdenv[
   skipabove=5,
   skipbelow=5,
-  innerleftmargin = 1em,
+  innerleftmargin = .5em,
   innertopmargin = .5em,
   innerbottommargin = .5em,
   innerrightmargin = 0pt,

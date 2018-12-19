@@ -139,9 +139,9 @@
 \titlespacing*{\chapter}{0pt}{-6em}{2.5em}
 
 
-\titlespacing*{\section}{0pt}{\parskip}{-\parskip}
-\titlespacing*{\subsection}{0pt}{\parskip}{-\parskip}
-\titlespacing*{\subsubsection}{0pt}{\parskip}{-\parskip}
+\titlespacing*{\section}{0pt}{\parskip}{0pt}
+\titlespacing*{\subsection}{0pt}{\parskip}{0pt}
+\titlespacing*{\subsubsection}{0pt}{\parskip}{0pt}
 
 \newpagestyle{main}{
   \sethead{Forest Kobayashi}{\scshape\chaptertitle}{Analysis II Notes}

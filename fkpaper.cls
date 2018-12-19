@@ -6,7 +6,7 @@
 
 \NeedsTeXFormat{LaTeX2e}
 
-\ProvidesClass{fkpaper}[2018/3/21 v0.01 paper class]
+\ProvidesClass{fkpaper}[2018/12/14 v0.01 paper class]
 
 % This class based on the standard article class
 \LoadClass{article}
@@ -100,19 +100,19 @@
 
 % them appropriately sized, and what have you.
 \titleformat{\section}
-  {\normalfont\large\scshape\filcenter}{\scshape\thesection.}{.5em}{}
+  {\large\scshape\filcenter}{\scshape\thesection.}{.5em}{}
 \titleformat{\subsection}
-  {\normalfont\scshape\filcenter}{\scshape\thesubsection.}{.5em}{}
+  {\scshape\filcenter}{\scshape\thesubsection.}{.5em}{}
 \titleformat{\subsubsection}
-  {\normalfont\scshape\filcenter}{\scshape\thesubsubsection.}{.5em}{}
+  {\scshape\filcenter}{\scshape\thesubsubsection.}{.5em}{}
 
-% Ha-ha-ha-ha, harrrr-a-ha-ha-ha-hA, ha-HA, ha-HA...
-\titlespacing{\section}{0pt}{10pt plus 4pt minus 2pt}{-5pt plus 2pt
-  minus 2pt}
-\titlespacing{\subsection}{0pt}{10pt plus 4pt minus 2pt}{-3pt plus 0pt
-  minus 0pt}
-\titlespacing{\subsubsection}{0pt}{10pt plus 4pt minus 2pt}{0pt plus
-  2pt minus 2pt}
+% % Ha-ha-ha-ha, harrrr-a-ha-ha-ha-hA, ha-HA, ha-HA...
+% \titlespacing{\section}{0pt}{10pt plus 4pt minus 2pt}{-5pt plus 2pt
+%   minus 2pt}
+% \titlespacing{\subsection}{0pt}{10pt plus 4pt minus 2pt}{-3pt plus 0pt
+%   minus 0pt}
+% \titlespacing{\subsubsection}{0pt}{10pt plus 4pt minus 2pt}{0pt plus
+%   2pt minus 2pt}
 
 % Make the double column format more appealing by spacing things out a
 % little more
@@ -122,7 +122,7 @@
 \renewcommand{\baselinestretch}{.9}
 
 % And a mild indentation
-\setlength\parindent{8pt}
+\setlength\parindent{1em}
 
 
 % Change enumerate item spacing, and declare default enumerate label.
@@ -131,23 +131,10 @@
 % block quote environment
 \AtBeginEnvironment{quote}{\small}
 
-% Make headers
-\newcommand{\makeheaders}{
-  \pagestyle{fancy}
-  \renewcommand{\headrulewidth}{0pt}
-  \fancyhf{}
-  \lhead{\thepage}
-  \chead{\scshape Forest Kobayashi, Evan Liang}
-  \rhead{}
-  \setlength{\headheight}{15.2pt}
-  \setlength{\headsep}{10pt}
-}
-
-
 \def\paper@title{}
 \def\paper@author{}
 \def\paper@author@affiliation{}
-% \def\paper@author@altaffiliation{}
+\def\paper@author@altaffiliation{}
 
 \renewcommand{\title}[1]{\def\paper@title{#1}}
 \renewcommand{\author}[1]{\def\paper@author{#1}}
@@ -170,6 +157,17 @@
   \AtBeginDocument{\makepapertitle}
 }
 
+% Make headers
+\newcommand{\makeheaders}{
+  \pagestyle{fancy}
+  \renewcommand{\headrulewidth}{0pt}
+  \fancyhf{}
+  \lhead{\thepage}
+  \chead{\scshape \paper@author}
+  \rhead{}
+  \setlength{\headheight}{15.2pt}
+  \setlength{\headsep}{10pt}
+}
 
 
 % ================================================================== %
@@ -205,8 +203,68 @@
 % Let align environments overflow page breaks
 \allowdisplaybreaks
 
+% Define theorems and the like with a less eye-popping layout
+\newtheoremstyle{snazzytheorem}  % name
+    {1.5em}                      % Space above
+    {0em}                       % Space below
+    {\itshape}                   % Body font
+    {}                           % Indent amount
+    {\scshape}                   % Theorem head font
+    {.}                          % Punctuation after theorem head
+    {.5em}                       % Space after theorem head
+    {}  % Theorem head spec (can be left empty, meaning ‘normal’)
+
+% Use new snazzy theorem
+\theoremstyle{snazzytheorem}
+
+% Define _____x so that we can modify qed behavior below
+\newtheorem{theoremx}{Theorem}[section]
+\newtheorem{corollaryx}{Corollary}[theoremx] % Reset counter w new thm
+\newtheorem{lemmax}[theoremx]{Lemma} % Same counter as thm
+
+% End with a hollow triangle, to visualy separate from text. Add
+% \qedhere, which can be used to control where the qed gets placed,
+% avoiding unnecessary line breaks and hfills.
+\renewenvironment{theorem}
+  {\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\triangle$}\theoremx}
+  {\popQED\endtheoremx}
+
+\renewenvironment{corollary}
+  {\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\triangle$}\corollaryx}
+  {\popQED\endcorollaryx}
+
+\renewenvironment{lemma}
+  {\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\triangle$}\lemmax}
+  {\popQED\endlemmax}
+
+% And so on with definitions!
+\newtheoremstyle{snazzydefinition}  % name
+    {1.5em}                         % Space above
+    {0em}                           % Space below
+    {\rmfamily}                     % Body font
+    {}                              % Indent amount
+    {\scshape}                      % Theorem head font
+    {.}                             % Punctuation after theorem head
+    {.5em}                          % Space after theorem head
+    {}  % Theorem head spec (can be left empty, meaning ‘normal’)
+
+\theoremstyle{snazzydefinition}
+
+\newtheorem{definitionx}{Definition}[section]
+\newtheorem{examplex}{Example}[definitionx]
+
+\newenvironment{example}
+  {\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\triangle$}\examplex}
+  {\popQED\endexamplex}
+
+\renewenvironment{definition}
+  {\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\triangle$}\definitionx}
+{\popQED\enddefinitionx}
+
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
+
+
 
 \makecover{}
 \makeheaders{}

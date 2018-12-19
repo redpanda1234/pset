@@ -45,13 +45,17 @@
 %                                                                    %
 % ================================================================== %
 
+% Default fixed font does not support bold face
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{12} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{12}  % for normal
+
 % For code styling below
 \colorlet{mygreen}{green!40!black}
 \definecolor{numgray}{rgb}{0.5,0.5,0.5}
 \definecolor{mygray}{rgb}{.6,.6,.6}
 
 % Apparently can't have newlines in the lstset portion lol
-\lstset{
+\newcommand{\pythonstyle}{\lstset{
   % Colors and stuff
   backgroundcolor=\color{white},     % choose the background color
   basicstyle=\footnotesize\ttfamily, % set size + style of font
@@ -86,4 +90,20 @@
   %
   % Misc
   language=Python,                   % default language
+}}
+
+% Python environment
+\lstnewenvironment{python}[1][]
+{
+\pythonstyle
+\lstset{#1}
 }
+{}
+
+% Python for external files
+\newcommand\pythonexternal[2][]{{
+\pythonstyle
+\lstinputlisting[#1]{#2}}}
+
+% Python for inline
+\newcommand\pythoninline[1]{{\pythonstyle\lstinline!#1!}}

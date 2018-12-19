@@ -140,9 +140,13 @@
 %  - plus 4pt means that TeX can stretch it by at most 4pt
 %  - minus 2pt means that TeX can shrink it by at most 2pt
 
-\titlespacing*{\section}{0pt}{\parskip}{-\parskip}
+\titlespacing*{\section}{0pt}{\parskip}{0pt}
 \titlespacing*{\subsection}{0pt}{\parskip}{-\parskip}
 \titlespacing*{\subsubsection}{0pt}{\parskip}{-\parskip}
+
+% \titleformat{\section}
+%   {\Large\scshape}{\thesection}{1em}{}
+
 
 \newcommand{\makeheaders}{}
 \newcommand{\makecover}{}
