@@ -73,11 +73,12 @@
 % For margin modification in subsections
 \RequirePackage{changepage}
 
-% Problem and reading set lists, for top of document
-\RequirePackage{etoolbox}
+% Logic for title page
+\RequirePackage{ifthen}
 
 % Add some extra stuff for colors and ipa
 \RequirePackage{fkmisc}
+
 
 
 % ================================================================== %
@@ -105,6 +106,81 @@
     Command \texttt{\textbackslash#1} is not defined yet. Go ahead!
   \fi%
 }
+
+
+% ================================================================== %
+%                                                                    %
+%                             Cover Page                             %
+%                                                                    %
+% ================================================================== %
+
+% internal state for coverblock
+\def\fkbook@author{}
+\def\fkbook@title{}
+\def\fkbook@subtitle{}
+\def\fkbook@alttitle{}
+\def\fkbook@affiliation{} % This is ridiculous but need it for eq check
+\def\fkbook@supervisor{}
+\def\fkbook@supervisoraffiliation{}
+\def\fkbook@empty{} % Needed for affil check
+
+
+% Commands to set header block info
+\newcommand{\fkauthor}[1]{\def\fkbook@author{#1}}
+\newcommand{\fktitle}[1]{\def\fkbook@title{#1}}
+\newcommand{\fksubtitle}[1]{\def\fkbook@subtitle{#1}}
+\newcommand{\fkalttitle}[1]{\def\fkbook@alttitle{#1}}
+\newcommand{\fkaffiliation}[1]{\def\fkbook@affiliation{#1}}
+\newcommand{\fksupervisor}[1]{\def\fkbook@supervisor{#1}}
+\newcommand{\fksupervisoraffiliation}[1]{\def\fkbook@supervisoraffiliation{#1}}
+
+\newcommand{\maketitlepage}{
+\begin{titlepage} % Suppresses headers and footers on the title page
+
+  \centering\scshape
+
+  \rule{\textwidth}{1pt}\vspace*{-\baselineskip}\vspace*{2pt}
+  \rule{\textwidth}{0.4pt}
+
+  \vspace{0.75\baselineskip} % Whitespace above the title
+
+  {\LARGE \fkbook@title\\}
+  \ifthenelse{\equal{\fkbook@subtitle}{}}{}{{\Large \fkbook@subtitle \\}}
+
+  \vspace{0.75\baselineskip} % Whitespace below the title
+
+  \rule{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace*{2.4pt}
+  \rule{\textwidth}{1pt}
+
+  \vspace{\baselineskip} % Whitespace after the title block
+
+  % ------------------------------------------------
+  %	Subtitle
+  % ------------------------------------------------
+
+  \ifthenelse{\equal{\fkbook@alttitle}{}}{}{
+  {\large (\normalfont Or: \itshape \fkbook@alttitle)}}
+
+  \vspace*{8\baselineskip}
+
+  % ------------------------------------------------
+  %	Authors
+  % ------------------------------------------------
+
+  % {Written By\\}
+  {\Large \fkbook@author\\ } % Author list
+  \vspace{1\baselineskip}
+  % Check if affiliation is empty, insert it if not
+  \ifx\fkbook@affiliation\fkbook@empty \else \fkbook@affiliation\fi
+
+  \ifthenelse{\equal{\fkbook@supervisor}{}}{\vfill\includegraphics[width=3cm,
+    keepaspectratio=true]{logo.png}\vspace{\baselineskip}}{\vfill {\small Supervised
+      By\\ }{\fkbook@supervisor\footnote{\fkbook@supervisoraffiliation} \vspace{4\baselineskip
+        \includegraphics[width=1cm, keepaspectratio=true]{logo.png} \vspace{.3\baselineskip}}}}
+
+  {\large \normalfont \today} % Publication year
+  \vspace{1\baselineskip}
+\end{titlepage}}
 
 
 % ================================================================== %

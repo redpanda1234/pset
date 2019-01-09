@@ -225,15 +225,15 @@
 % End with a hollow triangle, to visualy separate from text. Add
 % \qedhere, which can be used to control where the qed gets placed,
 % avoiding unnecessary line breaks and hfills.
-\renewenvironment{theorem}
+\newenvironment{theorem}
   {\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\triangle$}\theoremx}
   {\popQED\endtheoremx}
 
-\renewenvironment{corollary}
+\newenvironment{corollary}
   {\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\triangle$}\corollaryx}
   {\popQED\endcorollaryx}
 
-\renewenvironment{lemma}
+\newenvironment{lemma}
   {\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\triangle$}\lemmax}
   {\popQED\endlemmax}
 
@@ -257,7 +257,7 @@
   {\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\triangle$}\examplex}
   {\popQED\endexamplex}
 
-\renewenvironment{definition}
+\newenvironment{definition}
   {\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\triangle$}\definitionx}
 {\popQED\enddefinitionx}
 

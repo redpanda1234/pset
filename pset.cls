@@ -82,6 +82,8 @@
 % Add a color package for color manipulations.
 \RequirePackage{xcolor}
 
+% For more bearable referencing
+\RequirePackage{fancyref}
 
 % ================================================================== %
 %                                                                    %
@@ -92,11 +94,7 @@
 
 % ------------------------ Creature Comforts ----------------------- %
 
-% For referencing labeled equations w/ number in parens
-\let\oldref\ref
-\renewcommand{\ref}[1]{\textup{(\oldref{#1})}}
-
-% Finally, enumerate formatting
+% Default to letters for enumerate formatting
 \setenumerate[0]{label=$($\alph*$)$}
 
 % Check if command exists
@@ -126,7 +124,7 @@
 %                                                                    %
 % ================================================================== %
 
-% Let align environments overflow page breaks
+% We want to let align environments overflow page breaks
 \allowdisplaybreaks
 
 % I don't like autoindentation for new paragraphs
