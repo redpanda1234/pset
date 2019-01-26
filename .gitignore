@@ -1,4 +1,10 @@
 *.aux
 *.log
+*.out
+*.pre
+*.fls
+*.toc
+*.synctex.gz
+*.fdb_latexmk
 /auto
 .DS_Store

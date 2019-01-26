@@ -159,7 +159,7 @@
   % ------------------------------------------------
 
   \ifthenelse{\equal{\fkbook@alttitle}{}}{}{
-  {\large (\normalfont Or: \itshape \fkbook@alttitle)}}
+  {\large \fkbook@alttitle}}
 
   \vspace*{8\baselineskip}
 
@@ -175,10 +175,10 @@
 
   \ifthenelse{\equal{\fkbook@supervisor}{}}{\vfill\includegraphics[width=3cm,
     keepaspectratio=true]{logo.png}\vspace{\baselineskip}}{\vfill {\small Supervised
-      By\\ }{\fkbook@supervisor\footnote{\fkbook@supervisoraffiliation} \vspace{4\baselineskip
-        \includegraphics[width=1cm, keepaspectratio=true]{logo.png} \vspace{.3\baselineskip}}}}
+      By\\ }{\fkbook@supervisor\footnote{\fkbook@supervisoraffiliation} \vspace{6\baselineskip
+        \includegraphics[width=2cm, keepaspectratio=true]{logo.png} \vspace{.3\baselineskip}}}}
 
-  {\large \normalfont \today} % Publication year
+  {\large \normalfont Last Updated: \today} % Publication year
   \vspace{1\baselineskip}
 \end{titlepage}}
 

@@ -45,6 +45,9 @@
 % For defining big math macros
 \RequirePackage{scalerel}
 
+% Use a better script font
+\RequirePackage[mathscr]{euscript}
+
 % ================================================================== %
 %                                                                    %
 %                             Math Macros!                           %
@@ -56,8 +59,11 @@
 
 % Useful shortcuts for when typing is just too hard
 \newcommand{\mrm}[1]{\ensuremath{\mathrm{#1}}}
+\newcommand{\mbb}[1]{\ensuremath{\mathbb{#1}}}
 \newcommand{\mc}[1]{\ensuremath{\mathcal{#1}}}
 \newcommand{\mb}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand{\ms}[1]{\ensuremath{\mathscr{#1}}}
+
 
 % Avoid exiting math mode for such that
 \newcommand{\st}{\mrm{\ s.t.\ }}
@@ -113,6 +119,23 @@
 % Add sign operator
 \DeclareMathOperator{\sgn}{sgn}
 
+\makeatletter
+% Image and pullback\makeatletter
+\newcommand{\im}[1][\@nil]{%
+  \def\tmp{#1}%
+   \ifx\tmp\@nnil
+      {\ensuremath^{\rightarrow}\pn{#1}}
+    \else
+      \ensuremath^{\rightarrow}
+    \fi}
+
+\newcommand{\pre}[1][\@nil]{%
+  \def\tmp{#1}%
+   \ifx\tmp\@nnil
+      \ensuremath^{\leftarrow}\pn{#1}
+    \else
+      \ensuremath^{\leftarrow}
+    \fi}
 
 % ----------------------------- Linalg ----------------------------- %
 
@@ -196,6 +219,7 @@
 \newcommand{\op}{^\mrm{op}}
 
 
+
 % ------------------------ Topological stuff ------------------------%
 
 % Big connected sum
@@ -210,6 +234,18 @@
 % See
 % https://tex.stackexchange.com/questions/281732/special-mathematics-arrow-for-1-1-and-onto-functions
 \newcommand{\bij}{\ensuremath\lhook\joinrel\twoheadrightarrow}
+
+% Interior of a set
+\newcommand{\interior}[1]{#1^\circ}
+
+% Real projective space
+\newcommand{\RRP}{\ensuremath\RR \mathrm{P}}
+
+% Tori
+\newcommand{\TT}{\mathbb{T}}
+
+% For spheres
+\newcommand{\Ss}{\mathbb{S}}
 
 % ---------------------- Statements and Proofs --------------------- %
 
@@ -389,8 +425,8 @@
 \newcommand{\ket}{\kets}
 \newcommand{\floor}{\floors}
 \newcommand{\ceil}{\ceils}
-\newcommand{\pnbk}{\pnbks}
-\newcommand{\bkpn}{\bkpns}
+\newcommand{\pb}{\pnbks}
+\newcommand{\bp}{\bkpns}
 
 % Automagic `such that' for set comprehension. Inside an automagic
 % delimiter command, the vertical bar will resize appropriately
