@@ -118,6 +118,10 @@
 {\noindent\begin{center}\begin{boxedminipage}{.95\linewidth}\textbf{#1.}}
 {\end{boxedminipage}\end{center}}
 
+\newenvironment{solution}[1][Solution.]
+{\noindent\begin{center}\begin{minipage}{.9\linewidth}\emph{#1}\ }
+{\qed\end{minipage}\end{center}}
+
 % ================================================================== %
 %                                                                    %
 %                          Misc. Formattings                         %
@@ -166,6 +170,42 @@
 \newcommand{\class}[1]{\def\fkpset@class{#1}}
 \newcommand{\duedate}[1]{\def\fkpset@duedate{#1}}
 \newcommand{\assignment}[1]{\def\fkpset@assignment{#1}}
+% \newcommand{\problems}[1]{\def\pset@problems{#1}
+%   \forcsvlist{\saveitem}{#1}\forcsvlist{\listadd\mylist}{#1}}
+
+% So that we can iterate through problems to fill the coversheet table
+% \newcounter{problemCounter}
+
+% This stores each problem as a new command sequence,
+% `\problems<problem_name>`. This allows us to get each problem back
+% out easily, e.g. typesetting problem `10.3.1` is as easy as
+% `\problems10.3.1`. This is inelegant, but it works.
+% \def\saveitem#1{%
+%   \stepcounter{problemCounter}%
+%   \expandafter\def\csname problems\theproblemCounter\endcsname{#1}%
+% }
+
+% \def\getProblem#1{\csname problems#1\endcsname}
+
+% \newcommand{\blanklist}{}
+
+% \newcommand*{\putintable}[1]{%
+%   \appto\mylist{#1 &}%
+%   \listadd{\blanklist}{c}%
+% }
+
+% %Define a wrapper
+% \newcommand{\fakedolistloop}[1]{%
+%   \forlistloop{\putintable}{#1}%
+% }
+
+% \newcommand{\fakerdolistloop}[1]{%
+%   \forlistloop{&}{#1}
+% }
+
+% \newcommand{\fakestdolistloop}[1]{%
+%   \forlistloop{\appto\blanklist{#1}}{#1}
+% }
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -183,7 +223,23 @@
   \end{flushright}%
   \brule}%
 
-\AtBeginDocument{\rblock}
+% \newcommand{\pointstable}{
+  % Shift the table upwards
+  % \vspace{-2.3cm}
 
+  % Create the table object _here_
+  % \begin{table}
+    % \centering
+    % \begin{tabular}{@{}lcr@{}} % booktabs points table
+        % \toprule
+        % Problem & \fakedolistloop{\mylist} Total \\ \midrule
+        % Points  & \fakerdolistloop{\mylist}  \\ \bottomrule
+    % \end{tabular}
+  % \end{table}
+  % \vspace{2.3cm}
+% }
+
+\AtBeginDocument{\rblock}
+% \AtBeginDocument{\pointstable}
 
 \endinput
