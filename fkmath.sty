@@ -120,22 +120,17 @@
 \DeclareMathOperator{\sgn}{sgn}
 
 \makeatletter
-% Image and pullback\makeatletter
-\newcommand{\im}[1][\@nil]{%
-  \def\tmp{#1}%
-   \ifx\tmp\@nnil
-      {\ensuremath^{\rightarrow}\pn{#1}}
-    \else
-      \ensuremath^{\rightarrow}
-    \fi}
+% Image and pullback
+\newcommand{\im}[1][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\ensuremath ^\rightarrow}%
+    {^{\rightarrow}\pn{#1}}}
 
-\newcommand{\pre}[1][\@nil]{%
-  \def\tmp{#1}%
-   \ifx\tmp\@nnil
-      \ensuremath^{\leftarrow}\pn{#1}
-    \else
-      \ensuremath^{\leftarrow}
-    \fi}
+
+\newcommand{\pre}[1][]{%
+  \ifthenelse{\isempty{#1}}%
+    {\ensuremath ^\leftarrow}%
+    {^{\leftarrow}\pn{#1}}}
 
 % ----------------------------- Linalg ----------------------------- %
 
@@ -162,12 +157,6 @@
 \DeclareMathOperator*{\argmin}{arg\,min}
 
 % ---------------------------- Analysis ---------------------------- %
-
-% I'm gonna make a controversial decision here and just define the
-% non-lunate epsilon to be the default epsilon, because honestly, the
-% lunate epsilon just looks bad to me.
-\let\lunateepsilon\epsilon
-\renewcommand{\epsilon}{\varepsilon}
 
 % Symbols for upper and lower sums (integral with line on top /
 % bottom), found here:

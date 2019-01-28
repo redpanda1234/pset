@@ -119,8 +119,8 @@
 {\end{boxedminipage}\end{center}}
 
 \newenvironment{solution}[1][Solution.]
-{\noindent\begin{center}\begin{minipage}{.9\linewidth}\emph{#1}\ }
-{\qed\end{minipage}\end{center}}
+{\noindent\begin{center}\begin{adjustwidth}{.05\linewidth}{.05\linewidth}\emph{#1}\ }
+{\qed\end{adjustwidth}\end{center}}
 
 % ================================================================== %
 %                                                                    %
@@ -150,7 +150,7 @@
   \rule{\textwidth}{1pt}\vspace*{-\baselineskip}\vspace*{2pt}
   \rule{\textwidth}{0.4pt}}
 
-\newcommand{\brule}{\vspace{-.5\baselineskip}
+\newcommand{\brule}{\vspace{.125\baselineskip}
   \rule{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace*{2.4pt}
   \rule{\textwidth}{1pt}}
 
@@ -159,11 +159,18 @@
   \trule
 \end{minipage}}%
 
+\renewcommand\footrule{
+  \begin{minipage}{1\linewidth}
+    \brule
+  \end{minipage}
+}
+
 % internal state for coverblock
 \def\fkpset@name{}
 \def\fkpset@class{}
 \def\fkpset@duedate{}
 \def\fkpset@assignment{}
+
 
 % Commands to set header block info
 \newcommand{\name}[1]{\def\fkpset@name{#1}}
