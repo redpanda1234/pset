@@ -183,6 +183,29 @@
 \end{titlepage}}
 
 
+% Oops refactor this additional math stuff later
+
+\newenvironment{problem}[1][Problem \thesection.]
+{\noindent\begin{center}\begin{boxedminipage}{.95\linewidth}\textbf{#1.}}
+{\end{boxedminipage}\end{center}}
+
+\newenvironment{solution}[1][Solution.]
+{\noindent\begin{center}\begin{adjustwidth}{.05\linewidth}{.05\linewidth}\emph{#1}\ }
+{\qed\end{adjustwidth}\end{center}}
+
+\newenvironment{recall}
+{\noindent\begin{center}\begin{boxedminipage}{.95\linewidth}\textbf{Recall:}}
+{\end{boxedminipage}\end{center}}
+
+\newenvironment{ex}
+{\noindent \textbf{Ex:}}
+{\\}
+
+\newenvironment{example}
+{\noindent \textbf{Example \thetheorem:}}
+{\\}
+
+
 % ================================================================== %
 %                                                                    %
 %                          Misc. Formattings                         %

@@ -236,6 +236,20 @@
 % For spheres
 \newcommand{\Ss}{\mathbb{S}}
 
+% Cubes
+\newcommand{\DD}{\mathbb{D}}
+
+
+% ------------------------ Homological stuff ----------------------- %
+
+% Simplices
+\newcommand{\simp}[2][v]{\ensuremath\set{#1_0 \cdots #1_{#2}}}
+
+% Simplices with a thing removed
+\newcommand{\simpdel}[3][v]{\ensuremath \set{#1_0 \cdots \widehat{#1}_{#2}
+    \cdots #1_{#3}}}
+
+
 % ---------------------- Statements and Proofs --------------------- %
 
 % For confirming or denying various statements (useful when you're
@@ -261,6 +275,18 @@
 \newenvironment{iffproof}{%
   \begin{enumerate}[label=\iffenum*, leftmargin=4em]%
   }{\end{enumerate}}
+
+% Similarly, but for inductive proofs.
+\newcommand*{\inductionenum}[1]{\expandafter\@inductionenum\csname c@#1\endcsname}
+\newcommand*{\@inductionenum}[1]{%
+  \ifcase#1\or {\textbf{Base Case:}}\or {\textbf{Inductive Hypothesis}}\or
+  {\textbf{Inductive Step:}}\else\@ctrerr\fi
+}
+\AddEnumerateCounter{\inductionenum}{\@inductionenum}{\textbf{Base Case:}}
+\newenvironment{induction}{%
+  \begin{enumerate}[label=\inductionenum*, align=left]%
+  }{\end{enumerate}}
+
 
 % TODO: make these less ugly
 
