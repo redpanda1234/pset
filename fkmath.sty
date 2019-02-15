@@ -58,12 +58,12 @@
 % ----------------------- General Math Stuff ----------------------- %
 
 % Useful shortcuts for when typing is just too hard
-\newcommand{\mrm}[1]{\ensuremath{\mathrm{#1}}}
-\newcommand{\mbb}[1]{\ensuremath{\mathbb{#1}}}
-\newcommand{\mc}[1]{\ensuremath{\mathcal{#1}}}
-\newcommand{\mb}[1]{\ensuremath{\mathbf{#1}}}
-\newcommand{\ms}[1]{\ensuremath{\mathscr{#1}}}
-
+\newcommand*{\mrm}[1]{\ensuremath{\mathrm{#1}}}
+\newcommand*{\mbb}[1]{\ensuremath{\mathbb{#1}}}
+\newcommand*{\mc}[1]{\ensuremath{\mathcal{#1}}}
+\newcommand*{\mb}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand*{\ms}[1]{\ensuremath{\mathscr{#1}}}
+\newcommand*{\msf}[1]{\ensuremath{\mathsf{#1}}}
 
 % Avoid exiting math mode for such that
 \newcommand{\st}{\mrm{\ s.t.\ }}
@@ -92,8 +92,8 @@
 \newcommand{\dd}{\mathop{}\,\mathrm{d}}
 
 % Define partial derivative and ordinary derivative things
-\newcommand{\pd}[3][]{\frac{\partial^{#1} {#2}}{\partial {#3}^{#1}}}
-\newcommand{\od}[3][]{\frac{\mrm{d}^{#1}\! {#2}}{\mrm{d} {#3}^{#1}}}
+\newcommand{\pd}[3][]{\frac{\partial^{#1}\hspace{-.08em} {#2}}{\partial {#3}^{#1}}}
+\newcommand{\od}[3][]{\frac{\mrm{d}^{#1}\hspace{-.08em} {#2}}{\mrm{d} {#3}^{#1}}}
 
 % Make an infinite sum (saves time when doing lots of method of
 % frobenius and stuff)
@@ -119,18 +119,19 @@
 % Add sign operator
 \DeclareMathOperator{\sgn}{sgn}
 
-\makeatletter
 % Image and pullback
-\newcommand{\im}[1][]{%
+\newcommand{\fim}[1][]{%
   \ifthenelse{\isempty{#1}}%
     {\ensuremath ^\rightarrow}%
     {^{\rightarrow}\pn{#1}}}
 
 
-\newcommand{\pre}[1][]{%
+\newcommand{\fpre}[1][]{%
   \ifthenelse{\isempty{#1}}%
     {\ensuremath ^\leftarrow}%
     {^{\leftarrow}\pn{#1}}}
+
+\DeclareMathOperator{\im}{im}
 
 % ----------------------------- Linalg ----------------------------- %
 
@@ -240,6 +241,14 @@
 \newcommand{\DD}{\mathbb{D}}
 
 
+% ---------------------- Representation Theory --------------------- %
+
+% Direct sums
+\newcommand{\osum}{\ensuremath\bigoplus}
+
+% Direct products
+\newcommand{\oprod}{\ensuremath\bigotimes}
+
 % ------------------------ Homological stuff ----------------------- %
 
 % Simplices
@@ -276,6 +285,16 @@
   \begin{enumerate}[label=\iffenum*, leftmargin=4em]%
   }{\end{enumerate}}
 
+% Similarly, but for subset supset proofs
+\newcommand*{\seteqenum}[1]{\expandafter\@seteqenum\csname c@#1\endcsname}
+\newcommand*{\@seteqenum}[1]{%
+  \ifcase#1\or {$(\subset):$}\or {$(\supset):$}\else\@ctrerr\fi
+}
+\AddEnumerateCounter{\seteqenum}{\@seteqenum}{$(\subset):$}
+\newenvironment{seteqproof}{%
+  \begin{enumerate}[label=\seteqenum*, leftmargin=4em]%
+  }{\end{enumerate}}
+
 % Similarly, but for inductive proofs.
 \newcommand*{\inductionenum}[1]{\expandafter\@inductionenum\csname c@#1\endcsname}
 \newcommand*{\@inductionenum}[1]{%
@@ -284,7 +303,17 @@
 }
 \AddEnumerateCounter{\inductionenum}{\@inductionenum}{\textbf{Base Case:}}
 \newenvironment{induction}{%
-  \begin{enumerate}[label=\inductionenum*, align=left]%
+  \begin{enumerate}[label=\inductionenum*, align=left, leftmargin=4em]%
+  }{\end{enumerate}}
+
+% Similarly, but for inductive proofs.
+\newcommand*{\claimproofenum}[1]{\expandafter\@claimproofenum\csname c@#1\endcsname}
+\newcommand*{\@claimproofenum}[1]{%
+  \ifcase#1\or {\textbf{Claim:}}\or {\textbf{Proof of Claim:}}\else\@ctrerr\fi
+}
+\AddEnumerateCounter{\claimproofenum}{\@claimproofenum}{\textbf{Claim:}}
+\newenvironment{claimproof}{%
+  \begin{enumerate}[label=\claimproofenum*, align=left]%
   }{\end{enumerate}}
 
 
@@ -306,59 +335,78 @@
   bottomline = false
   ]{leftbar}
 
-\newmdtheoremenv[
-  leftline=false,
-  rightline=false,
-  skipabove=10,
-  linewidth=.8pt,
-  linecolor=black!80,
-  backgroundcolor=gray!10,
-  innertopmargin=\topskip,
-  splittopskip=\topskip,
-  ntheorem=true,
-  ]{theorem}{Theorem}[section]
+% \newmdtheoremenv[
+%   leftline=false,
+%   rightline=false,
+%   skipabove=10,
+%   linewidth=.8pt,
+%   linecolor=black!80,
+%   backgroundcolor=gray!10,
+%   innertopmargin=\topskip,
+%   splittopskip=\topskip,
+%   ntheorem=true,
+%   ]{theorem}{Theorem}[section]
 
-\newmdtheoremenv[
-  leftline=false,
-  rightline=false,
-  skipabove=10,
-  linewidth=.8pt,
-  linecolor=gray!50,
-  backgroundcolor=gray!10,
-  innertopmargin=\topskip,
-  splittopskip=\topskip,
-  ntheorem=true,
-  ]{lemma}{Lemma}[section]
+% \newmdtheoremenv[
+%   leftline=false,
+%   rightline=false,
+%   skipabove=10,
+%   linewidth=.8pt,
+%   linecolor=gray!50,
+%   backgroundcolor=gray!10,
+%   innertopmargin=\topskip,
+%   splittopskip=\topskip,
+%   ntheorem=true,
+%   ]{lemma}{Lemma}[section]
 
-\newmdtheoremenv[
-  leftline=false,
-  rightline=false,
-  skipabove=10,
-  linewidth=.8pt,
-  linecolor=gray!50,
-  backgroundcolor=gray!10,
-  innertopmargin=\topskip,
-  splittopskip=\topskip,
-  ntheorem=true,
-  ]{corollary}{Corollary}[section]
+% \newmdtheoremenv[
+%   leftline=false,
+%   rightline=false,
+%   skipabove=10,
+%   linewidth=.8pt,
+%   linecolor=gray!50,
+%   backgroundcolor=gray!10,
+%   innertopmargin=\topskip,
+%   splittopskip=\topskip,
+%   ntheorem=true,
+%   ]{corollary}{Corollary}[section]
 
 
-\mdfdefinestyle{theoremstyle}{%
-  leftmargin=2em,
-  rightmargin=2em,
-  skipabove=10,
-  skipbelow=10,
-  linecolor=black!90,
-  linewidth=1pt,
-  frametitlerule=true,
-  frametitlebackgroundcolor=gray!15,
-  innertopmargin=.75\topskip,
-  innerbottommargin=.75\topskip,
-  ntheorem=true,
+% \mdfdefinestyle{theoremstyle}{%
+%   leftmargin=2em,
+%   rightmargin=2em,
+%   skipabove=10,
+%   skipbelow=10,
+%   linecolor=black!90,
+%   linewidth=1pt,
+%   frametitlerule=true,
+%   frametitlebackgroundcolor=gray!15,
+%   innertopmargin=.75\topskip,
+%   innerbottommargin=.75\topskip,
+%   ntheorem=true,
+% }
+
+% \mdtheorem[style=theoremstyle]{definition}{Definition}[section]
+% \makeatletter
+\def\thm@space@setup{%
+  \thm@preskip=\parskip \thm@postskip=\parskip
 }
+% \makeatother
 
-\mdtheorem[style=theoremstyle]{definition}{Definition}[section]
+\theoremstyle{plain}% default
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem*{corollary}{Corollary}
 
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{conjecture}{Conjecture}[section]
+\newtheorem{example}{Example}[section]
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{note}{Note}
+\newtheorem{case}{Case}
 
 
 % --------------------------- Delimiters --------------------------- %

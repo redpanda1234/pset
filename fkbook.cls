@@ -79,6 +79,8 @@
 % Add some extra stuff for colors and ipa
 \RequirePackage{fkmisc}
 
+% For boxed problem statements and stuff
+\RequirePackage{boxedminipage}
 
 
 % ================================================================== %
@@ -185,8 +187,8 @@
 
 % Oops refactor this additional math stuff later
 
-\newenvironment{problem}[1][Problem \thesection.]
-{\noindent\begin{center}\begin{boxedminipage}{.95\linewidth}\textbf{#1.}}
+\newenvironment{problem}[1][Problem]
+{\noindent\begin{center}\begin{boxedminipage}{.95\linewidth}\textbf{#1.} }
 {\end{boxedminipage}\end{center}}
 
 \newenvironment{solution}[1][Solution.]
@@ -201,9 +203,9 @@
 {\noindent \textbf{Ex:}}
 {\\}
 
-\newenvironment{example}
-{\noindent \textbf{Example \thetheorem:}}
-{\\}
+% \newenvironment{example}
+% {\noindent \textbf{Example \thetheorem:}}
+% {\\}
 
 
 % ================================================================== %
