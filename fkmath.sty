@@ -47,6 +47,8 @@
 
 % Use a better script font
 \RequirePackage[mathscr]{euscript}
+% \RequirePackage{}
+
 
 % ================================================================== %
 %                                                                    %
@@ -154,8 +156,36 @@
 % Transpose
 \newcommand{\T}{\mathsf{T}}
 
+% Boldfaced vectors
+
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
+
+% Boldfaced lowercase letters for vectors
+\newcommand*{\Aa}{\mb a}
+\newcommand*{\Bb}{\mb b}
+\newcommand*{\Cc}{\mb c}
+\newcommand*{\Dd}{\mb d}
+\newcommand*{\Ee}{\mb e}
+\newcommand*{\Ff}{\mb f}
+\newcommand*{\Gg}{\mb g}
+\newcommand*{\Hh}{\mb h}
+\newcommand*{\Kk}{\mb k}
+\newcommand*{\Ll}{\mb l}
+% m,n,o,p are rarely used for vectors
+\newcommand*{\Rr}{\mb r}
+\newcommand*{\Ss}{\mb s}
+\newcommand*{\Tt}{\mb t}
+\newcommand*{\Uu}{\mb u}
+\newcommand*{\Vv}{\mb v}
+\newcommand*{\Ww}{\mb w}
+\newcommand*{\Xx}{\mb x}
+\newcommand*{\Yy}{\mb y}
+\newcommand*{\Zz}{\mb z}
+
+% Mathcal for bases
+\newcommand*{\cB}{\mc B}
+\newcommand*{\cC}{\mc C}
 
 % ---------------------------- Analysis ---------------------------- %
 
@@ -235,7 +265,7 @@
 \newcommand{\TT}{\mathbb{T}}
 
 % For spheres
-\newcommand{\Ss}{\mathbb{S}}
+\newcommand{\sS}{\mathbb{S}}
 
 % Cubes
 \newcommand{\DD}{\mathbb{D}}
@@ -248,6 +278,19 @@
 
 % Direct products
 \newcommand{\oprod}{\ensuremath\bigotimes}
+
+% Endomorphism algebra
+\DeclareMathOperator*{\End}{End}
+
+% Commutant algebra
+\DeclareMathOperator*{\Com}{Com}
+
+% Matrices
+% \DeclareMathOperator*{\Mat}{Mat}
+\newcommand*{\Mat}{\ensuremath\mrm{Mat}}
+
+% Symmetric group
+\newcommand*{\Sn}{\mc S_n}
 
 % ------------------------ Homological stuff ----------------------- %
 
@@ -316,9 +359,6 @@
   \begin{enumerate}[label=\claimproofenum*, align=left]%
   }{\end{enumerate}}
 
-
-% TODO: make these less ugly
-
 % leftbar --> useful environment for proving lemmas and the like
 \newmdenv[
   skipabove=5,
@@ -335,78 +375,25 @@
   bottomline = false
   ]{leftbar}
 
-% \newmdtheoremenv[
-%   leftline=false,
-%   rightline=false,
-%   skipabove=10,
-%   linewidth=.8pt,
-%   linecolor=black!80,
-%   backgroundcolor=gray!10,
-%   innertopmargin=\topskip,
-%   splittopskip=\topskip,
-%   ntheorem=true,
-%   ]{theorem}{Theorem}[section]
-
-% \newmdtheoremenv[
-%   leftline=false,
-%   rightline=false,
-%   skipabove=10,
-%   linewidth=.8pt,
-%   linecolor=gray!50,
-%   backgroundcolor=gray!10,
-%   innertopmargin=\topskip,
-%   splittopskip=\topskip,
-%   ntheorem=true,
-%   ]{lemma}{Lemma}[section]
-
-% \newmdtheoremenv[
-%   leftline=false,
-%   rightline=false,
-%   skipabove=10,
-%   linewidth=.8pt,
-%   linecolor=gray!50,
-%   backgroundcolor=gray!10,
-%   innertopmargin=\topskip,
-%   splittopskip=\topskip,
-%   ntheorem=true,
-%   ]{corollary}{Corollary}[section]
-
-
-% \mdfdefinestyle{theoremstyle}{%
-%   leftmargin=2em,
-%   rightmargin=2em,
-%   skipabove=10,
-%   skipbelow=10,
-%   linecolor=black!90,
-%   linewidth=1pt,
-%   frametitlerule=true,
-%   frametitlebackgroundcolor=gray!15,
-%   innertopmargin=.75\topskip,
-%   innerbottommargin=.75\topskip,
-%   ntheorem=true,
-% }
-
-% \mdtheorem[style=theoremstyle]{definition}{Definition}[section]
-% \makeatletter
+% Make spacing before/after theorems acceptable
 \def\thm@space@setup{%
   \thm@preskip=\parskip \thm@postskip=\parskip
 }
-% \makeatother
 
 \theoremstyle{plain}% default
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
-\newtheorem*{corollary}{Corollary}
+\newtheorem{corollary}[theorem]{Corollary}
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
 \newtheorem{conjecture}{Conjecture}[section]
 \newtheorem{example}{Example}[section]
-\theoremstyle{remark}
+% \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
 \newtheorem*{note}{Note}
-\newtheorem{case}{Case}
+% \newtheorem{case}{Case}
 
 
 % --------------------------- Delimiters --------------------------- %
