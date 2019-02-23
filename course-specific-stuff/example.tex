@@ -1,0 +1,115 @@
+\documentclass{pset}
+
+% ================================================================== %
+%                                                                    %
+%                              Document                              %
+%                                                                    %
+% ================================================================== %
+
+% ----------------------- Header formatting ------------------------ %
+
+\name{Your Name Here!}
+\class{Math 80}
+\prof{Pippenger}
+\assignment{1}
+\duedate{3/27/2018}
+\dueday{Tuesday}
+\problems{1, 2, 3, 4}
+\acknowledgements{{}, {}, {}, {}}
+\onTime{0}
+\season{Spring}
+
+\lfoot{Due Tuesday, March 27th 2018}
+
+\comments{\indent For Homework assignments, you may work with others,
+  but you must write up the solution you submit yourself, and it must
+  reflect your own understanding of the solution. You may use any
+  resources (books, papers, the Internet) in working on homework
+  assignments, but in accordance with scholarly conventions, you
+  should acknowledge any sources you benefit from.
+
+  \indent For homework assignments, in solving a particular problem or
+  part of a problem, you may use results stated in any previous
+  problem or parts of problems (in the same or earlier assignments),
+  even if you have not solved those previous problems. }
+
+\begin{document}
+
+% --------------------------- Problem 1 ---------------------------- %
+  \begin{problem}
+    Suppose $y_1(x)$ and $y_2(x)$ are two solutions of
+    \[
+      y''(x) + P(x)y'(x) + Q(x)y(x) = 0.
+    \]
+    Show that if the Wronskian
+    \[
+      W(x) = \det
+      \begin{pmatrix}
+        y_1(x) & y_2(x) \\
+        y'_1(x) & y'_2(x)
+      \end{pmatrix}
+    \]
+    does not vanish for $x = 0$, then it does not vanish for any value
+    of $x$. (Hint: Show that $W'(x) + P(x)W(x) = 0$).
+  \end{problem}
+
+  \section*{Solution:}
+
+  \clearpage
+
+% --------------------------- Problem 2 ---------------------------- %
+
+  \section*{Problem 2.}
+    \newcommand{\GG}{G(r, \theta, t)}
+    For the wave equation
+    \[
+      \pd[2]{}{r} \GG + \frac 1 r \pd{}{r} \GG + \frac 1 {r^2}
+      \pd[2]{}{\theta} \GG - \frac 1 {v^2} \pd[2]{}{t} \GG = 0
+    \]
+    in polar coordinates, look for a solution $\GG = R(r) \Theta
+    (\theta) T(t)$ that is not necessarily radially symmetric. Find
+    the solutions for $T(t)$ and $\Theta(\theta)$, and express $R(r)$
+    in terms of the solutions of the equation
+    \[
+      y''(s) + \frac 1 s y'(s) + \pn{1 - \frac{n^2}{s^2}} y(x) = 0
+    \]
+    which is known as ``Bessel's equation of order $n$.'' Explain why
+    $n$ must be an integer.
+
+  \hrulefill
+
+  \section*{Solution:}
+
+  \clearpage
+
+% --------------------------- Problem 3 ---------------------------- %
+
+  \section*{Problem 3.}
+    Find two linearly independent power-series solutions of
+    \[
+      y''(x) + xy'(x) + y(x) = 0
+    \]
+
+  \hrulefill
+
+  \section*{Solution:}
+
+  \clearpage
+
+% --------------------------- Problem 4 ---------------------------- %
+
+  \section*{Problem 4.}
+    Find two linearly independent power-series solutions of
+    \[
+      (1 - x^2)y''(x) - xy'(x) + p^2y(x) = 0
+    \]
+    where $p$ is a constant. Show that if $p$ is a non-negative
+    integer, there is a solution that is a polynomial of degree $p$.
+
+  \hrulefill
+
+  \section*{Solution:}
+
+  \clearpage
+
+\end{document}

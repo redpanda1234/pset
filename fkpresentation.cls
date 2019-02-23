@@ -25,24 +25,6 @@
 % And in english!
 \RequirePackage[english]{babel}
 
-% \let\theorem\undefined
-% \let\c@theorem\undefined
-
-% \let\lemma\undefined
-% \let\c@lemma\undefined
-
-% \let\corollary\undefined
-% \let\c@corollary\undefined
-
-% \let\definition\undefined
-% \let\c@definition\undefined
-
-% \let\note\undefined
-% \let\c@note\undefined
-
-% \let\example\undefined
-% \let\c@example\undefined
-
 % Math
 % \RequirePackage{fkmath}
 
@@ -83,17 +65,13 @@
 \RequirePackage{hyperref}
 
 % A nice font
-% \RequirePackage{lmodern}
+\RequirePackage{lmodern}
 
 % So that we can redefine the godawful defaults
 \RequirePackage{xcolor}
 
-% FIXME: is this even used?
-% \RequirePackage{textpos}
-
 % Tell beamer to use lmodern
 \usefonttheme{serif}
-
 
 
 % ================================================================== %
@@ -108,22 +86,8 @@
 % I don't like autoindentation for new paragraphs in proofs
 \setlength\parindent{0pt}
 
-% Make the colors look halfway passable, at least for now.
-% \definecolor{lgray}{RGB}{230, 230, 230}
-% \definecolor{tgray}{RGB}{70, 70, 70}
-% \definecolor{red}{RGB}{200, 0, 0}
-% \mode<presentation> {
-
-  % \setbeamercolor*{palette secondary}{use=structure,fg=tgray,bg=lgray}
-  % \setbeamercolor*{palette tertiary}{use=structure,fg=lgray,bg=tgray}
-  % \setbeamercolor*{normal text}{fg=darkgray}
-  % \setbeamercolor*{frametitle}{fg=black}
-  % \setbeamercolor*{title}{fg=black}
-  % \setbeamercolor*{itemize item}{fg=black}
-  % \setbeamercolor*{itemize subitem}{fg=black}
-  % \setbeamerfont*{section in head/foot}{size=\scriptsize}
-  % \setbeamerfont*{subsection in head/foot}{size=\scriptsize}
-% }
+\usetheme{Dresden}
+\usecolortheme{crane}
 
 % Get rid of yucky navigation bar at the bottom
 \beamertemplatenavigationsymbolsempty

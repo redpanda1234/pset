@@ -47,6 +47,8 @@
 \usetikzlibrary{calc} % Add coordinates and stuff
 \usetikzlibrary{patterns} % distinguishing shapes
 \usetikzlibrary{decorations.pathreplacing} % For braces and such
+\usetikzlibrary{external} % Compile diagrams separately
+\tikzexternalize[prefix=figures/] % In a special directory
 
 % ...Which you would probably place in figure environments
 \RequirePackage{float}
@@ -63,6 +65,10 @@
 % So that the whitespace around section headers can be made less
 % obnoxiously large
 \RequirePackage[pagestyles]{titlesec}
+
+% So that we can make table of contents with redefined chapter play
+% nice with hyperref
+\RequirePackage{titletoc}
 
 % For better commands
 \RequirePackage{xifthen}
@@ -82,6 +88,16 @@
 % For boxed problem statements and stuff
 \RequirePackage{boxedminipage}
 
+% For multi-page floats and stuff
+\RequirePackage{subcaption}
+
+% For cross-referencing
+% \RequirePackage{hyperref}
+
+% For better referencing behavior
+\RequirePackage{cleveref}
+
+% \RequirePackage{nameref}
 
 % ================================================================== %
 %                                                                    %
@@ -102,10 +118,10 @@
 % Check if command exists
 \newcommand{\checkfor}[1]{%
   \ifcsname#1\endcsname%
-    Command \texttt{\textbackslash#1} is defined already. Choose
-    another macro!
+  Command \texttt{\textbackslash#1} is defined already. Choose
+  another macro!
   \else%
-    Command \texttt{\textbackslash#1} is not defined yet. Go ahead!
+  Command \texttt{\textbackslash#1} is not defined yet. Go ahead!
   \fi%
 }
 
@@ -119,6 +135,7 @@
 % internal state for coverblock
 \def\fkbook@author{}
 \def\fkbook@title{}
+\def\fkbook@shorttitle{}
 \def\fkbook@subtitle{}
 \def\fkbook@alttitle{}
 \def\fkbook@affiliation{} % This is ridiculous but need it for eq check
@@ -129,7 +146,10 @@
 
 % Commands to set header block info
 \newcommand{\fkauthor}[1]{\def\fkbook@author{#1}}
-\newcommand{\fktitle}[1]{\def\fkbook@title{#1}}
+\newcommand{\fktitle}[2][]{%
+  \def\fkbook@title{#2} % define main title
+  \def\fkbook@shorttitle{#1}%
+}
 \newcommand{\fksubtitle}[1]{\def\fkbook@subtitle{#1}}
 \newcommand{\fkalttitle}[1]{\def\fkbook@alttitle{#1}}
 \newcommand{\fkaffiliation}[1]{\def\fkbook@affiliation{#1}}
@@ -137,75 +157,75 @@
 \newcommand{\fksupervisoraffiliation}[1]{\def\fkbook@supervisoraffiliation{#1}}
 
 \newcommand{\maketitlepage}{
-\begin{titlepage} % Suppresses headers and footers on the title page
+  \ifx \fkbook@shorttitle\fkbook@empty%
+  \def\fkbook@shorttitle{\fkbook@title}%
+  \else% do nothing
+  \fi
+  \begin{titlepage} % Suppresses headers and footers on the title page
 
-  \centering\scshape
+    \centering\scshape
 
-  \rule{\textwidth}{1pt}\vspace*{-\baselineskip}\vspace*{2pt}
-  \rule{\textwidth}{0.4pt}
+    \rule{\textwidth}{1pt}\vspace*{-\baselineskip}\vspace*{2pt}
+    \rule{\textwidth}{0.4pt}
 
-  \vspace{0.75\baselineskip} % Whitespace above the title
+    \vspace{0.75\baselineskip} % Whitespace above the title
 
-  {\LARGE \fkbook@title\\}
-  \ifthenelse{\equal{\fkbook@subtitle}{}}{}{{\Large \fkbook@subtitle \\}}
+    {\LARGE \fkbook@title\\}
+    \ifthenelse{\equal{\fkbook@subtitle}{}}{}{{\Large \fkbook@subtitle \\}}
 
-  \vspace{0.75\baselineskip} % Whitespace below the title
+    \vspace{0.75\baselineskip} % Whitespace below the title
 
-  \rule{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace*{2.4pt}
-  \rule{\textwidth}{1pt}
+    \rule{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace*{2.4pt}
+    \rule{\textwidth}{1pt}
 
-  \vspace{\baselineskip} % Whitespace after the title block
+    \vspace{\baselineskip} % Whitespace after the title block
 
-  % ------------------------------------------------
-  %	Subtitle
-  % ------------------------------------------------
+    % ------------------------------------------------
+    %	Subtitle
+    % ------------------------------------------------
 
-  \ifthenelse{\equal{\fkbook@alttitle}{}}{}{
-  {\large \fkbook@alttitle}}
+    \ifthenelse{\equal{\fkbook@alttitle}{}}{}{
+      {\large \fkbook@alttitle}}
 
-  \vspace*{8\baselineskip}
+    \vspace*{8\baselineskip}
 
-  % ------------------------------------------------
-  %	Authors
-  % ------------------------------------------------
+    % ------------------------------------------------
+    %	Authors
+    % ------------------------------------------------
 
-  % {Written By\\}
-  {\Large \fkbook@author\\ } % Author list
-  \vspace{1\baselineskip}
-  % Check if affiliation is empty, insert it if not
-  \ifx\fkbook@affiliation\fkbook@empty \else \fkbook@affiliation\fi
+    % {Written By\\}
+    {\Large \fkbook@author\\ } % Author list
+    \vspace{1\baselineskip}
+    % Check if affiliation is empty, insert it if not
+    \ifx\fkbook@affiliation\fkbook@empty \else \fkbook@affiliation\fi
 
-  \ifthenelse{\equal{\fkbook@supervisor}{}}{\vfill\includegraphics[width=3cm,
-    keepaspectratio=true]{logo.png}\vspace{\baselineskip}}{\vfill {\small Supervised
-      By\\ }{\fkbook@supervisor\footnote{\fkbook@supervisoraffiliation} \vspace{6\baselineskip
-        \includegraphics[width=2cm, keepaspectratio=true]{logo.png} \vspace{.3\baselineskip}}}}
+    \ifthenelse{\equal{\fkbook@supervisor}{}}{\vfill\includegraphics[width=3cm,
+      keepaspectratio=true]{logo.png}\vspace{\baselineskip}}{\vfill {\small Supervised
+        By\\ }{\fkbook@supervisor\footnote{\fkbook@supervisoraffiliation} \vspace{6\baselineskip
+          \includegraphics[width=2cm, keepaspectratio=true]{logo.png} \vspace{.3\baselineskip}}}}
 
-  {\large \normalfont Last Updated: \today} % Publication year
-  \vspace{1\baselineskip}
-\end{titlepage}}
+    {\large \normalfont Last Updated: \today} % Publication year
+    \vspace{1\baselineskip}
+  \end{titlepage}}
 
 
 % Oops refactor this additional math stuff later
 
 \newenvironment{problem}[1][Problem]
 {\noindent\begin{center}\begin{boxedminipage}{.95\linewidth}\textbf{#1.} }
-{\end{boxedminipage}\end{center}}
+    {\end{boxedminipage}\end{center}}
 
 \newenvironment{solution}[1][Solution.]
 {\noindent\begin{center}\begin{adjustwidth}{.05\linewidth}{.05\linewidth}\emph{#1}\ }
-{\qed\end{adjustwidth}\end{center}}
+    {\qed\end{adjustwidth}\end{center}}
 
 \newenvironment{recall}
 {\noindent\begin{center}\begin{boxedminipage}{.95\linewidth}\textbf{Recall:}}
-{\end{boxedminipage}\end{center}}
+    {\end{boxedminipage}\end{center}}
 
 \newenvironment{ex}
 {\noindent \textbf{Ex:}}
 {\\}
-
-% \newenvironment{example}
-% {\noindent \textbf{Example \thetheorem:}}
-% {\\}
 
 
 % ================================================================== %
@@ -217,43 +237,38 @@
 % Let align environments overflow page breaks
 \allowdisplaybreaks
 
-% I don't like autoindentation for new paragraphs
-\setlength\parindent{0pt}
+% Set appropriate paragraph indentation
+\setlength{\parindent}{1.5em}
 
 % And shorten the vspace after section headers. How to read?
 %
-%                {12pt plus 4pt minus 2pt}
+% {12pt plus 4pt minus 2pt}
 %
-%  - 12pt is what we would like the spacing to be
-%  - plus 4pt means that TeX can stretch it by at most 4pt
-%  - minus 2pt means that TeX can shrink it by at most 2pt
+% - 12pt is what we would like the spacing to be
+% - plus 4pt means that TeX can stretch it by at most 4pt
+% - minus 2pt means that TeX can shrink it by at most 2pt
 
 \newcommand{\chapterrule}{\rule{\textwidth}{.8pt}}
 
 \titleformat{\chapter}[block]
-  {\chapterrule\vspace*{.5cm}\\\bfseries\Large\centering}%
-  {\thechapter.}%
-  {.5em}%
-  {\Large}%
-  [\chapterrule]
+{\chapterrule\vspace*{.5cm}\\\bfseries\Large\centering}%
+{\thechapter.}%
+{.5em}%
+{\Large}%
+[\chapterrule]
 
 \titlespacing*{\chapter}{0pt}{-6em}{2.5em}
-
-
 \titlespacing*{\section}{0pt}{\parskip}{0pt}
 \titlespacing*{\subsection}{0pt}{\parskip}{0pt}
 \titlespacing*{\subsubsection}{0pt}{\parskip}{0pt}
 
 \newpagestyle{main}{
-  \sethead{Forest Kobayashi}{\scshape\chaptertitle}{Analysis II Notes}
+  \sethead{\fkbook@author}{\scshape\chaptertitle}{\fkbook@shorttitle}
   \headrule
   \setfoot{Last Updated \today}{}{\thepage\ of \pageref{LastPage}}
-} % odd
-% \pagestyle{main}
+}
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
 \ProcessOptions\relax
-
-% \makeheaders{}
 
 \endinput

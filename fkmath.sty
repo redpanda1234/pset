@@ -19,7 +19,7 @@
 
 % For most of the math symbols, and nice things like align
 % environment
-\RequirePackage{amsmath, amssymb, amsthm}
+\RequirePackage{amsmath, amssymb}
 
 % For `\shortintertext{}` and other things.
 \RequirePackage{mathtools}
@@ -27,7 +27,7 @@
 % For checkmark and xmark when confirming / denying claims
 \RequirePackage{pifont}
 
-% For cancelling stuff, duh
+% For cancelling stuff in equations
 \RequirePackage{cancel}
 
 % For bold math things
@@ -36,7 +36,7 @@
 % For leftbar environment (useful in proving lemmas, etc)
 \RequirePackage{mdframed}
 
-% Super dank matrix package
+% For nice cdots / vdots / ddots in matrices
 \RequirePackage{nicematrix}
 
 % For iff proof environment
@@ -46,8 +46,8 @@
 \RequirePackage{scalerel}
 
 % Use a better script font
+% FIXME: apparently this isn't loading right for some people?
 \RequirePackage[mathscr]{euscript}
-% \RequirePackage{}
 
 
 % ================================================================== %
@@ -70,7 +70,7 @@
 % Avoid exiting math mode for such that
 \newcommand{\st}{\mrm{\ s.t.\ }}
 
-% The default mod command is trash for some reason
+% The default mod command doesn't have great spacing
 \renewcommand{\mod}[1]{\ \mrm{mod}\ #1}
 
 % Define lcm command
@@ -118,34 +118,32 @@
 % \newcommand{\cvdots}{\mathrel{\makebox[\widthof{=}]{\vdots}}}
 \newcommand{\cvdots}{\setbox0\hbox{=}\mathrel{\makebox[\wd0]{\hfil\vdots\hfil}}}
 
-% Add sign operator
-\DeclareMathOperator{\sgn}{sgn}
+% Into and onto arrows
+\newcommand{\into}{\ensuremath\hookrightarrow}
+\newcommand{\onto}{\ensuremath\twoheadrightarrow}
+% See
+% https://tex.stackexchange.com/questions/281732/special-mathematics-arrow-for-1-1-and-onto-functions
+\newcommand{\bij}{\ensuremath\lhook\joinrel\twoheadrightarrow}
 
-% Image and pullback
+% Image
 \newcommand{\fim}[1][]{%
   \ifthenelse{\isempty{#1}}%
     {\ensuremath ^\rightarrow}%
     {^{\rightarrow}\pn{#1}}}
 
-
+% Pullback
 \newcommand{\fpre}[1][]{%
   \ifthenelse{\isempty{#1}}%
     {\ensuremath ^\leftarrow}%
     {^{\leftarrow}\pn{#1}}}
 
+% Other image
 \DeclareMathOperator{\im}{im}
 
 % ----------------------------- Linalg ----------------------------- %
 
 % For properly aligning things w/ neg numbers in matrix environments
 \newcommand{\ph}{\phantom{-}}
-
-% For augmented matrices
-\newenvironment{amatrix}[1]{
-  \left[\begin{array}{@{}*{#1}{c}|c@{}}
-}{%
-  \end{array}\right]
-}
 
 % Span of a set of vectors
 \newcommand{\vspan}[1]{\ensuremath{\mathrm{span}\pn{#1}}}
@@ -172,7 +170,9 @@
 \newcommand*{\Hh}{\mb h}
 \newcommand*{\Kk}{\mb k}
 \newcommand*{\Ll}{\mb l}
-% m,n,o,p are rarely used for vectors
+
+% m,n,o,p are rarely used for vectors, so skip them
+
 \newcommand*{\Rr}{\mb r}
 \newcommand*{\Ss}{\mb s}
 \newcommand*{\Tt}{\mb t}
@@ -226,10 +226,12 @@
 % ------------------ The Categorical Imperative ;) ----------------- %
 
 % Domain and codomain
+% TODO: do I really want the \pn on the end here?
 \newcommand{\dom}[2][]{\mrm{dom}\pn[#1]{#2}}
 \newcommand{\cod}[2][]{\mrm{cod}\pn[#1]{#2}}
 
 % Identity morphism
+% TODO: is this too inflexible? Should I remove the argument?
 \newcommand{\id}[1][]{\mrm{id}_{#1}}
 
 % TODO: Rethink what exactly needs to be kept here, and how best to
@@ -248,13 +250,6 @@
 % Homotopy Equivalence
 \newcommand{\htop}[1][A]{\ensuremath\simeq_{\mrm{rel}\, #1}}
 
-% \newcommand{\into}[2][]{\ensuremath\xhookrightarrow[#1]{#2}}
-\newcommand{\into}{\ensuremath\hookrightarrow}
-\newcommand{\onto}{\ensuremath\twoheadrightarrow}
-% See
-% https://tex.stackexchange.com/questions/281732/special-mathematics-arrow-for-1-1-and-onto-functions
-\newcommand{\bij}{\ensuremath\lhook\joinrel\twoheadrightarrow}
-
 % Interior of a set
 \newcommand{\interior}[1]{#1^\circ}
 
@@ -264,7 +259,7 @@
 % Tori
 \newcommand{\TT}{\mathbb{T}}
 
-% For spheres
+% Spheres
 \newcommand{\sS}{\mathbb{S}}
 
 % Cubes
@@ -272,6 +267,9 @@
 
 
 % ---------------------- Representation Theory --------------------- %
+
+% Add sign operator
+\DeclareMathOperator{\sgn}{sgn}
 
 % Direct sums
 \newcommand{\osum}{\ensuremath\bigoplus}
@@ -298,9 +296,17 @@
 \newcommand{\simp}[2][v]{\ensuremath\set{#1_0 \cdots #1_{#2}}}
 
 % Simplices with a thing removed
-\newcommand{\simpdel}[3][v]{\ensuremath \set{#1_0 \cdots \widehat{#1}_{#2}
+\newcommand{\simpdel}[3][v]{\ensuremath \set{#1_0 \cdots \widehat{#1_{#2}}
     \cdots #1_{#3}}}
 
+% Boundary operator
+\newcommand{\bdy}[2][n]{\ensuremath \partial_{#1}\pn{#2}}
+
+% Cone
+\newcommand{\Cone}{\ensuremath \msf{Cone}}
+
+% Induced chain map?
+% \newcommand{\icm}{\ensuremath _{\#}}
 
 % ---------------------- Statements and Proofs --------------------- %
 
@@ -308,10 +314,6 @@
 % doing casework in a proof and want to have some visual separator)
 \newcommand{\cmark}{\text{\ding{51}}}%
 \newcommand{\xmark}{\text{\ding{55}}}%
-
-% Put the qed box all the way to the right
-\let\oldqed\qed
-\renewcommand{\qed}{\hfill $\blacksquare$}
 
 % Ez contradiction
 \newcommand{\contra}{\ensuremath{(\Rightarrow\Leftarrow)}}
@@ -374,26 +376,6 @@
   rightline = false,
   bottomline = false
   ]{leftbar}
-
-% Make spacing before/after theorems acceptable
-\def\thm@space@setup{%
-  \thm@preskip=\parskip \thm@postskip=\parskip
-}
-
-\theoremstyle{plain}% default
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{corollary}[theorem]{Corollary}
-
-\theoremstyle{definition}
-\newtheorem{definition}{Definition}[section]
-\newtheorem{conjecture}{Conjecture}[section]
-\newtheorem{example}{Example}[section]
-% \theoremstyle{remark}
-\newtheorem*{remark}{Remark}
-\newtheorem*{note}{Note}
-% \newtheorem{case}{Case}
 
 
 % --------------------------- Delimiters --------------------------- %

@@ -1,0 +1,104 @@
+% ================================================================== %
+%                                                                    %
+%                         Requirement Things                         %
+%                                                                    %
+% ================================================================== %
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{fkthm}[2018/10/23 v0.01 math macro package]
+%% The theorem package is offloaded so as to avoid conflicts that can
+%% arise in beamer and in fkbook
+
+
+
+% ================================================================== %
+%                                                                    %
+%                              Packages                              %
+%                                                                    %
+% ================================================================== %
+
+% Load...the theorem package, lol
+\RequirePackage{amsthm}
+
+% We're gonna do some crazy stuff with auto-generating a list of
+% definitions etc., so buckle up everyone
+\RequirePackage{etoolbox}
+
+
+
+% ================================================================== %
+%                                                                    %
+%                             Math Macros!                           %
+%                                                                    %
+% ================================================================== %
+
+% Put the qed box all the way to the right
+\let\oldqed\qed
+\renewcommand{\qed}{\hfill $\blacksquare$}
+
+% Make spacing before/after theorems acceptable
+\def\thm@space@setup{%
+  \thm@preskip=\parskip \thm@postskip=\parskip
+}
+
+
+\theoremstyle{plain}% default
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+\theoremstyle{definition}
+% \newtheorem{definition}{Definition}[section]
+% \newtheorem{conjecture}{Conjecture}[section]
+\newtheorem{example}{Example}[section]
+\newtheorem{axiom}{Axiom}[section]
+\newtheorem*{remark}{Remark}
+\newtheorem*{note}{Note}
+
+\newtheoremstyle{definitionsty}
+  {3pt}% measure of space to leave above the theorem. E.g.: 3pt
+  {3pt}% measure of space to leave below the theorem. E.g.: 3pt
+  {}% name of font to use in the body of the theorem
+  {}% measure of space to indent
+  {\bfseries}% name of head font
+  {.}% punctuation between head and body
+  { }% space after theorem head; " " = normal interword space
+  {\thmname{#1}%
+   \thmnumber{ #2}%
+   \thmnote{\textnormal{ (#3)}}%
+   % \phantomsection% Get hyperref to play nice
+   \addcontentsline%
+     {lod}% file to write to
+     {section}% name of sectional unit
+     % Put a table of contents entry (with the numbers all in boxes of
+     % the same width, thanks to \numberline) in the lod file
+     {(Def \protect\numberline{#2)}\ \ \ #3}}
+
+\theoremstyle{definitionsty}
+\newtheorem{definition}{Definition}[section]
+
+\makeatletter
+% A command to create the new List of Definitions
+\newcommand\listofdefinitions{\@starttoc{lod}}
+
+% initial definitions to save the chapter info (name and number)
+\def\thischaptertitle{}
+\def\thischapternumber{}
+\newtoggle{noDefs}
+
+\apptocmd{\@chapter}%
+  {\gdef\thischaptertitle{#1}\gdef\thischapternumber{\thechapter}%
+    \global\toggletrue{noDefs}}{}{}
+
+% the defn environment does the job: the first time it is used after a \chapter command,
+% it writes the information of the chapter to the LoD
+\AtBeginDocument{%
+  \AtBeginEnvironment{definition}{%
+    \iftoggle{noDefs}{
+      \addcontentsline{lod}{chapter}{\chaptername~\thischapternumber\hspace{1em}\thischaptertitle}{}
+      \global\togglefalse{noDefs}
+    }{}
+  }%
+}

@@ -34,6 +34,10 @@
 % I've offloaded my math macros into a separate package (in this repo)
 \RequirePackage{fkmath}
 
+% As well as some basic theorem templates. Really this is just to avoid
+% conflicts with beamer.
+\RequirePackage{fkthm}
+
 % For \includegraphics
 \RequirePackage{graphicx}
 
@@ -112,6 +116,7 @@
 }
 
 % For units
+% FIXME: Is this really something I use often still?
 \RequirePackage[alsoload=astro, alsoload=hep]{siunitx}
 
 % Problem environment
@@ -135,31 +140,23 @@
 % I don't like autoindentation for new paragraphs
 \setlength\parindent{0pt}
 
-% And shorten the vspace after section headers. How to read?
-%
-%                {12pt plus 4pt minus 2pt}
-%
-%  - 12pt is what we would like the spacing to be
-%  - plus 4pt means that TeX can stretch it by at most 4pt
-%  - minus 2pt means that TeX can shrink it by at most 2pt
-
-% \titlespacing*{\section}{0pt}{\parskip}{0pt}
-% \titlespacing*{\subsection}{0pt}{\parskip}{-\parskip}
-% \titlespacing*{\subsubsection}{0pt}{\parskip}{-\parskip}
-
+% Thicker top rule for header and footer
 \newcommand{\trule}{\vspace{-.5\baselineskip}%
   \rule{\textwidth}{1pt}\vspace*{-\baselineskip}\vspace*{2pt}
   \rule{\textwidth}{0.4pt}}
 
+% Flanked by a thinner bottomrule
 \newcommand{\brule}{\vspace{.125\baselineskip}
   \rule{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace*{2.4pt}
   \rule{\textwidth}{1pt}}
 
+% Draw the header line
 \renewcommand\headrule{
 \begin{minipage}{1\textwidth}
   \trule
 \end{minipage}}%
 
+% And footer
 \renewcommand\footrule{
   \begin{minipage}{1\linewidth}
     \brule
@@ -172,48 +169,11 @@
 \def\fkpset@duedate{}
 \def\fkpset@assignment{}
 
-
 % Commands to set header block info
 \newcommand{\name}[1]{\def\fkpset@name{#1}}
 \newcommand{\class}[1]{\def\fkpset@class{#1}}
 \newcommand{\duedate}[1]{\def\fkpset@duedate{#1}}
 \newcommand{\assignment}[1]{\def\fkpset@assignment{#1}}
-% \newcommand{\problems}[1]{\def\pset@problems{#1}
-%   \forcsvlist{\saveitem}{#1}\forcsvlist{\listadd\mylist}{#1}}
-
-% So that we can iterate through problems to fill the coversheet table
-% \newcounter{problemCounter}
-
-% This stores each problem as a new command sequence,
-% `\problems<problem_name>`. This allows us to get each problem back
-% out easily, e.g. typesetting problem `10.3.1` is as easy as
-% `\problems10.3.1`. This is inelegant, but it works.
-% \def\saveitem#1{%
-%   \stepcounter{problemCounter}%
-%   \expandafter\def\csname problems\theproblemCounter\endcsname{#1}%
-% }
-
-% \def\getProblem#1{\csname problems#1\endcsname}
-
-% \newcommand{\blanklist}{}
-
-% \newcommand*{\putintable}[1]{%
-%   \appto\mylist{#1 &}%
-%   \listadd{\blanklist}{c}%
-% }
-
-% %Define a wrapper
-% \newcommand{\fakedolistloop}[1]{%
-%   \forlistloop{\putintable}{#1}%
-% }
-
-% \newcommand{\fakerdolistloop}[1]{%
-%   \forlistloop{&}{#1}
-% }
-
-% \newcommand{\fakestdolistloop}[1]{%
-%   \forlistloop{\appto\blanklist{#1}}{#1}
-% }
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -231,23 +191,6 @@
   \end{flushright}%
   \brule}%
 
-% \newcommand{\pointstable}{
-  % Shift the table upwards
-  % \vspace{-2.3cm}
-
-  % Create the table object _here_
-  % \begin{table}
-    % \centering
-    % \begin{tabular}{@{}lcr@{}} % booktabs points table
-        % \toprule
-        % Problem & \fakedolistloop{\mylist} Total \\ \midrule
-        % Points  & \fakerdolistloop{\mylist}  \\ \bottomrule
-    % \end{tabular}
-  % \end{table}
-  % \vspace{2.3cm}
-% }
-
 \AtBeginDocument{\rblock}
-% \AtBeginDocument{\pointstable}
 
 \endinput
