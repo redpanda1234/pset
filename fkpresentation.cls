@@ -25,7 +25,8 @@
 % And in english!
 \RequirePackage[english]{babel}
 
-% Math
+% Ok so turns out that enumitem doesn't play well with beamer, so
+% guess that's just busted
 % \RequirePackage{fkmath}
 
 % For \includegraphics
@@ -91,6 +92,19 @@
 
 % Get rid of yucky navigation bar at the bottom
 \beamertemplatenavigationsymbolsempty
+
+% Circles look less professional; put them last.
+% Triangles don't look good as the second level; put them first.
+% Ball looks bad, so use square for middle level.
+\setbeamertemplate{itemize item}[triangle]
+\setbeamertemplate{itemize subitem}[square]
+\setbeamertemplate{itemize subsubitem}[circle]
+
+% Subtly shrink text size throughout itemize
+\setbeamerfont{itemize/enumerate body}{}
+\setbeamerfont{itemize/enumerate subbody}{size=\small}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\footnotesize}
+
 
 % TODO: make this into a callable, optional command that fills the
 % bottom of the presentation as needed to fit all the logos in.
