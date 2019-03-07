@@ -108,3 +108,44 @@
 
 % Python for inline
 \newcommand\pythoninline[1]{{\pythonstyle\lstinline!#1!}}
+
+
+% LaTeX Language support
+\lstset{language=[LaTeX]TeX,
+  % Colors and stuff
+  backgroundcolor=\color{white},     % choose the background color
+  basicstyle=\footnotesize\ttfamily, % set size + style of font
+  %
+  commentstyle=\color{mygray},       % comment style
+  identifierstyle=\color{blue},
+  keywordstyle=\color{mygreen},      % keyword style
+  stringstyle=\color{orange},        % string literal style
+  %
+  % Whitespace handling
+  breakatwhitespace=false,           %
+  breaklines=true,                   % sets automatic line breaking
+  keepspaces=true,                   % needs (columns=flexible)?
+  showspaces=false,                  % Don't add weird underscores
+  showstringspaces=false,            % Same
+  showtabs=false,                    % Same
+  tabsize=2,	                       % 1 tab = 2 spaces
+  xleftmargin=2em,                   % Properly indent listing
+  %
+  % Caption
+  belowcaptionskip=1\baselineskip,   % Spacing to caption
+  captionpos=b,                      % caption at bottom
+  title=\lstname,                    % show fname w/ \lstinputlisting
+  %
+  % Framing & Numbering
+  frame=L,	                         % adds a frame on the left
+  numbers=left,                      % linum loc. (none, left, right)
+  numbersep=10pt,                    % distance of linum to code
+  numberstyle=\tiny\color{numgray},  % style used for the line-numbers
+  rulecolor=\color{black},           %
+  stepnumber=1,                      % number every line
+  %
+  % Misc
+  language=[LaTeX]Tex,                   % default language
+  % texcsstyle=*\bf\color{blue},
+  % otherkeywords={$, \{, \}, \[, \]},
+}

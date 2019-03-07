@@ -54,10 +54,12 @@
 \usetikzlibrary{calc} % Add coordinates and stuff
 \usetikzlibrary{patterns} % distinguishing shapes
 \usetikzlibrary{decorations.pathreplacing} % For braces and such
+\usetikzlibrary{decorations.markings} % For arrows on lines
 \RequirePackage{pgfplots}
 
 % ...Which you would probably place in figure environments
 \RequirePackage{float}
+\RequirePackage{subcaption}
 
 % For referencing page count
 \RequirePackage{lastpage}

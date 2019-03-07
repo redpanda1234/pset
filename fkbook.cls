@@ -34,6 +34,9 @@
 % I've offloaded my math macros into a separate package (in this repo)
 \RequirePackage{fkmath}
 
+% As well as theorems
+\RequirePackage{fkthm}
+
 % For \includegraphics
 \RequirePackage{graphicx}
 

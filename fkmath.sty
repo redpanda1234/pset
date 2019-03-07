@@ -47,8 +47,8 @@
 
 % Use a better script font
 % FIXME: apparently this isn't loading right for some people?
-\RequirePackage[mathscr]{euscript}
-
+% \RequirePackage[mathscr]{euscript}
+\RequirePackage[scr=esstix]{mathalfa}
 
 % ================================================================== %
 %                                                                    %
@@ -71,7 +71,7 @@
 \newcommand{\st}{\mrm{\ s.t.\ }}
 
 % The default mod command doesn't have great spacing
-\renewcommand{\mod}[1]{\ \mrm{mod}\ #1}
+% \renewcommand{\mod}[1]{\ \mrm{mod}\ #1}
 
 % Define lcm command
 \DeclareMathOperator{\lcm}{lcm}
@@ -86,6 +86,10 @@
 
 % Expected value
 \newcommand{\EE}{\mathbb{E}}
+
+% Use Re and Im for real and imaginary, instead of mathfrak
+\renewcommand{\Re}{\operatorname{Re}}
+\renewcommand{\Im}{\operatorname{Im}}
 
 % Partial differential
 \newcommand{\pdd}{\mathop{}\,\partial}
@@ -154,6 +158,9 @@
 % Transpose
 \newcommand{\T}{\mathsf{T}}
 
+% trace
+\DeclareMathOperator{\tr}{tr}
+
 % Boldfaced vectors
 
 \DeclareMathOperator*{\argmax}{arg\,max}
@@ -170,9 +177,10 @@
 \newcommand*{\Hh}{\mb h}
 \newcommand*{\Kk}{\mb k}
 \newcommand*{\Ll}{\mb l}
-
-% m,n,o,p are rarely used for vectors, so skip them
-
+\newcommand*{\Mm}{\mb m}
+\newcommand*{\Nn}{\mb n}
+\newcommand*{\Oo}{\mb o}
+\newcommand*{\Pp}{\mb p}
 \newcommand*{\Rr}{\mb r}
 \newcommand*{\Ss}{\mb s}
 \newcommand*{\Tt}{\mb t}
@@ -299,6 +307,12 @@
 \newcommand{\simpdel}[3][v]{\ensuremath \set{#1_0 \cdots \widehat{#1_{#2}}
     \cdots #1_{#3}}}
 
+% Barycentric subdivision
+\DeclareMathOperator{\sd}{\msf{sd}}
+
+% Star of a vertex
+\DeclareMathOperator{\St}{\mrm St}
+
 % Boundary operator
 \newcommand{\bdy}[2][n]{\ensuremath \partial_{#1}\pn{#2}}
 
@@ -333,9 +347,9 @@
 % Similarly, but for subset supset proofs
 \newcommand*{\seteqenum}[1]{\expandafter\@seteqenum\csname c@#1\endcsname}
 \newcommand*{\@seteqenum}[1]{%
-  \ifcase#1\or {$(\subset):$}\or {$(\supset):$}\else\@ctrerr\fi
+  \ifcase#1\or {$(\subseteq):$}\or {$(\supseteq):$}\else\@ctrerr\fi
 }
-\AddEnumerateCounter{\seteqenum}{\@seteqenum}{$(\subset):$}
+\AddEnumerateCounter{\seteqenum}{\@seteqenum}{$(\subseteq):$}
 \newenvironment{seteqproof}{%
   \begin{enumerate}[label=\seteqenum*, leftmargin=4em]%
   }{\end{enumerate}}

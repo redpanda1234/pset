@@ -41,21 +41,52 @@
   \thm@preskip=\parskip \thm@postskip=\parskip
 }
 
-
-\theoremstyle{plain}% default
+\newtheoremstyle{theoremsty}
+  {3pt}% measure of space to leave above the theorem. E.g.: 3pt
+  {3pt}% measure of space to leave below the theorem. E.g.: 3pt
+  {\itshape}% name of font to use in the body of the theorem
+  {}% measure of space to indent
+  {\bfseries}% name of head font
+  {.}% punctuation between head and body
+  { }% space after theorem head; " " = normal interword space
+  {\thmname{#1}%
+   \thmnumber{ #2}%
+   \thmnote{\textnormal{ (#3)}}%
+   % \phantomsection% Get hyperref to play nice
+   \addcontentsline%
+     {lot}% file to write to
+     {section}% name of sectional unit
+     % Put a table of contents entry (with the numbers all in boxes of
+     % the same width, thanks to \numberline) in the lod file
+     {(Thm \protect\numberline{#2)}\ \ \ #3}}
+\theoremstyle{theoremsty}
 \newtheorem{theorem}{Theorem}[section]
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{corollary}[theorem]{Corollary}
-\newtheorem{conjecture}[theorem]{Conjecture}
 
-\theoremstyle{definition}
-% \newtheorem{definition}{Definition}[section]
-% \newtheorem{conjecture}{Conjecture}[section]
-\newtheorem{example}{Example}[section]
-\newtheorem{axiom}{Axiom}[section]
-\newtheorem*{remark}{Remark}
-\newtheorem*{note}{Note}
+
+\makeatletter
+% A command to create the new List of Definitions
+\newcommand\listoftheorems{\@starttoc{lot}}
+
+% initial definitions to save the chapter info (name and number)
+\def\thischaptertitle{}
+\def\thischapternumber{}
+\newtoggle{noThms}
+
+\apptocmd{\@chapter}%
+  {\gdef\thischaptertitle{#1}\gdef\thischapternumber{\thechapter}%
+    \global\toggletrue{noThms}}{}{}
+
+% the defn environment does the job: the first time it is used after a \chapter command,
+% it writes the information of the chapter to the LoD
+\AtBeginDocument{%
+  \AtBeginEnvironment{theorem}{%
+    \iftoggle{noThms}{
+      \addcontentsline{lot}{chapter}{\chaptername~\thischapternumber\hspace{1em}\thischaptertitle}{}
+      \global\togglefalse{noThms}
+    }{}
+  }%
+}
+
 
 \newtheoremstyle{definitionsty}
   {3pt}% measure of space to leave above the theorem. E.g.: 3pt
@@ -86,19 +117,44 @@
 % initial definitions to save the chapter info (name and number)
 \def\thischaptertitle{}
 \def\thischapternumber{}
-\newtoggle{noDefs}
+\def\thissectiontitle{}
+\def\thissectionnumber{}
 
+\newtoggle{noDefsChapter}
+\newtoggle{noDefsSection}
 \apptocmd{\@chapter}%
   {\gdef\thischaptertitle{#1}\gdef\thischapternumber{\thechapter}%
-    \global\toggletrue{noDefs}}{}{}
+    \global\toggletrue{noDefsChapter}}{}{}
+
+\apptocmd{\@section}%
+  {\gdef\thissectiontitle{#1}\gdef\thissectionnumber{\thesection}%
+    \global\toggletrue{noDefsSection}}{}{}
 
 % the defn environment does the job: the first time it is used after a \chapter command,
 % it writes the information of the chapter to the LoD
 \AtBeginDocument{%
   \AtBeginEnvironment{definition}{%
-    \iftoggle{noDefs}{
+    \iftoggle{noDefsChapter}{
       \addcontentsline{lod}{chapter}{\chaptername~\thischapternumber\hspace{1em}\thischaptertitle}{}
-      \global\togglefalse{noDefs}
+      \global\togglefalse{noDefsChapter}
+    }{}%
+    \iftoggle{noDefsSection}{
+      \addcontentsline{lod}{section}{\sectionname~\thissectionnumber\hspace{1em}\thissectiontitle}{}
+      \global\togglefalse{noDefsSection}
     }{}
   }%
 }
+
+
+
+\theoremstyle{plain}% default
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}[section]
+\newtheorem{axiom}{Axiom}[section]
+\newtheorem*{remark}{Remark}
+\newtheorem*{note}{Note}
