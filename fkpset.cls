@@ -31,12 +31,11 @@
 % And in english!
 \RequirePackage[english]{babel}
 
+% Add a color package for color manipulations.
+\RequirePackage[dvipsnames]{xcolor}
+
 % I've offloaded my math macros into a separate package (in this repo)
 \RequirePackage{fkmath}
-
-% As well as some basic theorem templates. Really this is just to avoid
-% conflicts with beamer.
-\RequirePackage{fkthm}
 
 % For \includegraphics
 \RequirePackage{graphicx}
@@ -85,9 +84,6 @@
 
 % Problem and reading set lists, for top of document
 \RequirePackage{etoolbox}
-
-% Add a color package for color manipulations.
-\RequirePackage{xcolor}
 
 % For more bearable referencing
 \RequirePackage{fancyref}
@@ -152,6 +148,9 @@
   \rule{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace*{2.4pt}
   \rule{\textwidth}{1pt}}
 
+% Points table rule (if so desired). Thinner!
+\newcommand{\prule}{\rule{\linewidth}{.75pt}}
+
 % Draw the header line
 \renewcommand\headrule{
 \begin{minipage}{1\textwidth}
@@ -170,12 +169,54 @@
 \def\fkpset@class{}
 \def\fkpset@duedate{}
 \def\fkpset@assignment{}
+\def\fkpset@problems{}
 
 % Commands to set header block info
 \newcommand{\name}[1]{\def\fkpset@name{#1}}
 \newcommand{\class}[1]{\def\fkpset@class{#1}}
 \newcommand{\duedate}[1]{\def\fkpset@duedate{#1}}
 \newcommand{\assignment}[1]{\def\fkpset@assignment{#1}}
+\newcommand{\problems}[1]{\def\fkpset@problems{#1}
+  \forcsvlist{\saveitem}{#1}\forcsvlist{\listadd\problist}{#1}}
+
+% So that we can iterate through problems to fill the coversheet table
+\newcounter{problemCounter}
+
+% This stores each problem as a new command sequence,
+% `\problems<problem_name>`. This allows us to get each problem back
+% out easily, e.g. typesetting problem `10.3.1` is as easy as
+% `\problems10.3.1`. This is inelegant, but it works.
+\def\saveitem#1{%
+  \stepcounter{problemCounter}%
+  \expandafter\def\csname problems\theproblemCounter\endcsname{#1}%
+}
+
+\def\getProblem#1{\expandafter{\csname problems#1\endcsname}}
+
+\newcounter{prob}
+\newcommand{\dothis}[1]{\stepcounter{prob}
+  \getProblem{\number\value{prob}} & }
+
+\newcommand{\pointstable}[2][centering]{
+  \begin{table}[h]
+    \vspace{-2.85cm}
+    \csname#1\endcsname
+    #2
+    % *{\theproblemCounter} gets us that many c's. Since indexing starts at 0,
+    % we have to add one on at the end manually.
+    \begin{tabular}{l *{\theproblemCounter} c r}
+      \toprule
+      Problem & \forlistloop{\dothis}{\problist} Total \\ \midrule
+      Points & \\
+      \bottomrule
+    \end{tabular}
+    \vspace{.75cm}
+  \end{table}
+
+  % \prule
+
+  % \vspace{.5cm}
+}
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -193,6 +234,20 @@
   \end{flushright}%
   \brule}%
 
+%
+\DeclareOption{norblock}{
+  \renewcommand{\rbloc}{\@gobble}
+}
+
+% Verbose error messages
+\DeclareOption{verbose}{
+  \setcounter{errorcontextlines}{999}
+}
+
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
+\ProcessOptions\relax
+
+% Typeset the name block
 \AtBeginDocument{\rblock}
 
 \endinput

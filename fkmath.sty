@@ -19,7 +19,7 @@
 
 % For most of the math symbols, and nice things like align
 % environment
-\RequirePackage{amsmath, amssymb}
+\RequirePackage{amsmath, amssymb, amsthm}
 
 % For `\shortintertext{}` and other things.
 \RequirePackage{mathtools}
@@ -46,8 +46,6 @@
 \RequirePackage{scalerel}
 
 % Use a better script font
-% FIXME: apparently this isn't loading right for some people?
-% \RequirePackage[mathscr]{euscript}
 \RequirePackage[scr=esstix]{mathalfa}
 
 % ================================================================== %
@@ -84,9 +82,6 @@
 \newcommand{\ZZ}{\mathbb{Z}}
 \newcommand{\NN}{\mathbb{N}}
 
-% Expected value
-\newcommand{\EE}{\mathbb{E}}
-
 % Use Re and Im for real and imaginary, instead of mathfrak
 \renewcommand{\Re}{\operatorname{Re}}
 \renewcommand{\Im}{\operatorname{Im}}
@@ -95,7 +90,7 @@
 \newcommand{\pdd}{\mathop{}\,\partial}
 
 % Total differential
-\newcommand{\dd}{\mathop{}\,\mathrm{d}}
+\newcommand{\dd}{\mathop{}\,\mrm{d}}
 
 % Define partial derivative and ordinary derivative things
 \newcommand{\pd}[3][]{\frac{\partial^{#1}\hspace{-.08em} {#2}}{\partial {#3}^{#1}}}
@@ -143,6 +138,8 @@
 
 % Other image
 \DeclareMathOperator{\im}{im}
+
+\DeclareMathOperator{\pre}{pre}
 
 % ----------------------------- Linalg ----------------------------- %
 
@@ -310,6 +307,9 @@
 % Barycentric subdivision
 \DeclareMathOperator{\sd}{\msf{sd}}
 
+% Subdivision operator
+\DeclareMathOperator{\SD}{\msf{SD}}
+
 % Star of a vertex
 \DeclareMathOperator{\St}{\mrm St}
 
@@ -322,7 +322,35 @@
 % Induced chain map?
 % \newcommand{\icm}{\ensuremath _{\#}}
 
+
+% ----------------------- Probabilistic stuff ---------------------- %
+
+% Expected value
+\newcommand{\EE}{\ensuremath \mathbb{E}}
+
+% Probability
+\newcommand{\PP}{\ensuremath \mathbb{P}}
+
+
 % ---------------------- Statements and Proofs --------------------- %
+
+% Put the qed box all the way to the right
+\let\oldqed\qed
+\renewcommand{\qed}{\hfill $\blacksquare$}
+
+\theoremstyle{plain}% default
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+\newtheorem{axiom}{Axiom}
+\newtheorem*{remark}{Remark}
+\newtheorem*{note}{Note}
+
 
 % For confirming or denying various statements (useful when you're
 % doing casework in a proof and want to have some visual separator)
