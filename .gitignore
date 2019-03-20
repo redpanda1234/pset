@@ -6,5 +6,5 @@
 *.toc
 *.synctex.gz
 *.fdb_latexmk
-/auto
+**/auto
 .DS_Store
