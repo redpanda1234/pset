@@ -126,6 +126,20 @@
 {\noindent\begin{center}\begin{adjustwidth}{.05\linewidth}{.05\linewidth}\emph{#1}\ }
 {\qed\end{adjustwidth}\end{center}}
 
+\theoremstyle{plain}% default
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}
+\newtheorem{axiom}{Axiom}
+\newtheorem*{remark}{Remark}
+\newtheorem*{note}{Note}
+
+
 % ================================================================== %
 %                                                                    %
 %                          Misc. Formattings                         %
