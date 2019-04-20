@@ -134,6 +134,7 @@
 \newtheorem{conjecture}[theorem]{Conjecture}
 
 \theoremstyle{definition}
+\newtheorem{definition}{Definition}
 \newtheorem{example}{Example}
 \newtheorem{axiom}{Axiom}
 \newtheorem*{remark}{Remark}

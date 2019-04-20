@@ -58,12 +58,12 @@
 % ----------------------- General Math Stuff ----------------------- %
 
 % Useful shortcuts for when typing is just too hard
-\newcommand*{\mrm}[1]{\ensuremath{\mathrm{#1}}}
-\newcommand*{\mbb}[1]{\ensuremath{\mathbb{#1}}}
-\newcommand*{\mc}[1]{\ensuremath{\mathcal{#1}}}
-\newcommand*{\mb}[1]{\ensuremath{\mathbf{#1}}}
-\newcommand*{\ms}[1]{\ensuremath{\mathscr{#1}}}
-\newcommand*{\msf}[1]{\ensuremath{\mathsf{#1}}}
+\newcommand*{\mrm}[1]{{\mathrm{#1}}}
+\newcommand*{\mbb}[1]{{\mathbb{#1}}}
+\newcommand*{\mc}[1]{{\mathcal{#1}}}
+\newcommand*{\mb}[1]{{\mathbf{#1}}}
+\newcommand*{\ms}[1]{{\mathscr{#1}}}
+\newcommand*{\msf}[1]{{\mathsf{#1}}}
 
 % Avoid exiting math mode for such that
 \newcommand{\st}{\mrm{\ s.t.\ }}
@@ -118,22 +118,22 @@
 \newcommand{\cvdots}{\setbox0\hbox{=}\mathrel{\makebox[\wd0]{\hfil\vdots\hfil}}}
 
 % Into and onto arrows
-\newcommand{\into}{\ensuremath\hookrightarrow}
-\newcommand{\onto}{\ensuremath\twoheadrightarrow}
+\newcommand{\into}{\hookrightarrow}
+\newcommand{\onto}{\twoheadrightarrow}
 % See
 % https://tex.stackexchange.com/questions/281732/special-mathematics-arrow-for-1-1-and-onto-functions
-\newcommand{\bij}{\ensuremath\lhook\joinrel\twoheadrightarrow}
+\newcommand{\bij}{\lhook\joinrel\twoheadrightarrow}
 
 % Image
 \newcommand{\fim}[1][]{%
   \ifthenelse{\isempty{#1}}%
-    {\ensuremath ^\rightarrow}%
+    { ^\rightarrow}%
     {^{\rightarrow}\pn{#1}}}
 
 % Pullback
 \newcommand{\fpre}[1][]{%
   \ifthenelse{\isempty{#1}}%
-    {\ensuremath ^\leftarrow}%
+    { ^\leftarrow}%
     {^{\leftarrow}\pn{#1}}}
 
 % Other image
@@ -147,10 +147,10 @@
 \newcommand{\ph}{\phantom{-}}
 
 % Span of a set of vectors
-\newcommand{\vspan}[1]{\ensuremath{\mathrm{span}\pn{#1}}}
+\newcommand{\vspan}[1]{{\mathrm{span}\pn{#1}}}
 
 % Projection onto something
-\newcommand{\proj}[3][]{\ensuremath{\mrm{proj}_{#2}\pn[#1]{#3}}}
+\newcommand{\proj}[3][]{{\opertorname{proj}_{#2}\pn[#1]{#3}}}
 
 % Transpose
 \newcommand{\T}{\mathsf{T}}
@@ -232,19 +232,18 @@
 % ------------------ The Categorical Imperative ;) ----------------- %
 
 % Domain and codomain
-% TODO: do I really want the \pn on the end here?
-\newcommand{\dom}[2][]{\mrm{dom}\pn[#1]{#2}}
-\newcommand{\cod}[2][]{\mrm{cod}\pn[#1]{#2}}
+\newcommand{\dom}{\operatorname{dom}}
+\newcommand{\cod}{\operatorname{cod}}
 
 % Identity morphism
 % TODO: is this too inflexible? Should I remove the argument?
-\newcommand{\id}[1][]{\mrm{id}_{#1}}
+\newcommand{\id}[1][]{\operatorname{id}_{#1}}
 
 % TODO: Rethink what exactly needs to be kept here, and how best to
 % use it
-\newcommand{\ob}{\mrm{ob}}
-\newcommand{\homm}{\mrm{hom}}
-\newcommand{\op}{^\mrm{op}}
+\newcommand{\ob}{\operatorname{ob}}
+\newcommand{\homm}{\operatorname{hom}}
+\newcommand{\op}{^\operatorname{op}}
 
 
 
@@ -254,13 +253,13 @@
 \DeclareMathOperator*{\csum}{\scalerel*{\#}{\sum}}
 
 % Homotopy Equivalence
-\newcommand{\htop}[1][A]{\ensuremath\simeq_{\mrm{rel}\, #1}}
+\newcommand{\htop}[1][A]{\simeq_{\operatorname{rel}\, #1}}
 
 % Interior of a set
 \newcommand{\interior}[1]{#1^\circ}
 
 % Real projective space
-\newcommand{\RRP}{\ensuremath\RR \mathrm{P}}
+\newcommand{\RRP}{\RR \mathrm{P}}
 
 % Tori
 \newcommand{\TT}{\mathbb{T}}
@@ -278,10 +277,10 @@
 \DeclareMathOperator{\sgn}{sgn}
 
 % Direct sums
-\newcommand{\osum}{\ensuremath\bigoplus}
+\newcommand{\osum}{\bigoplus}
 
 % Direct products
-\newcommand{\oprod}{\ensuremath\bigotimes}
+\newcommand{\oprod}{\bigotimes}
 
 % Endomorphism algebra
 \DeclareMathOperator*{\End}{End}
@@ -291,24 +290,37 @@
 
 % Matrices
 % \DeclareMathOperator*{\Mat}{Mat}
-\newcommand*{\Mat}{\ensuremath\mrm{Mat}}
+\newcommand*{\Mat}{\operatorname{Mat}}
 
 % Symmetric group
 \newcommand*{\Sn}{\mc S_n}
 
 % Characters
 % chi t --> chi text
-\newcommand*{\chit}[1]{\ensuremath \chi^{\rm #1}}
+\newcommand*{\chit}[1]{\chi^{\rm #1}}
 % chi k --> chi with numeric superscript
-\newcommand*{\chik}[1]{\ensuremath \chi^{(#1)}}
+\newcommand*{\chik}[1]{\chi^{(#1)}}
+
+% Induced / restricted representations
+\newcommand*{\restrep}[2]{\!\!\downarrow_{#1}^{#2}}
+\newcommand*{\indrep}[2]{\!\!\uparrow_{#1}^{#2}}
+
+
 
 % ------------------------ Homological stuff ----------------------- %
 
 % Simplices
-\newcommand{\simp}[2][v]{\ensuremath\set{#1_0 \cdots #1_{#2}}}
+\newcommand{\simp}[2][v]{\set{#1_0 \cdots #1_{#2}}}
 
 % Simplices with a thing removed
-\newcommand{\simpdel}[3][v]{\ensuremath \set{#1_0 \cdots \widehat{#1_{#2}}
+\newcommand{\simpdel}[3][v]{\set{#1_0 \cdots \widehat{#1_{#2}}
+    \cdots #1_{#3}}}
+
+% Oriented simplices
+\newcommand{\osimp}[2][v]{\bk{#1_0 \cdots #1_{#2}}}
+
+% Simplices with a thing removed
+\newcommand{\osimpdel}[3][v]{\bk{#1_0 \cdots \widehat{#1_{#2}}
     \cdots #1_{#3}}}
 
 % Barycentric subdivision
@@ -318,25 +330,35 @@
 \DeclareMathOperator{\SD}{\msf{SD}}
 
 % Star of a vertex
-\DeclareMathOperator{\St}{\mrm St}
+\DeclareMathOperator{\St}{\operatorname{St}}
 
 % Boundary operator
-\newcommand{\bdy}[2][n]{\ensuremath \partial_{#1}\pn{#2}}
+\newcommand{\bdy}[2][n]{ \partial_{#1}\pn{#2}}
 
 % Cone
-\newcommand{\Cone}{\ensuremath \msf{Cone}}
+\newcommand{\Cone}{ \msf{Cone}}
 
 % Induced chain map?
-% \newcommand{\icm}{\ensuremath _{\#}}
+% \newcommand{\icm}{ _{\#}}
 
 
 % ----------------------- Probabilistic stuff ---------------------- %
 
 % Expected value
-\newcommand{\EE}{\ensuremath \mathbb{E}}
+\newcommand{\EE}{ \mathbb{E}}
 
 % Probability
-\newcommand{\PP}{\ensuremath \mathbb{P}}
+\newcommand{\PP}{ \mathbb{P}}
+
+% Variance
+\newcommand{\Var}{\operatorname{Var}}
+
+% Covariance
+\newcommand{\Cov}{\operatorname{Cov}}
+
+% Various distributions
+\newcommand{\Bin}{\operatorname{Bin}}
+\newcommand{\Poi}{\operatorname{Poi}}
 
 
 % ---------------------- Statements and Proofs --------------------- %
@@ -351,7 +373,7 @@
 \newcommand{\xmark}{\text{\ding{55}}}%
 
 % Ez contradiction
-\newcommand{\contra}{\ensuremath{(\Rightarrow\Leftarrow)}}
+\newcommand{\contra}{{(\Rightarrow\Leftarrow)}}
 
 % The indentation for customized iff labels really grinds my gears.
 % Hence, a new environment to make everything right in the world

@@ -73,13 +73,16 @@
   showspaces=false,                  % Don't add weird underscores
   showstringspaces=false,            % Same
   showtabs=false,                    % Same
-  tabsize=4,	                     % 1 tab = 4 spaces
+  tabsize=4,	                       % 1 tab = 4 spaces
   xleftmargin=2em,                   % Properly indent listing
   %
   % Caption
   belowcaptionskip=1\baselineskip,   % Spacing to caption
   captionpos=b,                      % caption at bottom
   title=\lstname,                    % show fname w/ \lstinputlisting
+  %
+  % Height below
+  belowskip=-1cm,
   %
   % Framing & Numbering
   frame=L,	                     % adds a frame on the left
@@ -94,7 +97,7 @@
 }}
 
 % Python environment
-\lstnewenvironment{python}[1][]
+\lstnewenvironment{pythoncode}[1][]
 {
 \pythonstyle
 \lstset{#1}
@@ -130,6 +133,9 @@
   showtabs=false,                    % Same
   tabsize=2,	                       % 1 tab = 2 spaces
   xleftmargin=2em,                   % Properly indent listing
+  %
+  % Height below
+  belowskip=-1cm,
   %
   % Caption
   belowcaptionskip=1\baselineskip,   % Spacing to caption

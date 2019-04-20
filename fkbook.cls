@@ -49,6 +49,7 @@
 \usetikzlibrary{arrows.meta}
 \usetikzlibrary{calc} % Add coordinates and stuff
 \usetikzlibrary{patterns} % distinguishing shapes
+\usetikzlibrary{decorations.markings} % For midway arrows
 \usetikzlibrary{decorations.pathreplacing} % For braces and such
 \usetikzlibrary{external} % Compile diagrams separately
 \tikzexternalize[prefix=figures/] % In a special directory
