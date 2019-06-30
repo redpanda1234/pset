@@ -48,6 +48,10 @@
 % Use a better script font
 \RequirePackage[scr=esstix]{mathalfa}
 
+% Diagrams are essential
+% FIXME: this is redundant with the stuff in my class files
+\RequirePackage{tikz}
+
 % ================================================================== %
 %                                                                    %
 %                             Math Macros!                           %
@@ -71,6 +75,24 @@
 % The default mod command doesn't have great spacing
 % \renewcommand{\mod}[1]{\ \mrm{mod}\ #1}
 
+%% Some missing commands for trig / hyperbolic trig
+% Spicy inverse trig ops
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccsc}{arccsc}
+\DeclareMathOperator{\arccot}{arccot}
+
+% Hyperbolic trig
+\DeclareMathOperator{\csch}{csch}
+\DeclareMathOperator{\sech}{sech}
+
+% Inverse hyperbolic trig
+\DeclareMathOperator{\arcsinh}{arcsinh}
+\DeclareMathOperator{\arccosh}{arccosh}
+\DeclareMathOperator{\arctanh}{arctanh}
+\DeclareMathOperator{\arcsech}{arcsech}
+\DeclareMathOperator{\arccsch}{arccsch}
+\DeclareMathOperator{\arccoth}{arccoth}
+
 % Define lcm command
 \DeclareMathOperator{\lcm}{lcm}
 
@@ -81,6 +103,9 @@
 \newcommand{\QQ}{\mathbb{Q}}
 \newcommand{\ZZ}{\mathbb{Z}}
 \newcommand{\NN}{\mathbb{N}}
+
+% Defeq
+\newcommand{\defeq}{\overset{\text{\tiny def}}{=}}
 
 % Use Re and Im for real and imaginary, instead of mathfrak
 \renewcommand{\Re}{\operatorname{Re}}
@@ -138,8 +163,14 @@
 
 % Other image
 \DeclareMathOperator{\im}{im}
-
 \DeclareMathOperator{\pre}{pre}
+
+% No, not the world's worst programming language. For making a phantom
+% + in the align environment.
+\newcommand{\php}{\phantom{+}}
+
+% For making a phantom eq sign in align
+\newcommand{\pheq}{\phantom{=}\,}
 
 % ----------------------------- Linalg ----------------------------- %
 
@@ -327,7 +358,7 @@
 \DeclareMathOperator{\sd}{\msf{sd}}
 
 % Subdivision operator
-\DeclareMathOperator{\SD}{\msf{SD}}
+% \DeclareMathOperator{\SD}{\msf{SD}}
 
 % Star of a vertex
 \DeclareMathOperator{\St}{\operatorname{St}}
@@ -359,6 +390,60 @@
 % Various distributions
 \newcommand{\Bin}{\operatorname{Bin}}
 \newcommand{\Poi}{\operatorname{Poi}}
+
+\newcommand{\SD}{\operatorname{SD}}
+
+
+% --------------------------- Knot Theory -------------------------- %
+
+% Use a slightly smaller spacing than \,
+\newcommand{\preouopspace}{\hspace{.1111111em plus .0555555em minus 0em}}
+\newcommand{\postouopspace}{\hspace{.1111111em plus .0555555em minus 0em}}
+
+% Biquandle operations
+\DeclareMathOperator*{\overop}{\preouopspace\overline{\triangleright}\postouopspace}
+\DeclareMathOperator*{\underop}{\preouopspace\underline{\triangleright}\postouopspace}
+
+\usetikzlibrary{
+  knots,
+  hobby,
+  decorations.markings,
+  decorations.pathreplacing,
+  shapes.geometric,
+  calc
+}
+
+\tikzset{
+  show curve controls/.style={
+    postaction=decorate,
+    decoration={show path construction,
+      curveto code={
+        \draw [blue, dashed]
+        (\tikzinputsegmentfirst) -- (\tikzinputsegmentsupporta)
+        node [at end, draw, solid, red, inner sep=2pt]{};
+        \draw [blue, dashed]
+        (\tikzinputsegmentsupportb) -- (\tikzinputsegmentlast)
+        node [at start, draw, solid, red, inner sep=2pt]{}
+        node [at end, fill, blue, ellipse, inner sep=2pt]{}
+        ;
+      }
+    }
+  },
+  show curve endpoints/.style={
+    postaction=decorate,
+    decoration={show path construction,
+      curveto code={
+        \node [fill, blue, ellipse, inner sep=2pt] at (\tikzinputsegmentlast) {};
+      }
+    }
+  },
+  % use Hobby shortcut, % Hobby shortcut for bezier curves
+  %% Key for adding arrows to midpoints of paths
+  add arrow/.style={postaction={decorate}, decoration={
+      markings,
+      mark=at position 0.2 with {\arrow{<}},
+      mark=at position 0.6 with {\arrow{<}}}}
+}
 
 
 % ---------------------- Statements and Proofs --------------------- %
@@ -400,7 +485,7 @@
 % Similarly, but for inductive proofs.
 \newcommand*{\inductionenum}[1]{\expandafter\@inductionenum\csname c@#1\endcsname}
 \newcommand*{\@inductionenum}[1]{%
-  \ifcase#1\or {\textbf{Base Case:}}\or {\textbf{Inductive Hypothesis}}\or
+  \ifcase#1\or {\textbf{Base Case:}}\or {\textbf{Inductive Hypothesis:}}\or
   {\textbf{Inductive Step:}}\else\@ctrerr\fi
 }
 \AddEnumerateCounter{\inductionenum}{\@inductionenum}{\textbf{Base Case:}}

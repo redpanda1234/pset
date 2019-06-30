@@ -44,6 +44,7 @@
 \RequirePackage{multicol}
 
 % In case you want any diagrams, etc.
+\RequirePackage{pgfplots}
 \RequirePackage{tikz}
 \usetikzlibrary{arrows} % Better arrows
 \usetikzlibrary{arrows.meta}
@@ -51,8 +52,8 @@
 \usetikzlibrary{patterns} % distinguishing shapes
 \usetikzlibrary{decorations.markings} % For midway arrows
 \usetikzlibrary{decorations.pathreplacing} % For braces and such
-\usetikzlibrary{external} % Compile diagrams separately
-\tikzexternalize[prefix=figures/] % In a special directory
+% \usetikzlibrary{external} % Compile diagrams separately
+% \tikzexternalize[prefix=figures/] % In a special directory
 
 % ...Which you would probably place in figure environments
 \RequirePackage{float}
