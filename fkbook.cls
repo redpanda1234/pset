@@ -35,7 +35,7 @@
 \RequirePackage{fkmath}
 
 % As well as theorems
-\RequirePackage{fkthm}
+\RequirePackage[list]{fkthm}
 
 % For \includegraphics
 \RequirePackage{graphicx}
