@@ -209,7 +209,7 @@
         By\\ }{\fkbook@supervisor\footnote{\fkbook@supervisoraffiliation} \vspace{6\baselineskip
           \includegraphics[width=2cm, keepaspectratio=true]{logo.png} \vspace{.3\baselineskip}}}}
 
-    {\large \normalfont Last Updated: \today} % Publication year
+    % {\large \normalfont Last Updated: \today} % Publication year
     \vspace{1\baselineskip}
   \end{titlepage}}
 
