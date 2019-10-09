@@ -105,18 +105,23 @@
 \setbeamerfont{itemize/enumerate subbody}{size=\small}
 \setbeamerfont{itemize/enumerate subsubbody}{size=\footnotesize}
 
+% Force bibliography items to one line
+\setbeamertemplate{bibliography entry title}{}
+\setbeamertemplate{bibliography entry location}{}
+\setbeamertemplate{bibliography entry note}{}
+
 
 % TODO: make this into a callable, optional command that fills the
 % bottom of the presentation as needed to fit all the logos in.
 \logo{%
-  \makebox[0.95\paperwidth]{%
+  \makebox[0.975\paperwidth]{%
     \includegraphics[width=1.5cm,keepaspectratio]{seal.png}%
     \hfill%
     \raisebox{-.75em}{
     \includegraphics[width=1.25cm,keepaspectratio=true]{logo.png}}%
   ~
-  ~
-  ~
+  % ~
+  % ~
   }%
 }
 

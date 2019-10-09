@@ -30,6 +30,9 @@
 % For link customization
 % \RequirePackage{hyperref}
 
+% For defining an okina command
+\usepackage{newunicodechar,graphicx}
+
 % ================================================================== %
 %                                                                    %
 %                               Macros                               %
@@ -38,6 +41,14 @@
 
 
 % \newcommand{\ipa}[1]{[\textipa{#1}]}
+
+\DeclareRobustCommand{\okina}{%
+  \raisebox{\dimexpr\fontcharht\font`A-\height}{%
+    \scalebox{0.8}{`}%
+  }%
+}
+\newunicodechar{ʻ}{\okina}
+
 
 
 % ================================================================== %

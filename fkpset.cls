@@ -118,7 +118,7 @@
 \RequirePackage[alsoload=astro, alsoload=hep]{siunitx}
 
 % Problem environment
-\newenvironment{problem}[1][Problem \thesection.]
+\newenvironment{problem}[1][Problem \thesection]
 {\noindent\begin{center}\begin{boxedminipage}{.95\linewidth}\textbf{#1.}}
 {\end{boxedminipage}\end{center}}
 
@@ -257,6 +257,23 @@
 % Verbose error messages
 \DeclareOption{verbose}{
   \setcounter{errorcontextlines}{999}
+}
+
+\DeclareOption{algs}{
+  \geometry{paperwidth=10.5in, paperheight=11in, lmargin=2in, rmargin=2in}
+
+
+  \fancyhfoffset[E,O]{0pt}
+
+  \renewcommand{\rblock}{}%
+
+  \renewenvironment{problem}[1][Problem \thesection]
+  {\section*{#1}}
+  {
+
+    \hrulefill
+
+  }
 }
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}

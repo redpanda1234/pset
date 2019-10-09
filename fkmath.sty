@@ -52,6 +52,8 @@
 % FIXME: this is redundant with the stuff in my class files
 \RequirePackage{tikz}
 
+
+
 % ================================================================== %
 %                                                                    %
 %                             Math Macros!                           %
@@ -93,6 +95,9 @@
 \DeclareMathOperator{\arccsch}{arccsch}
 \DeclareMathOperator{\arccoth}{arccoth}
 
+% Error function
+\DeclareMathOperator\erf{erf}
+
 % Define lcm command
 \DeclareMathOperator{\lcm}{lcm}
 
@@ -115,24 +120,26 @@
 \newcommand{\pdd}{\mathop{}\,\partial}
 
 % Total differential
-\newcommand{\dd}{\mathop{}\,\mrm{d}}
+% \newcommand{\dd}{\mathop{}\,\mrm{d}}
+\newcommand{\dd}{\mathop{}\mspace{1mu} d}
 
 % Define partial derivative and ordinary derivative things
 \newcommand{\pd}[3][]{\frac{\partial^{#1}\hspace{-.08em} {#2}}{\partial {#3}^{#1}}}
-\newcommand{\od}[3][]{\frac{\mrm{d}^{#1}\hspace{-.08em} {#2}}{\mrm{d} {#3}^{#1}}}
+% \newcommand{\od}[3][]{\frac{\mrm{d}^{#1}\hspace{-.08em} {#2}}{\mrm{d} {#3}^{#1}}}
+\newcommand{\od}[3][]{\frac{\!\dd^{#1} {#2}}{\!\dd {#3}^{#1}}}
 
 % Make an infinite sum (saves time when doing lots of method of
 % frobenius and stuff)
 \newcommand{\series}[1][0]{\sum_{n=#1}^{\infty}}
 
-% Multichoose environment.
+% Multichoose command.
 % Found at https://tex.stackexchange.com/a/350287
 \newcommand{\multichoose}[2]{
 \left.\mathchoice
-  {\left(\kern-0.48em\ch{#1}{#2}\kern-0.48em\right)}
-  {\big(\kern-0.30em\ch{\smash{#1}}{\smash{#2}}\kern-0.30em\big)}
-  {\left(\kern-0.30em\ch{\smash{#1}}{\smash{#2}}\kern-0.30em\right)}
-  {\left(\kern-0.30em\ch{\smash{#1}}{\smash{#2}}\kern-0.30em\right)}
+  {\left(\kern-0.48em\binom{#1}{#2}\kern-0.48em\right)}
+  {\big(\kern-0.30em\binom{\smash{#1}}{\smash{#2}}\kern-0.30em\big)}
+  {\left(\kern-0.30em\binom{\smash{#1}}{\smash{#2}}\kern-0.30em\right)}
+  {\left(\kern-0.30em\binom{\smash{#1}}{\smash{#2}}\kern-0.30em\right)}
 \right.}
 
 % Overline, more tersely. For things like complements, closures, etc.
@@ -419,49 +426,14 @@
 \newcommand{\postouopspace}{\hspace{.1111111em plus .0555555em minus .1111111em}}
 
 % Biquandle operations
-\DeclareMathOperator*{\overop}{\preouopspace\overline{\triangleright}\postouopspace}
-\DeclareMathOperator*{\underop}{\preouopspace\underline{\triangleright}\postouopspace}
+\DeclareMathOperator{\overop}{\preouopspace\overline{\triangleright}\postouopspace}
+\DeclareMathOperator{\underop}{\preouopspace\underline{\triangleright}\postouopspace}
 
-\usetikzlibrary{
-  knots,
-  hobby,
-  decorations.markings,
-  decorations.pathreplacing,
-  shapes.geometric,
-  calc
-}
 
-\tikzset{
-  show curve controls/.style={
-    postaction=decorate,
-    decoration={show path construction,
-      curveto code={
-        \draw [blue, dashed]
-        (\tikzinputsegmentfirst) -- (\tikzinputsegmentsupporta)
-        node [at end, draw, solid, red, inner sep=2pt]{};
-        \draw [blue, dashed]
-        (\tikzinputsegmentsupportb) -- (\tikzinputsegmentlast)
-        node [at start, draw, solid, red, inner sep=2pt]{}
-        node [at end, fill, blue, ellipse, inner sep=2pt]{}
-        ;
-      }
-    }
-  },
-  show curve endpoints/.style={
-    postaction=decorate,
-    decoration={show path construction,
-      curveto code={
-        \node [fill, blue, ellipse, inner sep=2pt] at (\tikzinputsegmentlast) {};
-      }
-    }
-  },
-  % use Hobby shortcut, % Hobby shortcut for bezier curves
-  %% Key for adding arrows to midpoints of paths
-  add arrow/.style={postaction={decorate}, decoration={
-      markings,
-      mark=at position 0.2 with {\arrow{<}},
-      mark=at position 0.6 with {\arrow{<}}}}
-}
+% --------------------------- Algorithms --------------------------- %
+
+% For typesetting algorithms
+\RequirePackage[ruled, vlined]{algorithm2e}
 
 
 % ---------------------- Statements and Proofs --------------------- %
