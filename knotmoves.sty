@@ -93,7 +93,7 @@
   \end{scope}}}%
 
 \newcommand{\rib}{\reidIof{
-  \begin{scope}[rotate=90, yshift=\bshiftcm, y=-1cm]
+  \begin{scope}[yshift=\bshiftcm, y=-1cm]
     \defHalfReidI
     \draw[latex-, use path=\HalfR];
     \begin{scope}[yscale=-1, xscale=1]
@@ -106,7 +106,7 @@
 }}
 
 \newcommand{\ric}{\reidIof{
-  \begin{scope}[rotate=90, yshift=\cshiftcm, x=-1cm, xshift=-1cm]
+  \begin{scope}[yshift=\cshiftcm, x=-1cm, xshift=-1cm]
     \defHalfReidI
     \draw[use path=\HalfR];
     \begin{scope}[yscale=-1, xscale=1]
@@ -119,7 +119,7 @@
 }}
 
 \newcommand{\rid}{\reidIof{
-  \begin{scope}[rotate=90, yshift=\dshiftcm, x=-1cm, xshift=-1cm, y=-1cm]
+  \begin{scope}[yshift=\dshiftcm, x=-1cm, xshift=-1cm, y=-1cm]
     \defHalfReidI
     \draw[latex-, use path=\HalfR];
     \begin{scope}[yscale=-1, xscale=1]
@@ -234,91 +234,68 @@
   \scalerel*{
     \tikz{%
     \draw[dotted] (0,0) circle (1.41);%
-      \begin{scope}[scale=.235]
-  \pgfmathsetmacro{\gap}{10pt}
-
-  \def\pointCols{orange}
-  \def\controlPointCols{red}
-  \def\theNextPCol{blue}
-  \def\theNextCCol{teal}
-
-  \def\defSideReidIII{
-
-    \def\myPointOpacity{0}
-
-    \coordinate (p1) at (-3, 5);
-    \coordinate (p2) at (-1, 2);
-    \coordinate (p3) at (1, 1);
-    \coordinate (p4) at (3,-5);
-
-    % Controls for point 1
-    \coordinate (c1a) at (-3, 3);
-    \coordinate (c1b) at (-2, 2.1);
-
-    % Controls for point 2
-    \coordinate (c2a) at (-.25, 1.825);
-    \coordinate (c2b) at (.45, 1.5);
-
-    % Controls for point 3
-    \coordinate (c3a) at (3.2, -1);
-    \coordinate (c3b) at (3, -3);
-
-    \node[circle, fill opacity=\myPointOpacity, fill=\pointCols, inner sep=.5pt] () at (p1) {};
-    \node[circle, fill opacity=\myPointOpacity, fill=\pointCols, inner sep=.5pt] () at (p2) {};
-    \node[circle, fill opacity=\myPointOpacity, fill=\pointCols, inner sep=.5pt] () at (p3) {};
-
-    \node[circle, fill opacity=\myPointOpacity, fill=\controlPointCols, inner sep=.5pt] () at (c1a) {};
-    \node[circle, fill opacity=\myPointOpacity, fill=\controlPointCols, inner sep=.5pt] () at (c1b) {};
-    \node[circle, fill opacity=\myPointOpacity, fill=\controlPointCols, inner sep=.5pt] () at (c2a) {};
-    \node[circle, fill opacity=\myPointOpacity, fill=\controlPointCols, inner sep=.5pt] () at (c2b) {};
-    \node[circle, fill opacity=\myPointOpacity, fill=\controlPointCols, inner sep=.5pt] () at (c3a) {};
-    \node[circle, fill opacity=\myPointOpacity, fill=\controlPointCols, inner sep=.5pt] () at (c3b) {};
-
-    \path[save path=\SideRIII] (p1) .. controls (c1a) and (c1b) .. (p2) .. controls (c2a) and (c2b) .. (p3) .. controls (c3a) and (c3b) .. (p4);
-  }
-
-  \def\defMidReidIII{
-
-    \def\myPointOpacity{0}
-
-    \coordinate (p1) at (0, 5);
-    \coordinate (p2) at (-1.5, 2);
-    \coordinate (p3) at (-2.85, 0);
-
-    % Controls for point 1
-    \coordinate (c1a) at (0, 3);
-    \coordinate (c1b) at (-1, 2.25);
-
-    % Controls for point 2
-    \coordinate (c2a) at (-2, 1.75);
-    \coordinate (c2b) at (-2.85, 1);
-
-    % Controls for point 3
-    \coordinate (c3a) at (-3, -1);
-    \coordinate (c3b) at (-2.5, -1.5);
-
-    \node[circle, fill opacity=\myPointOpacity, fill=\pointCols, inner sep=.5pt] () at (p1) {};
-    \node[circle, fill opacity=\myPointOpacity, fill=\pointCols, inner sep=.5pt] () at (p2) {};
-    \node[circle, fill opacity=\myPointOpacity, fill=\pointCols, inner sep=.5pt] () at (p3) {};
-
-    \node[circle, fill opacity=\myPointOpacity, fill=\controlPointCols, inner sep=.5pt] () at (c1a) {};
-    \node[circle, fill opacity=\myPointOpacity, fill=\controlPointCols, inner sep=.5pt] () at (c1b) {};
-    \node[circle, fill opacity=\myPointOpacity, fill=\controlPointCols, inner sep=.5pt] () at (c2a) {};
-    \node[circle, fill opacity=\myPointOpacity, fill=\controlPointCols, inner sep=.5pt] () at (c2b) {};
-    \node[circle, fill opacity=\myPointOpacity, fill=\controlPointCols, inner sep=.5pt] () at (c3a) {};
-    \node[circle, fill opacity=\myPointOpacity, fill=\controlPointCols, inner sep=.5pt] () at (c3b) {};
-
-
-    \path[save path=\MidRIII] (p1) .. controls (c1a) and (c1b) .. (p2) .. controls (c2a) and (c2b) .. (p3);
-  }
-  #1
-  \end{scope}
-}}
+    \begin{scope}[scale=.235]
+      \pgfmathsetmacro{\gap}{10pt}
+      \def\pointCols{orange}
+      \def\controlPointCols{red}
+      \def\theNextPCol{blue}
+      \def\theNextCCol{teal}
+      \def\defSideReidIII{
+        \def\myPointOpacity{0}
+        \coordinate (p1) at (-3, 5);
+        \coordinate (p2) at (-1, 2);
+        \coordinate (p3) at (1, 1);
+        \coordinate (p4) at (3,-5);
+        % Controls for point 1
+        \coordinate (c1a) at (-3, 3);
+        \coordinate (c1b) at (-2, 2.1);
+        % Controls for point 2
+        \coordinate (c2a) at (-.25, 1.825);
+        \coordinate (c2b) at (.45, 1.5);
+        % Controls for point 3
+        \coordinate (c3a) at (3.2, -1);
+        \coordinate (c3b) at (3, -3);
+        \node[circle, fill opacity=\myPointOpacity, fill=\pointCols, inner sep=.5pt] () at (p1) {};
+        \node[circle, fill opacity=\myPointOpacity, fill=\pointCols, inner sep=.5pt] () at (p2) {};
+        \node[circle, fill opacity=\myPointOpacity, fill=\pointCols, inner sep=.5pt] () at (p3) {};
+        \node[circle, fill opacity=\myPointOpacity, fill=\controlPointCols, inner sep=.5pt] () at (c1a) {};
+        \node[circle, fill opacity=\myPointOpacity, fill=\controlPointCols, inner sep=.5pt] () at (c1b) {};
+        \node[circle, fill opacity=\myPointOpacity, fill=\controlPointCols, inner sep=.5pt] () at (c2a) {};
+        \node[circle, fill opacity=\myPointOpacity, fill=\controlPointCols, inner sep=.5pt] () at (c2b) {};
+        \node[circle, fill opacity=\myPointOpacity, fill=\controlPointCols, inner sep=.5pt] () at (c3a) {};
+        \node[circle, fill opacity=\myPointOpacity, fill=\controlPointCols, inner sep=.5pt] () at (c3b) {};
+        \path[save path=\SideRIII] (p1) .. controls (c1a) and (c1b) .. (p2) .. controls (c2a) and (c2b) .. (p3) .. controls (c3a) and (c3b) .. (p4);
+      }
+      \def\defMidReidIII{
+        \def\myPointOpacity{0}
+        \coordinate (p1) at (0, 5);
+        \coordinate (p2) at (-1.5, 2);
+        \coordinate (p3) at (-2.85, 0);
+        % Controls for point 1
+        \coordinate (c1a) at (0, 3);
+        \coordinate (c1b) at (-1, 2.25);
+        % Controls for point 2
+        \coordinate (c2a) at (-2, 1.75);
+        \coordinate (c2b) at (-2.85, 1);
+        % Controls for point 3
+        \coordinate (c3a) at (-3, -1);
+        \coordinate (c3b) at (-2.5, -1.5);
+        \node[circle, fill opacity=\myPointOpacity, fill=\pointCols, inner sep=.5pt] () at (p1) {};
+        \node[circle, fill opacity=\myPointOpacity, fill=\pointCols, inner sep=.5pt] () at (p2) {};
+        \node[circle, fill opacity=\myPointOpacity, fill=\pointCols, inner sep=.5pt] () at (p3) {};
+        \node[circle, fill opacity=\myPointOpacity, fill=\controlPointCols, inner sep=.5pt] () at (c1a) {};
+        \node[circle, fill opacity=\myPointOpacity, fill=\controlPointCols, inner sep=.5pt] () at (c1b) {};
+        \node[circle, fill opacity=\myPointOpacity, fill=\controlPointCols, inner sep=.5pt] () at (c2a) {};
+        \node[circle, fill opacity=\myPointOpacity, fill=\controlPointCols, inner sep=.5pt] () at (c2b) {};
+        \node[circle, fill opacity=\myPointOpacity, fill=\controlPointCols, inner sep=.5pt] () at (c3a) {};
+        \node[circle, fill opacity=\myPointOpacity, fill=\controlPointCols, inner sep=.5pt] () at (c3b) {};
+        \path[save path=\MidRIII] (p1) .. controls (c1a) and (c1b) .. (p2) .. controls (c2a) and (c2b) .. (p3);
+      }
+      #1\end{scope}}}
 {\scaleobj{2.5}{\sum}}
 }
 
 \newcommand{\riii}{\reidIIIof{
-  \begin{scope}
     \defSideReidIII
     \draw[use path=\SideRIII];
     \defMidReidIII
@@ -332,11 +309,9 @@
       \draw[white, line width=\gap, use path=\SideRIII];
       \draw[use path=\SideRIII];
     \end{scope}
-  \end{scope}
 }}
 
 \newcommand{\riiia}{\reidIIIof{
-  \begin{scope}
     \defSideReidIII
     \draw[-latex, use path=\SideRIII];
     \defMidReidIII
@@ -350,7 +325,6 @@
       \draw[white, line width=\gap, use path=\SideRIII];
       \draw[latex-, use path=\SideRIII];
     \end{scope}
-  \end{scope}
 }}
 
 
