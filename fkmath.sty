@@ -18,8 +18,8 @@
 % ================================================================== %
 
 % For most of the math symbols, and nice things like align
-% environment
-\RequirePackage{amsmath, amssymb, amsthm}
+% environment. Also, esoteric integrals.
+\RequirePackage{amsmath, amssymb, amsthm, esint}
 
 % For `\shortintertext{}` and other things.
 \RequirePackage{mathtools}
@@ -70,6 +70,7 @@
 \newcommand*{\mb}[1]{{\mathbf{#1}}}
 \newcommand*{\ms}[1]{{\mathscr{#1}}}
 \newcommand*{\msf}[1]{{\mathsf{#1}}}
+\newcommand*{\mf}[1]{{\mathfrak{#1}}}
 
 % Avoid exiting math mode for such that
 \newcommand{\st}{\mrm{\ s.t.\ }}
@@ -262,6 +263,10 @@
   \int}
 \def\lowint{\mkern3mu\underline{\vphantom{\intop}\mkern7mu}\mkern-10mu\int}
 
+% Sequences that increase to a value
+\newcommand{\incto}{\nearrow}
+\newcommand{\decto}{\searrow}
+
 
 % ----------------------------- Algebra ---------------------------- %
 
@@ -301,6 +306,8 @@
 \newcommand{\homm}{\operatorname{hom}}
 \newcommand{\op}{^\operatorname{op}}
 
+% Iterated composition
+\DeclareMathOperator*{\comp}{\scalerel*{\tikz{\draw[line width=.1em] circle(1em);}}{\sum}}
 
 
 % ------------------------ Topological stuff ------------------------%
@@ -428,6 +435,7 @@
 % Biquandle operations
 \DeclareMathOperator{\overop}{\preouopspace\overline{\triangleright}\postouopspace}
 \DeclareMathOperator{\underop}{\preouopspace\underline{\triangleright}\postouopspace}
+
 
 
 % --------------------------- Algorithms --------------------------- %
