@@ -5,9 +5,7 @@
 % ================================================================== %
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{knotmoves}[2018/10/23 v0.01 math macro package]
-%% Just to be extra clear: called fkmath because those are my
-%% initials. Not an explitive.
+\ProvidesPackage{knotmoves}[2019/11/06 v0.02 knot macro package]
 
 
 
@@ -16,7 +14,30 @@
 %                              Packages                              %
 %                                                                    %
 % ================================================================== %
+
+% For drawing the loops
 \RequirePackage{tikz}
+
+%% Define the hiragana commands
+% See https://tex.stackexchange.com/questions/171611/how-to-write-a-single-hiragana-character-in-latex
+%
+% This one is ``planar isotopy'' --- (rdz == ``reid zero''): つ (tsu)
+\newcommand{\rdz}{\text{\usefont{U}{min}{m}{n}\symbol{'044}}}
+
+% Reidemeister I --- (rdo == ``reid one''): の (no)
+\newcommand{\rdo}{\text{\usefont{U}{min}{m}{n}\symbol{'056}}}
+
+% Reidemeister II --- (rdt == ``reid two''): ゆ (yu)
+\newcommand{\rdt}{\text{\usefont{U}{min}{m}{n}\symbol{'106}}}
+
+% Reidemeister III --- (rdr == ``reid thRee''): め (me)
+\newcommand{\rdr}{\text{\usefont{U}{min}{m}{n}\symbol{'101}}}
+
+
+\DeclareFontFamily{U}{min}{}
+\DeclareFontShape{U}{min}{m}{n}{<-> dmjhira}{}
+
+
 \makeatletter
 \tikzset{use path/.code=\tikz@addmode{\pgfsyssoftpath@setcurrentpath#1}}
 \makeatother
@@ -25,6 +46,28 @@
     insert path={+ (#1:#3) arc (#1:#2:#3)}
   }
 }
+
+\newcommand{\rzero}{
+  \scalerel*{
+    \tikz{
+      \def\defHalfReidZ{
+        \coordinate (p1) at (0,1);
+        \coordinate (p2) at (.5,0);
+        \path[save path=\HalfR] (p1) to[out=270, in=90, looseness=1.4] (p2);
+      }
+      \begin{scope}
+        \defHalfReidZ%
+        \draw[use path=\HalfR];%
+        \begin{scope}[yscale=-1, xscale=1]%
+          \defHalfReidZ%
+          \draw[use path=\HalfR];%
+        \end{scope}%
+        \draw[dotted] (0,0) circle (1);%
+      \end{scope}
+    }
+  }{\scaleobj{2.5}{\sum}}
+}
+
 \newcommand{\reidIof}[1]{
   \scalerel*{
     \tikz{%
@@ -63,7 +106,7 @@
 {\scaleobj{2.5}{\sum}}}
 
 \newcommand{\ri}{\reidIof{%
-  \begin{scope}%
+  \begin{scope}[xscale=-1]%
     \defHalfReidI%
     \draw[use path=\HalfR];%
 %
@@ -242,10 +285,10 @@
       \def\theNextCCol{teal}
       \def\defSideReidIII{
         \def\myPointOpacity{0}
-        \coordinate (p1) at (-3, 5);
+        \coordinate (p1) at (-3, 5.1);
         \coordinate (p2) at (-1, 2);
         \coordinate (p3) at (1, 1);
-        \coordinate (p4) at (3,-5);
+        \coordinate (p4) at (3,-5.1);
         % Controls for point 1
         \coordinate (c1a) at (-3, 3);
         \coordinate (c1b) at (-2, 2.1);
@@ -268,7 +311,7 @@
       }
       \def\defMidReidIII{
         \def\myPointOpacity{0}
-        \coordinate (p1) at (0, 5);
+        \coordinate (p1) at (0, 6);
         \coordinate (p2) at (-1.5, 2);
         \coordinate (p3) at (-2.85, 0);
         % Controls for point 1
@@ -310,6 +353,26 @@
       \draw[use path=\SideRIII];
     \end{scope}
 }}
+
+% Other reid III
+\newcommand{\riiio}{\reidIIIof{
+    \begin{scope}[xscale=-1, yscale=-1]
+      \defSideReidIII
+      \draw[use path=\SideRIII];
+      \defMidReidIII
+      \draw[white, line width=\gap, use path=\MidRIII];
+      \draw[use path=\MidRIII];
+      \begin{scope}[xscale=1, yscale=-1]
+        \defMidReidIII
+        \draw[white, line width=\gap, use path=\MidRIII];
+        \draw[use path=\MidRIII];
+        \defSideReidIII
+        \draw[white, line width=\gap, use path=\SideRIII];
+        \draw[use path=\SideRIII];
+      \end{scope}
+    \end{scope}
+}}
+
 
 \newcommand{\riiia}{\reidIIIof{
     \defSideReidIII
