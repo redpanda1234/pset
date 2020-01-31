@@ -24,7 +24,7 @@
 % ================================================================== %
 
 % Sensible margins
-\RequirePackage[margin=1in, tmargin=1.25in]{geometry}
+\RequirePackage[margin=1in]{geometry}
 
 % Better fonts
 \RequirePackage{lmodern}

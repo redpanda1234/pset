@@ -96,6 +96,9 @@
 \DeclareMathOperator{\arccsch}{arccsch}
 \DeclareMathOperator{\arccoth}{arccoth}
 
+% Sinc
+\DeclareMathOperator{\sinc}{sinc}
+
 % Error function
 \DeclareMathOperator\erf{erf}
 
@@ -116,22 +119,6 @@
 % Use Re and Im for real and imaginary, instead of mathfrak
 \renewcommand{\Re}{\operatorname{Re}}
 \renewcommand{\Im}{\operatorname{Im}}
-
-% Partial differential
-\newcommand{\pdd}{\mathop{}\,\partial}
-
-% Total differential
-% \newcommand{\dd}{\mathop{}\,\mrm{d}}
-\newcommand{\dd}{\mathop{}\mspace{1mu} d}
-
-% Define partial derivative and ordinary derivative things
-\newcommand{\pd}[3][]{\frac{\partial^{#1}\hspace{-.08em} {#2}}{\partial {#3}^{#1}}}
-% \newcommand{\od}[3][]{\frac{\mrm{d}^{#1}\hspace{-.08em} {#2}}{\mrm{d} {#3}^{#1}}}
-\newcommand{\od}[3][]{\frac{\!\dd^{#1} {#2}}{\!\dd {#3}^{#1}}}
-
-% Make an infinite sum (saves time when doing lots of method of
-% frobenius and stuff)
-\newcommand{\series}[1][0]{\sum_{n=#1}^{\infty}}
 
 % Multichoose command.
 % Found at https://tex.stackexchange.com/a/350287
@@ -196,6 +183,29 @@
   }
 }
 % \makeatother
+
+% ------------------------------- DEs ------------------------------ %
+
+% Partial differential
+\newcommand{\pdd}{\mathop{}\,\partial}
+
+% Total differential
+\newcommand{\dd}{\mathop{}\mspace{1mu} d}
+
+% Define partial derivative and ordinary derivative things
+\newcommand{\pd}[3][]{\frac{\partial^{#1}\hspace{-.08em} {#2}}{\partial {#3}^{#1}}}
+% \newcommand{\od}[3][]{\frac{\mrm{d}^{#1}\hspace{-.08em} {#2}}{\mrm{d} {#3}^{#1}}}
+\newcommand{\od}[3][]{\frac{\!\dd^{#1} {#2}}{\!\dd {#3}^{#1}}}
+
+% Make an infinite sum (saves time when doing lots of method of
+% frobenius and stuff)
+\newcommand{\series}[1][0]{\sum_{n=#1}^{\infty}}
+
+% Fourier transform
+\newcommand{\FT}[2][]{\ms F_{#1}\set{#2}}
+
+% Inverse fourier transform
+\newcommand{\FTi}[2][]{\ms F^{-1}_{#1}\set{#2}}
 
 
 % ----------------------------- Linalg ----------------------------- %
@@ -267,6 +277,7 @@
 \newcommand{\incto}{\nearrow}
 \newcommand{\decto}{\searrow}
 
+\DeclareMathOperator{\supp}{supp}
 
 % ----------------------------- Algebra ---------------------------- %
 
