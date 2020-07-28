@@ -88,6 +88,9 @@
 % For more bearable referencing
 \RequirePackage{fancyref}
 
+% Use smarter referencing and stuff
+\RequirePackage[capitalise]{cleveref}
+
 % Boxed problem statements
 \RequirePackage{boxedminipage}
 
@@ -119,12 +122,17 @@
 
 % Problem environment
 \newenvironment{problem}[1][Problem \thesection]
-{\noindent\begin{center}\begin{boxedminipage}{.95\linewidth}\textbf{#1.}}
+{\noindent\begin{center}\begin{boxedminipage}{.95\linewidth}\textbf{#1}\setlength{\parindent}{1.5em}}
 {\end{boxedminipage}\end{center}}
 
+\renewcommand{\qed}{\hfill $\blacksquare$}
+% \newenvironment{solution}[1][Solution.]
+% {\noindent\begin{center}\begin{adjustwidth}{.05\linewidth}{.05\linewidth}\emph{#1}\ \pushQED }
+% {\popQED\end{adjustwidth}\end{center}}
 \newenvironment{solution}[1][Solution.]
 {\noindent\begin{center}\begin{adjustwidth}{.05\linewidth}{.05\linewidth}\emph{#1}\ }
 {\qed\end{adjustwidth}\end{center}}
+
 
 \theoremstyle{plain}% default
 \newtheorem{theorem}{Theorem}

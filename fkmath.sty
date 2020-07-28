@@ -52,6 +52,11 @@
 % FIXME: this is redundant with the stuff in my class files
 \RequirePackage{tikz}
 
+% For use in defining the `repeat` command
+\RequirePackage{expl3}
+
+% Exclusively for 囧 as contradiction symbol
+\RequirePackage{CJKutf8}
 
 
 % ================================================================== %
@@ -75,8 +80,56 @@
 % Avoid exiting math mode for such that
 \newcommand{\st}{\mrm{\ s.t.\ }}
 
-% The default mod command doesn't have great spacing
-% \renewcommand{\mod}[1]{\ \mrm{mod}\ #1}
+% Useful shortcut commands for common fields
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\NN}{\mathbb{N}}
+
+
+% ------------------------- Spacing Things ------------------------- %
+
+% No, not the world's worst programming language. For making a phantom
+% + in the align environment.
+\newcommand{\php}{\phantom{+}}
+
+% For making a phantom eq sign in align
+\newcommand{\pheq}{\phantom{=}\,}
+
+% Make a repeat command so we can define the nquad command (requires
+% expl3 package)
+\ExplSyntaxOn
+\cs_new_eq:NN \Repeat \prg_replicate:nn
+\ExplSyntaxOff
+
+% Do a quad n times
+\newcommand{\nquad}[1]{\Repeat{#1}{\quad}}
+
+% Spicy environment for aligning things in substack. See
+% https://tex.stackexchange.com/questions/198771/align-in-substack
+% \makeatletter
+\newcommand{\subalign}[1]{%
+  \vcenter{%
+    \Let@ \restore@math@cr \default@tag
+    \baselineskip\fontdimen10 \scriptfont\tw@
+    \advance\baselineskip\fontdimen12 \scriptfont\tw@
+    \lineskip\thr@@\fontdimen8 \scriptfont\thr@@
+    \lineskiplimit\lineskip
+    \ialign{\hfil$\m@th\scriptstyle##$&$\m@th\scriptstyle{}##$\crcr
+      #1\crcr
+    }%
+  }
+}
+% \makeatother
+
+% Centered vdots in align-like environments
+% \newcommand{\cvdots}{\mathrel{\makebox[\widthof{=}]{\vdots}}}
+\newcommand{\cvdots}{\setbox0\hbox{=}\mathrel{\makebox[\wd0]{\hfil\vdots\hfil}}}
+
+
+% ------------------------ Common Functions ------------------------ %
 
 %% Some missing commands for trig / hyperbolic trig
 % Spicy inverse trig ops
@@ -105,13 +158,6 @@
 % Define lcm command
 \DeclareMathOperator{\lcm}{lcm}
 
-% Useful shortcut commands for common fields
-\newcommand{\FF}{\mathbb{F}}
-\newcommand{\CC}{\mathbb{C}}
-\newcommand{\RR}{\mathbb{R}}
-\newcommand{\QQ}{\mathbb{Q}}
-\newcommand{\ZZ}{\mathbb{Z}}
-\newcommand{\NN}{\mathbb{N}}
 
 % Defeq
 \newcommand{\defeq}{\overset{\text{\tiny def}}{=}}
@@ -133,9 +179,7 @@
 % Overline, more tersely. For things like complements, closures, etc.
 \newcommand{\ol}[1]{\overline{#1}}
 
-% Centered vdots in align-like environments
-% \newcommand{\cvdots}{\mathrel{\makebox[\widthof{=}]{\vdots}}}
-\newcommand{\cvdots}{\setbox0\hbox{=}\mathrel{\makebox[\wd0]{\hfil\vdots\hfil}}}
+% ----------------------------- Maps ------------------------------ %
 
 % Into and onto arrows
 \newcommand{\into}{\hookrightarrow}
@@ -160,29 +204,17 @@
 \DeclareMathOperator{\im}{im}
 \DeclareMathOperator{\pre}{pre}
 
-% No, not the world's worst programming language. For making a phantom
-% + in the align environment.
-\newcommand{\php}{\phantom{+}}
 
-% For making a phantom eq sign in align
-\newcommand{\pheq}{\phantom{=}\,}
+% ----------------------- Continued fraction ----------------------- %
 
-% Spicy environment for aligning things in substack. See
-% https://tex.stackexchange.com/questions/198771/align-in-substack
-% \makeatletter
-\newcommand{\subalign}[1]{%
-  \vcenter{%
-    \Let@ \restore@math@cr \default@tag
-    \baselineskip\fontdimen10 \scriptfont\tw@
-    \advance\baselineskip\fontdimen12 \scriptfont\tw@
-    \lineskip\thr@@\fontdimen8 \scriptfont\thr@@
-    \lineskiplimit\lineskip
-    \ialign{\hfil$\m@th\scriptstyle##$&$\m@th\scriptstyle{}##$\crcr
-      #1\crcr
-    }%
-  }
-}
-% \makeatother
+% `Continued fraction'
+\DeclareMathOperator*{\cf}{\scalerel*{\includegraphics{custom-symbols/cfrac.pdf}}{\sum}}
+
+% `Centered cf'
+\DeclareMathOperator*{\cfc}{\scalerel*{\includegraphics{custom-symbols/cfrac-centered.pdf}}{\sum}}
+
+% `Continued fraction term'.
+\newcommand{\cfterm}[2]{\frac{{#1}}{{#2} + \textvisiblespace}}
 
 % ------------------------------- DEs ------------------------------ %
 
@@ -194,7 +226,6 @@
 
 % Define partial derivative and ordinary derivative things
 \newcommand{\pd}[3][]{\frac{\partial^{#1}\hspace{-.08em} {#2}}{\partial {#3}^{#1}}}
-% \newcommand{\od}[3][]{\frac{\mrm{d}^{#1}\hspace{-.08em} {#2}}{\mrm{d} {#3}^{#1}}}
 \newcommand{\od}[3][]{\frac{\!\dd^{#1} {#2}}{\!\dd {#3}^{#1}}}
 
 % Make an infinite sum (saves time when doing lots of method of
@@ -272,6 +303,9 @@
     {\mkern7mu\overline{\vphantom{\intop}\mkern7mu}\mkern-14mu}%
   \int}
 \def\lowint{\mkern3mu\underline{\vphantom{\intop}\mkern7mu}\mkern-10mu\int}
+
+% Uniform convergence
+\newcommand{\uconv}{\xrightarrow{u}}
 
 % Sequences that increase to a value
 \newcommand{\incto}{\nearrow}
@@ -454,12 +488,12 @@
 % For typesetting algorithms
 \RequirePackage[ruled, vlined]{algorithm2e}
 
-
 % ---------------------- Statements and Proofs --------------------- %
 
 % Put the qed box all the way to the right
+\renewcommand{\qedsymbol}{\ensuremath{\blacksquare}}
 \let\oldqed\qed
-\renewcommand{\qed}{\hfill $\blacksquare$}
+% \renewcommand{\qed}{\hfill $\blacksquare$}
 
 % For confirming or denying various statements (useful when you're
 % doing casework in a proof and want to have some visual separator)
@@ -468,6 +502,10 @@
 
 % Ez contradiction
 \newcommand{\contra}{{(\Rightarrow\Leftarrow)}}
+
+% Alt. Contradiction symbol
+\newcommand\jiong{\text{\begin{CJK*}{UTF8}{bsmi}囧\end {CJK*}}}
+
 
 % The indentation for customized iff labels really grinds my gears.
 % Hence, a new environment to make everything right in the world
@@ -615,4 +653,7 @@
 % delimiter command, the vertical bar will resize appropriately
 % Example:
 %   \set{ x \in W \MID x > 0 }
-\newcommand{\MID}{\;\mdelim\vert\;}
+%
+% Have to use \mskip{5mu} instead of \; here because of conflicts
+% with the TIPA package
+\newcommand{\MID}{\mspace{5mu}\mdelim\vert\mspace{5mu}}
