@@ -104,3 +104,10 @@ indexing=false,
 defernumbers=true,
 citereset=section
 ]{biblatex}
+
+\newcommand{\myaddress}[1]{\def\address{#1}}
+\newcommand{\email}[1]{\href{mailto:#1}{#1}}
+\newcommand{\phone}[1]{\def\phone{{Cell:} {#1}}}
+\newcommand{\myemail}[1]{\def\myemail{{Email:} \email{#1}}}
+\newcommand{\github}[1]{\def\github{{Github:} \href{https://github.com/#1}{#1}}}
+\newcommand{\website}[1]{\def\website{\href{#1}{#1}}}
