@@ -88,6 +88,9 @@
 % For more bearable referencing
 \RequirePackage{fancyref}
 
+% For referencing things with links
+\RequirePackage[colorlinks=true]{hyperref}
+
 % Use smarter referencing and stuff
 \RequirePackage[capitalise]{cleveref}
 
@@ -121,7 +124,7 @@
 \RequirePackage[alsoload=astro, alsoload=hep]{siunitx}
 
 % Problem environment
-\newenvironment{problem}[1][Problem \thesection]
+\newenvironment{problem}[1][Problem \thesection.\ ]
 {\noindent\begin{center}\begin{boxedminipage}{.95\linewidth}\textbf{#1}\setlength{\parindent}{1.5em}}
 {\end{boxedminipage}\end{center}}
 
@@ -267,6 +270,9 @@
   \setcounter{errorcontextlines}{999}
 }
 
+% Start indexing of problem numbers at 1
+\stepcounter{section}
+
 \DeclareOption{algs}{
   \geometry{paperwidth=10.5in, paperheight=11in, lmargin=2in, rmargin=2in}
 
@@ -275,7 +281,7 @@
 
   \renewcommand{\rblock}{}%
 
-  \renewenvironment{problem}[1][Problem \thesection]
+  \renewenvironment{problem}[1][Problem \thesection.\ ]
   {\section*{#1}}
   {
 

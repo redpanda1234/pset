@@ -1,0 +1,14 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\begin{document}
+\begin{tikzpicture}[xscale=.4]
+  \pgfmathsetmacro{\nmax}{5}
+  \pgfmathsetmacro{\oneup}{\nmax+1}
+  \foreach \n in {1,2,...,\nmax}{
+    \pgfmathsetmacro{\x}{\n/\oneup}
+    \pgfmathsetmacro{\xend}{2-\x}
+    \pgfmathsetmacro{\y}{1-\n/\oneup}
+    \draw[line width=.8pt] (\x, \y) -- (\xend, \y);
+  }
+\end{tikzpicture}
+\end{document}
