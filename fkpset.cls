@@ -119,10 +119,6 @@
   \fi%
 }
 
-% For units
-% FIXME: Is this really something I use often still?
-\RequirePackage[alsoload=astro, alsoload=hep]{siunitx}
-
 % Problem environment
 \newenvironment{problem}[1][Problem \thesection.\ ]
 {\noindent\begin{center}\begin{boxedminipage}{.95\linewidth}\textbf{#1}\setlength{\parindent}{1.5em}}
