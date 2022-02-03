@@ -121,7 +121,7 @@
 
 % For units
 % FIXME: Is this really something I use often still?
-\RequirePackage[alsoload=astro, alsoload=hep]{siunitx}
+\RequirePackage{siunitx}
 
 % Problem environment
 \newenvironment{problem}[1][Problem \thesection.\ ]

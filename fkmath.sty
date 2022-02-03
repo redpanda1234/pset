@@ -34,7 +34,7 @@
 \RequirePackage{bm}
 
 % For leftbar environment (useful in proving lemmas, etc)
-\RequirePackage{mdframed}
+\RequirePackage[framemethod=tikz]{mdframed}
 
 % For nice cdots / vdots / ddots in matrices
 \RequirePackage{nicematrix}
@@ -487,6 +487,16 @@
 
 % For typesetting algorithms
 \RequirePackage[ruled, vlined]{algorithm2e}
+
+% ---------------------- Differential Geometry --------------------- %
+
+% `space indices' --> in Einstein notation some people like to
+% visually separate the row / column indices for matrices. This does
+% that, I guess
+\newcommand\spinds[3]{\ensuremath{{{#1}^{#2}}_{#3}}}
+
+
+
 
 % ---------------------- Statements and Proofs --------------------- %
 

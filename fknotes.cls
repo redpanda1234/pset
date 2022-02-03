@@ -47,7 +47,6 @@
 % Adjustable margins as needed
 \RequirePackage{changepage}
 
-
 % ------------------------------ Math ------------------------------ %
 
 % My math macros
@@ -161,42 +160,42 @@
     {}  % Theorem head spec (can be left empty, meaning ‘normal’)
 
 \theoremstyle{lightdefinition}
-\newtheorem{factx}{Fact}[chapter]
-\newtheorem{definitionx}{Definition}[chapter]
-\newtheorem{commondefx}{Common Definition}
-\newtheorem{questionx}{Question}
-\newtheorem{problemx}{Problem}[chapter]
-\newtheorem{examplex}{Example}[chapter]
-\newtheorem{counterexamplex}[examplex]{Counterexample}
-\newtheorem{attemptx}{Attempt}
+\newtheorem{fact}{Fact}[chapter]
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{commondef}{Common Definition}
+\newtheorem{question}{Question}
+\newtheorem{problem}{Problem}[chapter]
+\newtheorem{example}{Example}[chapter]
+\newtheorem{counterexample}[example]{Counterexample}
+\newtheorem{attempt}{Attempt}
 
 
 
 
-\newenvironment{definition}
-{\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\lozenge$}\definitionx}
-{\popQED\enddefinitionx}
-\newenvironment{commondef}
-{\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\lozenge$}\commondefx}
-{\popQED\endcommondefx}
-\newenvironment{fact}
-{\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\lozenge$}\factx}
-{\popQED\endfactx}
-\newenvironment{question}
-{\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\lozenge$}\questionx}
-{\popQED\endquestionx}
-\newenvironment{problem}
-{\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\lozenge$}\problemx}
-{\popQED\endproblemx}
-\newenvironment{example}
-{\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\lozenge$}\examplex}
-{\popQED\endexamplex}
-\newenvironment{counterexample}
-{\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\jiong$}\counterexamplex}
-{\popQED\endcounterexamplex}
-\newenvironment{attempt}
-{\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\lozenge$}\attemptx}
-{\popQED\endattemptx}
+% \newenvironment{definition}
+% {\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\lozenge$}\definitionx}
+% {\popQED\enddefinitionx}
+% \newenvironment{commondef}
+% {\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\lozenge$}\commondefx}
+% {\popQED\endcommondefx}
+% \newenvironment{fact}
+% {\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\lozenge$}\factx}
+% {\popQED\endfactx}
+% \newenvironment{question}
+% {\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\lozenge$}\questionx}
+% {\popQED\endquestionx}
+% \newenvironment{problem}
+% {\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\lozenge$}\problemx}
+% {\popQED\endproblemx}
+% \newenvironment{example}
+% {\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\lozenge$}\examplex}
+% {\popQED\endexamplex}
+% \newenvironment{counterexample}
+% {\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\jiong$}\counterexamplex}
+% {\popQED\endcounterexamplex}
+% \newenvironment{attempt}
+% {\pushQED{\oldqed}\renewcommand{\qedsymbol}{$\lozenge$}\attemptx}
+% {\popQED\endattemptx}
 
 \newtheorem*{aside}{Aside}
 \newtheorem*{claim}{Claim}
