@@ -61,9 +61,22 @@
 
 % ================================================================== %
 %                                                                    %
-%                             Math Macros!                           %
+%                                Macros!                             %
 %                                                                    %
 % ================================================================== %
+
+% ------------------------ Misc. utilities ------------------------- %
+
+% Check if command exists
+\newcommand{\checkfor}[1]{%
+  \ifcsname#1\endcsname%
+    Command \texttt{\textbackslash#1} is defined already. Choose
+    another macro!
+  \else%
+    Command \texttt{\textbackslash#1} is not defined yet. Go ahead!
+  \fi%
+}
+
 
 
 % ----------------------- General Math Stuff ----------------------- %
@@ -311,7 +324,12 @@
 \newcommand{\incto}{\nearrow}
 \newcommand{\decto}{\searrow}
 
+% Support
 \DeclareMathOperator{\supp}{supp}
+
+% Essential supremum / infimum
+\DeclareMathOperator*{\esssup}{ess\,sup}
+\DeclareMathOperator*{\essinf}{ess\,inf}
 
 % ----------------------------- Algebra ---------------------------- %
 
@@ -453,10 +471,14 @@
 % ----------------------- Probabilistic stuff ---------------------- %
 
 % Expected value
-\newcommand{\EE}{ \mathbb{E}}
+\newcommand{\EE}{\mathbb{E}}
+
+% Conditional Expected Value
+% Is this a reasonable name to use? `\ce'?
+\newcommand{\ce}[2]{\EE\bk{#1 \MID #2}}
 
 % Probability
-\newcommand{\PP}{ \mathbb{P}}
+\newcommand{\PP}{\mathbb{P}}
 
 % Variance
 \newcommand{\Var}{\operatorname{Var}}
@@ -468,6 +490,7 @@
 \newcommand{\Bin}{\operatorname{Bin}}
 \newcommand{\Poi}{\operatorname{Poi}}
 
+% Standard deviation?
 \newcommand{\SD}{\operatorname{SD}}
 
 
