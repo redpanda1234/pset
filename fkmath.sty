@@ -473,10 +473,6 @@
 % Expected value
 \newcommand{\EE}{\mathbb{E}}
 
-% Conditional Expected Value
-% Is this a reasonable name to use? `\ce'?
-\newcommand{\ce}[3][]{\EE\bk[#1]{#2 \MID #3}}
-
 % Probability
 \newcommand{\PP}{\mathbb{P}}
 
@@ -492,6 +488,12 @@
 
 % Standard deviation?
 \newcommand{\SD}{\operatorname{SD}}
+
+% Conditional Expected Value
+% Is this a reasonable name to use? `\ce'?
+\newcommand{\ce}[3][]{\EE\bk[#1]{#2 \MID #3}}
+\newcommand{\cvar}[3][]{\Var\bk[#1]{#2 \MID #3}}
+
 
 
 % --------------------------- Knot Theory -------------------------- %
