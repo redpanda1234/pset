@@ -101,6 +101,9 @@
 \newcommand{\ZZ}{\mathbb{Z}}
 \newcommand{\NN}{\mathbb{N}}
 
+% Widetilde shortcut. Need the prepended `{}' because of this issue
+% here: https://tex.stackexchange.com/q/470175
+\newcommand{\wt}[1]{{}\widetilde{#1}}
 
 % ------------------------- Spacing Things ------------------------- %
 
@@ -524,7 +527,10 @@
 % that, I guess
 \newcommand\spinds[3]{\ensuremath{{{#1}^{#2}}_{#3}}}
 
-\DeclareMathOperator{\Vol}{\mathrm{Vol}}
+% OK now we need one for transposes I guess
+\newcommand\tspinds[3]{\ensuremath{{{#1}_{#2}}^{#3}}}
+
+\newcommand{\Vol}{\mathrm{Vol}}
 
 
 % ---------------------- Statements and Proofs --------------------- %
