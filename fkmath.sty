@@ -58,6 +58,8 @@
 % Exclusively for 囧 as contradiction symbol
 \RequirePackage{CJKutf8}
 
+% For spacing of indices when using Einstein notation.
+\RequirePackage{tensor}
 
 % ================================================================== %
 %                                                                    %
@@ -101,8 +103,8 @@
 \newcommand{\ZZ}{\mathbb{Z}}
 \newcommand{\NN}{\mathbb{N}}
 
-% Widetilde or something. Need the prepended `{}' to avoid a double
-% subscript error
+% Widetilde shortcut. Need the prepended `{}' because of this issue
+% here: https://tex.stackexchange.com/q/470175
 \newcommand{\wt}[1]{{}\widetilde{#1}}
 
 % ------------------------- Spacing Things ------------------------- %
@@ -309,6 +311,8 @@
 \newcommand*{\cC}{\mc C}
 
 % ---------------------------- Analysis ---------------------------- %
+
+\newcommand{\ve}{\varepsilon}
 
 % Symbols for upper and lower sums (integral with line on top /
 % bottom), found here:
@@ -526,10 +530,22 @@
 % `space indices' --> in Einstein notation some people like to
 % visually separate the row / column indices for matrices. This does
 % that, I guess
-\newcommand\spinds[3]{\ensuremath{{{#1}^{#2}}_{#3}}}
+\newcommand\spinds[3]{#1\indices{^{#2}_{#3}}}
+% upper lower
+\newcommand\ulinds[3]{#1\indices{^{#2}_{#3}}}
 
-\newcommand\tspinds[3]{\ensuremath{{{#1}_{#2}}^{#3}}}
 
+% OK now we need one for transposes I guess
+\newcommand\tspinds[3]{#1\indices{_{#2}^{#3}}}
+% lower upper
+\newcommand\luinds[3]{#1\indices{_{#2}^{#3}}}
+
+% upper lower upper
+\newcommand\uluinds[4]{#1\indices{^{#2}_{#3}^{#4}}}
+% lower upper lower
+\newcommand\lulinds[4]{#1\indices{_{#2}^{#3}_{#4}}}
+
+% Volume
 \newcommand{\Vol}{\mathrm{Vol}}
 
 
