@@ -113,15 +113,20 @@
 % FIXME: Is this really something I use often still?
 \RequirePackage{siunitx}
 
-% Problem environment
-\newenvironment{problem}[1][Problem \thesection.\ ]
-{\noindent\begin{center}\begin{boxedminipage}{.95\linewidth}\textbf{#1}\setlength{\parindent}{1.5em}}
-{\end{boxedminipage}\end{center}}
+% Problem environment. Relies on `mdframed' being imported in
+% `fkmath'.
+\theoremstyle{definition}
+\newmdtheoremenv[%
+outerlinewidth = .025,
+leftmargin = .025\linewidth,
+rightmargin = .025\linewidth,
+innerleftmargin = 3,
+innertopmargin = 3,
+splittopskip = \topskip,
+]{newproblem}{Problem}
+\newenvironment{problem}[1][]{\begin{newproblem}[{#1}]~}{\end{newproblem}}
 
 \renewcommand{\qed}{\hfill $\blacksquare$}
-% \newenvironment{solution}[1][Solution.]
-% {\noindent\begin{center}\begin{adjustwidth}{.05\linewidth}{.05\linewidth}\emph{#1}\ \pushQED }
-% {\popQED\end{adjustwidth}\end{center}}
 \newenvironment{solution}[1][Solution.]
 {\noindent\begin{center}\begin{adjustwidth}{.05\linewidth}{.05\linewidth}\emph{#1}\ }
 {\qed\end{adjustwidth}\end{center}}
