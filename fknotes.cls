@@ -152,7 +152,7 @@
 \newtheoremstyle{lightdefinition}   % name
     {1em}                           % Space above
     {1em}                           % Space below
-    {\small\rmfamily}                     % Body font
+    {\rmfamily}                     % Body font
     {}                              % Indent amount
     {\bfseries}                     % Theorem head font
     {.}                             % Punctuation after theorem head

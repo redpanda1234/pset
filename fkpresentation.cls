@@ -113,7 +113,7 @@
 
 % TODO: make this into a callable, optional command that fills the
 % bottom of the presentation as needed to fit all the logos in.
-\logo{%
+\logo{
   \makebox[0.975\paperwidth]{%
     \includegraphics[width=1.5cm,keepaspectratio]{seal.png}%
     \hfill%

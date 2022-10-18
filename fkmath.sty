@@ -268,12 +268,16 @@
 % Projection onto something
 \newcommand{\proj}[3][]{{\opertorname{proj}_{#2}\pn[#1]{#3}}}
 
+% Rank
+\DeclareMathOperator{\rank}{rank}
+
 % Transpose
 \newcommand{\T}{\mathsf{T}}
 
 % trace
 \DeclareMathOperator{\tr}{tr}
 \DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\trace}{trace}
 
 % Boldfaced vectors
 
@@ -325,8 +329,18 @@
   \int}
 \def\lowint{\mkern3mu\underline{\vphantom{\intop}\mkern7mu}\mkern-10mu\int}
 
+% Diameter of a set
+\DeclareMathOperator*{\diam}{diam}
+
+% Distance (for when a standard metric notation might be confusing)
+\DeclareMathOperator*{\dist}{dist}
+
 % Uniform convergence
-\newcommand{\uconv}{\xrightarrow{u}}
+\newcommand{\uconv}{\xrightarrow{\ u\ }}
+
+% Weak convergence
+\newcommand{\wconv}{\xrightarrow{\ w\ }}
+\newcommand{\wto}{\xrightarrow{\ w\ }}
 
 % Sequences that increase to a value
 \newcommand{\incto}{\nearrow}
@@ -334,6 +348,11 @@
 
 % Support
 \DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\support}{support}
+
+% Essential supremum / infimum
+\DeclareMathOperator*{\essinf}{ess\ inf}
+\DeclareMathOperator*{\esssup}{ess\ sup}
 
 % Essential supremum / infimum
 \DeclareMathOperator*{\esssup}{ess\,sup}
@@ -362,8 +381,7 @@
 
 % General linear group
 \newcommand{\GL}{\mathrm{GL}}
-
-
+\DeclareMathOperator*{\Aut}{Aut}
 
 % ------------------ The Categorical Imperative ;) ----------------- %
 
@@ -605,6 +623,16 @@
 \AddEnumerateCounter{\seteqenum}{\@seteqenum}{$(\subseteq):$}
 \newenvironment{seteqproof}{%
   \begin{enumerate}[label=\seteqenum*, leftmargin=4em]%
+  }{\end{enumerate}}
+
+% Similarly, but for leq geq proofs
+\newcommand*{\lgeqenum}[1]{\expandafter\@lgeqenum\csname c@#1\endcsname}
+\newcommand*{\@lgeqenum}[1]{%
+  \ifcase#1\or {$(\leq):$}\or {$(\geq):$}\else\@ctrerr\fi
+}
+\AddEnumerateCounter{\lgeqenum}{\@lgeqenum}{$(\leq):$}
+\newenvironment{lgeqproof}{%
+  \begin{enumerate}[label=\lgeqenum*, leftmargin=4em]%
   }{\end{enumerate}}
 
 % Similarly, but for inductive proofs.
