@@ -30,6 +30,9 @@
 % For link customization
 % \RequirePackage{hyperref}
 
+% For defining an okina command
+\usepackage{newunicodechar,graphicx}
+
 % ================================================================== %
 %                                                                    %
 %                               Macros                               %
@@ -38,6 +41,14 @@
 
 
 % \newcommand{\ipa}[1]{[\textipa{#1}]}
+
+\DeclareRobustCommand{\okina}{%
+  \raisebox{\dimexpr\fontcharht\font`A-\height}{%
+    \scalebox{0.8}{`}%
+  }%
+}
+\newunicodechar{ʻ}{\okina}
+
 
 
 % ================================================================== %
@@ -155,3 +166,16 @@
   % texcsstyle=*\bf\color{blue},
   % otherkeywords={$, \{, \}, \[, \]},
 }
+
+\lstdefinelanguage{Julia}%
+  {morekeywords={abstract,break,case,catch,const,continue,do,else,elseif,%
+      end,export,false,for,function,immutable,import,importall,if,in,%
+      macro,module,otherwise,quote,return,switch,true,try,type,typealias,%
+      using,while},%
+   sensitive=true,%
+   alsoother={$},%
+   morecomment=[l]\#,%
+   morecomment=[n]{\#=}{=\#},%
+   morestring=[s]{"}{"},%
+   morestring=[m]{'}{'},%
+}[keywords,comments,strings]%

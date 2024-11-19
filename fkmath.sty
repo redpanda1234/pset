@@ -18,8 +18,8 @@
 % ================================================================== %
 
 % For most of the math symbols, and nice things like align
-% environment
-\RequirePackage{amsmath, amssymb, amsthm}
+% environment. Also, esoteric integrals.
+\RequirePackage{amsmath, amssymb, amsthm, esint}
 
 % For `\shortintertext{}` and other things.
 \RequirePackage{mathtools}
@@ -34,7 +34,7 @@
 \RequirePackage{bm}
 
 % For leftbar environment (useful in proving lemmas, etc)
-\RequirePackage{mdframed}
+\RequirePackage[framemethod=tikz]{mdframed}
 
 % For nice cdots / vdots / ddots in matrices
 \RequirePackage{nicematrix}
@@ -52,11 +52,35 @@
 % FIXME: this is redundant with the stuff in my class files
 \RequirePackage{tikz}
 
+% For use in defining the `repeat` command
+\RequirePackage{expl3}
+
+% Exclusively for 囧 as contradiction symbol
+\RequirePackage{CJKutf8}
+
+% For spacing of indices when using Einstein notation.
+\RequirePackage{tensor}
+
 % ================================================================== %
 %                                                                    %
-%                             Math Macros!                           %
+%                                Macros!                             %
 %                                                                    %
 % ================================================================== %
+
+% ------------------------ Misc. utilities ------------------------- %
+
+%%% I'm going to comment this out for now because it's causing build
+%%% for my website. And I don't think I really use it anyways.
+% % Check if command exists
+% \newcommand{\checkfor}[1]{%
+%   \ifcsname#1\endcsname%
+%     Command \texttt{\textbackslash#1} is defined already. Choose
+%     another macro!
+%   \else%
+%     Command \texttt{\textbackslash#1} is not defined yet. Go ahead!
+%   \fi%
+% }
+
 
 
 % ----------------------- General Math Stuff ----------------------- %
@@ -68,12 +92,68 @@
 \newcommand*{\mb}[1]{{\mathbf{#1}}}
 \newcommand*{\ms}[1]{{\mathscr{#1}}}
 \newcommand*{\msf}[1]{{\mathsf{#1}}}
+\newcommand*{\mf}[1]{{\mathfrak{#1}}}
 
 % Avoid exiting math mode for such that
 \newcommand{\st}{\mrm{\ s.t.\ }}
 
-% The default mod command doesn't have great spacing
-% \renewcommand{\mod}[1]{\ \mrm{mod}\ #1}
+% Useful shortcut commands for common fields
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\NN}{\mathbb{N}}
+
+% Widetilde shortcut. Need the prepended `{}' because of this issue
+% here: https://tex.stackexchange.com/q/470175
+\newcommand{\wt}[1]{{}\widetilde{#1}}
+
+% ------------------------- Spacing Things ------------------------- %
+
+% No, not the world's worst programming language. For making a phantom
+% + in the align environment.
+\newcommand{\php}{\phantom{+}}
+
+% For making a phantom eq sign in align
+\newcommand{\pheq}{\phantom{=}\,}
+
+% Make a repeat command so we can define the nquad command (requires
+% expl3 package)
+\ExplSyntaxOn
+\cs_new_eq:NN \Repeat \prg_replicate:nn
+\ExplSyntaxOff
+
+% Do a quad n times
+\newcommand{\nquad}[1]{\Repeat{#1}{\quad}}
+
+% Spicy environment for aligning things in substack. See
+% https://tex.stackexchange.com/questions/198771/align-in-substack
+% \makeatletter
+\newcommand{\subalign}[1]{%
+  \vcenter{%
+    \Let@ \restore@math@cr \default@tag
+    \baselineskip\fontdimen10 \scriptfont\tw@
+    \advance\baselineskip\fontdimen12 \scriptfont\tw@
+    \lineskip\thr@@\fontdimen8 \scriptfont\thr@@
+    \lineskiplimit\lineskip
+    \ialign{\hfil$\m@th\scriptstyle##$&$\m@th\scriptstyle{}##$\crcr
+      #1\crcr
+    }%
+  }
+}
+% \makeatother
+
+% Centered vdots in align-like environments
+% \newcommand{\cvdots}{\mathrel{\makebox[\widthof{=}]{\vdots}}}
+\newcommand{\cvdots}{\setbox0\hbox{=}\mathrel{\makebox[\wd0]{\hfil\vdots\hfil}}}
+
+% Put things under other things (e.g., subscripted equals sign)
+%
+% courtesy of this person: https://tex.stackexchange.com/a/228861/245305
+\newcommand\underrel[2]{\mathrel{\mathop{#2}\limits_{#1}}}
+
+% ------------------------ Common Functions ------------------------ %
 
 %% Some missing commands for trig / hyperbolic trig
 % Spicy inverse trig ops
@@ -93,16 +173,17 @@
 \DeclareMathOperator{\arccsch}{arccsch}
 \DeclareMathOperator{\arccoth}{arccoth}
 
+% Sinc
+\DeclareMathOperator{\sinc}{sinc}
+
+% Error function
+\DeclareMathOperator\erf{erf}
+
 % Define lcm command
 \DeclareMathOperator{\lcm}{lcm}
 
-% Useful shortcut commands for common fields
-\newcommand{\FF}{\mathbb{F}}
-\newcommand{\CC}{\mathbb{C}}
-\newcommand{\RR}{\mathbb{R}}
-\newcommand{\QQ}{\mathbb{Q}}
-\newcommand{\ZZ}{\mathbb{Z}}
-\newcommand{\NN}{\mathbb{N}}
+% Diameter of a set
+\DeclareMathOperator{\diam}{diam}
 
 % Defeq
 \newcommand{\defeq}{\overset{\text{\tiny def}}{=}}
@@ -111,36 +192,20 @@
 \renewcommand{\Re}{\operatorname{Re}}
 \renewcommand{\Im}{\operatorname{Im}}
 
-% Partial differential
-\newcommand{\pdd}{\mathop{}\,\partial}
-
-% Total differential
-\newcommand{\dd}{\mathop{}\,\mrm{d}}
-
-% Define partial derivative and ordinary derivative things
-\newcommand{\pd}[3][]{\frac{\partial^{#1}\hspace{-.08em} {#2}}{\partial {#3}^{#1}}}
-\newcommand{\od}[3][]{\frac{\mrm{d}^{#1}\hspace{-.08em} {#2}}{\mrm{d} {#3}^{#1}}}
-
-% Make an infinite sum (saves time when doing lots of method of
-% frobenius and stuff)
-\newcommand{\series}[1][0]{\sum_{n=#1}^{\infty}}
-
-% Multichoose environment.
+% Multichoose command.
 % Found at https://tex.stackexchange.com/a/350287
 \newcommand{\multichoose}[2]{
 \left.\mathchoice
-  {\left(\kern-0.48em\ch{#1}{#2}\kern-0.48em\right)}
-  {\big(\kern-0.30em\ch{\smash{#1}}{\smash{#2}}\kern-0.30em\big)}
-  {\left(\kern-0.30em\ch{\smash{#1}}{\smash{#2}}\kern-0.30em\right)}
-  {\left(\kern-0.30em\ch{\smash{#1}}{\smash{#2}}\kern-0.30em\right)}
+  {\left(\kern-0.48em\binom{#1}{#2}\kern-0.48em\right)}
+  {\big(\kern-0.30em\binom{\smash{#1}}{\smash{#2}}\kern-0.30em\big)}
+  {\left(\kern-0.30em\binom{\smash{#1}}{\smash{#2}}\kern-0.30em\right)}
+  {\left(\kern-0.30em\binom{\smash{#1}}{\smash{#2}}\kern-0.30em\right)}
 \right.}
 
 % Overline, more tersely. For things like complements, closures, etc.
 \newcommand{\ol}[1]{\overline{#1}}
 
-% Centered vdots in align-like environments
-% \newcommand{\cvdots}{\mathrel{\makebox[\widthof{=}]{\vdots}}}
-\newcommand{\cvdots}{\setbox0\hbox{=}\mathrel{\makebox[\wd0]{\hfil\vdots\hfil}}}
+% ----------------------------- Maps ------------------------------ %
 
 % Into and onto arrows
 \newcommand{\into}{\hookrightarrow}
@@ -165,29 +230,39 @@
 \DeclareMathOperator{\im}{im}
 \DeclareMathOperator{\pre}{pre}
 
-% No, not the world's worst programming language. For making a phantom
-% + in the align environment.
-\newcommand{\php}{\phantom{+}}
 
-% For making a phantom eq sign in align
-\newcommand{\pheq}{\phantom{=}\,}
+% ----------------------- Continued fraction ----------------------- %
 
-% Spicy environment for aligning things in substack. See
-% https://tex.stackexchange.com/questions/198771/align-in-substack
-% \makeatletter
-\newcommand{\subalign}[1]{%
-  \vcenter{%
-    \Let@ \restore@math@cr \default@tag
-    \baselineskip\fontdimen10 \scriptfont\tw@
-    \advance\baselineskip\fontdimen12 \scriptfont\tw@
-    \lineskip\thr@@\fontdimen8 \scriptfont\thr@@
-    \lineskiplimit\lineskip
-    \ialign{\hfil$\m@th\scriptstyle##$&$\m@th\scriptstyle{}##$\crcr
-      #1\crcr
-    }%
-  }
-}
-% \makeatother
+% `Continued fraction'
+\DeclareMathOperator*{\cf}{\scalerel*{\includegraphics{custom-symbols/cfrac.pdf}}{\sum}}
+
+% `Centered cf'
+\DeclareMathOperator*{\cfc}{\scalerel*{\includegraphics{custom-symbols/cfrac-centered.pdf}}{\sum}}
+
+% `Continued fraction term'.
+\newcommand{\cfterm}[2]{\frac{{#1}}{{#2} + \textvisiblespace}}
+
+% ------------------------------- DEs ------------------------------ %
+
+% Partial differential
+\newcommand{\pdd}{\mathop{}\,\partial}
+
+% Total differential
+\newcommand{\dd}{\mathop{}\mspace{1mu} d}
+
+% Define partial derivative and ordinary derivative things
+\newcommand{\pd}[3][]{\frac{\partial^{#1}\hspace{-.08em} {#2}}{\partial {#3}^{#1}}}
+\newcommand{\od}[3][]{\frac{\!\dd^{#1} {#2}}{\!\dd {#3}^{#1}}}
+
+% Make an infinite sum (saves time when doing lots of method of
+% frobenius and stuff)
+\newcommand{\series}[1][0]{\sum_{n=#1}^{\infty}}
+
+% Fourier transform
+\newcommand{\FT}[2][]{\ms F_{#1}\set{#2}}
+
+% Inverse fourier transform
+\newcommand{\FTi}[2][]{\ms F^{-1}_{#1}\set{#2}}
 
 
 % ----------------------------- Linalg ----------------------------- %
@@ -201,11 +276,16 @@
 % Projection onto something
 \newcommand{\proj}[3][]{{\opertorname{proj}_{#2}\pn[#1]{#3}}}
 
+% Rank
+\DeclareMathOperator{\rank}{rank}
+
 % Transpose
 \newcommand{\T}{\mathsf{T}}
 
 % trace
 \DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\trace}{trace}
 
 % Boldfaced vectors
 
@@ -244,6 +324,8 @@
 
 % ---------------------------- Analysis ---------------------------- %
 
+\newcommand{\ve}{\varepsilon}
+
 % Symbols for upper and lower sums (integral with line on top /
 % bottom), found here:
 % https://tex.stackexchange.com/questions/44237/lower-and-upper-riemann-integrals/388566
@@ -255,6 +337,27 @@
   \int}
 \def\lowint{\mkern3mu\underline{\vphantom{\intop}\mkern7mu}\mkern-10mu\int}
 
+% Distance (for when a standard metric notation might be confusing)
+\DeclareMathOperator*{\dist}{dist}
+
+% Uniform convergence
+\newcommand{\uconv}{\xrightarrow{\ u\ }}
+
+% Weak convergence
+\newcommand{\wconv}{\xrightarrow{\ w\ }}
+\newcommand{\wto}{\xrightarrow{\ w\ }}
+
+% Sequences that increase to a value
+\newcommand{\incto}{\nearrow}
+\newcommand{\decto}{\searrow}
+
+% Support
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\support}{support}
+
+% Essential supremum / infimum
+\DeclareMathOperator*{\essinf}{ess\ inf}
+\DeclareMathOperator*{\esssup}{ess\ sup}
 
 % ----------------------------- Algebra ---------------------------- %
 
@@ -277,6 +380,9 @@
 \newcommand{\zpmod}[1]{\group{\ZZ}} % Now with plus
 \newcommand{\zmmod}[1]{(\uzmod{#1}, \cdot)} % Now with times
 
+% General linear group
+\newcommand{\GL}{\mathrm{GL}}
+\DeclareMathOperator*{\Aut}{Aut}
 
 % ------------------ The Categorical Imperative ;) ----------------- %
 
@@ -294,6 +400,8 @@
 \newcommand{\homm}{\operatorname{hom}}
 \newcommand{\op}{^\operatorname{op}}
 
+% Iterated composition
+\DeclareMathOperator*{\comp}{\scalerel*{\tikz{\draw[line width=.1em] circle(1em);}}{\sum}}
 
 
 % ------------------------ Topological stuff ------------------------%
@@ -394,10 +502,10 @@
 % ----------------------- Probabilistic stuff ---------------------- %
 
 % Expected value
-\newcommand{\EE}{ \mathbb{E}}
+\newcommand{\EE}{\mathbb{E}}
 
 % Probability
-\newcommand{\PP}{ \mathbb{P}}
+\newcommand{\PP}{\mathbb{P}}
 
 % Variance
 \newcommand{\Var}{\operatorname{Var}}
@@ -409,7 +517,14 @@
 \newcommand{\Bin}{\operatorname{Bin}}
 \newcommand{\Poi}{\operatorname{Poi}}
 
+% Standard deviation?
 \newcommand{\SD}{\operatorname{SD}}
+
+% Conditional Expected Value
+% Is this a reasonable name to use? `\ce'?
+\newcommand{\ce}[3][]{\EE\bk[#1]{#2 \MID #3}}
+\newcommand{\cvar}[3][]{\Var\bk[#1]{#2 \MID #3}}
+
 
 
 % --------------------------- Knot Theory -------------------------- %
@@ -419,56 +534,62 @@
 \newcommand{\postouopspace}{\hspace{.1111111em plus .0555555em minus .1111111em}}
 
 % Biquandle operations
-\DeclareMathOperator*{\overop}{\preouopspace\overline{\triangleright}\postouopspace}
-\DeclareMathOperator*{\underop}{\preouopspace\underline{\triangleright}\postouopspace}
+\DeclareMathOperator{\overop}{\preouopspace\overline{\triangleright}\postouopspace}
+\DeclareMathOperator{\underop}{\preouopspace\underline{\triangleright}\postouopspace}
 
-\usetikzlibrary{
-  knots,
-  hobby,
-  decorations.markings,
-  decorations.pathreplacing,
-  shapes.geometric,
-  calc
-}
 
-\tikzset{
-  show curve controls/.style={
-    postaction=decorate,
-    decoration={show path construction,
-      curveto code={
-        \draw [blue, dashed]
-        (\tikzinputsegmentfirst) -- (\tikzinputsegmentsupporta)
-        node [at end, draw, solid, red, inner sep=2pt]{};
-        \draw [blue, dashed]
-        (\tikzinputsegmentsupportb) -- (\tikzinputsegmentlast)
-        node [at start, draw, solid, red, inner sep=2pt]{}
-        node [at end, fill, blue, ellipse, inner sep=2pt]{}
-        ;
-      }
-    }
-  },
-  show curve endpoints/.style={
-    postaction=decorate,
-    decoration={show path construction,
-      curveto code={
-        \node [fill, blue, ellipse, inner sep=2pt] at (\tikzinputsegmentlast) {};
-      }
-    }
-  },
-  % use Hobby shortcut, % Hobby shortcut for bezier curves
-  %% Key for adding arrows to midpoints of paths
-  add arrow/.style={postaction={decorate}, decoration={
-      markings,
-      mark=at position 0.2 with {\arrow{<}},
-      mark=at position 0.6 with {\arrow{<}}}}
-}
 
+% --------------------------- Algorithms --------------------------- %
+
+% For typesetting algorithms
+\RequirePackage[ruled, vlined]{algorithm2e}
+
+% ---------------------- Differential Geometry --------------------- %
+
+% `space indices' --> in Einstein notation some people like to
+% visually separate the row / column indices for matrices. This does
+% that, I guess
+\newcommand\spinds[3]{#1\indices{^{#2}_{#3}}}
+% upper lower
+\newcommand\ulinds[3]{#1\indices{^{#2}_{#3}}}
+
+
+% OK now we need one for transposes I guess
+\newcommand\tspinds[3]{#1\indices{_{#2}^{#3}}}
+% lower upper
+\newcommand\luinds[3]{#1\indices{_{#2}^{#3}}}
+
+% upper lower upper
+\newcommand\uluinds[4]{#1\indices{^{#2}_{#3}^{#4}}}
+% lower upper lower
+\newcommand\lulinds[4]{#1\indices{_{#2}^{#3}_{#4}}}
+
+% Volume
+\newcommand{\Vol}{\mathrm{Vol}}
+
+% ---------------------- Functional Analysis ----------------------- %
+
+
+% -------------------------- Optimization -------------------------- %
+
+% Smooth optimization functions
+\DeclareMathOperator*{\smoothmin}{smooth\,min}
+\DeclareMathOperator*{\smoothmax}{smooth\,max}
+
+\DeclareMathOperator*{\rmin}{\mc R\text{-}min}
+
+\newcommand{\ckmin}[1]{C^{#1}\text{-}\min}
+\newcommand{\ckmax}[1]{C^{#1}\text{-}\max}
+
+\DeclareMathOperator*{\softmin}{soft\,min}
+\DeclareMathOperator*{\softmax}{soft\,max}
 
 % ---------------------- Statements and Proofs --------------------- %
 
 % Put the qed box all the way to the right
+\renewcommand{\qedsymbol}{\ensuremath{\blacksquare}}
 \let\oldqed\qed
-\renewcommand{\qed}{\hfill $\blacksquare$}
+% \renewcommand{\qed}{\hfill $\blacksquare$}
 
 % For confirming or denying various statements (useful when you're
 % doing casework in a proof and want to have some visual separator)
@@ -477,6 +598,10 @@
 
 % Ez contradiction
 \newcommand{\contra}{{(\Rightarrow\Leftarrow)}}
+
+% Alt. Contradiction symbol
+\newcommand\jiong{\text{\begin{CJK*}{UTF8}{bsmi}囧\end {CJK*}}}
+
 
 % The indentation for customized iff labels really grinds my gears.
 % Hence, a new environment to make everything right in the world
@@ -498,6 +623,16 @@
 \AddEnumerateCounter{\seteqenum}{\@seteqenum}{$(\subseteq):$}
 \newenvironment{seteqproof}{%
   \begin{enumerate}[label=\seteqenum*, leftmargin=4em]%
+  }{\end{enumerate}}
+
+% Similarly, but for leq geq proofs
+\newcommand*{\lgeqenum}[1]{\expandafter\@lgeqenum\csname c@#1\endcsname}
+\newcommand*{\@lgeqenum}[1]{%
+  \ifcase#1\or {$(\leq):$}\or {$(\geq):$}\else\@ctrerr\fi
+}
+\AddEnumerateCounter{\lgeqenum}{\@lgeqenum}{$(\leq):$}
+\newenvironment{lgeqproof}{%
+  \begin{enumerate}[label=\lgeqenum*, leftmargin=4em]%
   }{\end{enumerate}}
 
 % Similarly, but for inductive proofs.
@@ -624,4 +759,7 @@
 % delimiter command, the vertical bar will resize appropriately
 % Example:
 %   \set{ x \in W \MID x > 0 }
-\newcommand{\MID}{\;\mdelim\vert\;}
+%
+% Have to use \mskip{5mu} instead of \; here because of conflicts
+% with the TIPA package
+\newcommand{\MID}{\mspace{5mu}\mdelim\vert\mspace{5mu}}

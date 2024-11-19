@@ -162,7 +162,7 @@
 \newcommand{\fksupervisoraffiliation}[1]{\def\fkbook@supervisoraffiliation{#1}}
 
 \newcommand{\maketitlepage}{
-  \ifx \fkbook@shorttitle\fkbook@empty%
+  \ifx\fkbook@shorttitle\fkbook@empty%
   \def\fkbook@shorttitle{\fkbook@title}%
   \else% do nothing
   \fi
@@ -189,8 +189,9 @@
     %	Subtitle
     % ------------------------------------------------
 
-    \ifthenelse{\equal{\fkbook@alttitle}{}}{}{
-      {\large \fkbook@alttitle}}
+    % \ifthenelse{\equal{\fkbook@alttitle}{}}{}{
+    %   {\large \fkbook@alttitle}}
+    \ifx\fkbook@alttitle\fkbook@empty \else {\large \fkbook@alttitle}\fi
 
     \vspace*{8\baselineskip}
 
@@ -203,13 +204,24 @@
     \vspace{1\baselineskip}
     % Check if affiliation is empty, insert it if not
     \ifx\fkbook@affiliation\fkbook@empty \else \fkbook@affiliation\fi
+    % \ifx\fkbook@supervisor\fkbook@empty{\vfill\includegraphics[width=3cm,%
+    % keepaspectratio=true]{logo.pdf}\vspace{\baselineskip}}\else{\vfill {\small Supervised%
+    %     By\\ }{\fkbook@supervisor\footnote{\fkbook@supervisoraffiliation} \vspace{6\baselineskip%
+    %       \includegraphics[width=2cm, keepaspectratio=true]{logo.pdf}%
+    %       \vspace{.3\baselineskip}}}}
+    \ifx\fkbook@supervisor\fkbook@empty{\vfill\includegraphics[width=3cm,%
+    keepaspectratio=true]{logo.pdf}\vspace{\baselineskip}} \else {\vfill {\small Supervised%
+        By\\ }{\fkbook@supervisor\footnote{\fkbook@supervisoraffiliation}%
+        \vspace{6\baselineskip}%
+          \includegraphics[width=2cm, keepaspectratio=true]{logo.pdf}%
+          \vspace{.3\baselineskip}}}\fi
 
-    \ifthenelse{\equal{\fkbook@supervisor}{}}{\vfill\includegraphics[width=3cm,
-      keepaspectratio=true]{logo.png}\vspace{\baselineskip}}{\vfill {\small Supervised
-        By\\ }{\fkbook@supervisor\footnote{\fkbook@supervisoraffiliation} \vspace{6\baselineskip
-          \includegraphics[width=2cm, keepaspectratio=true]{logo.png} \vspace{.3\baselineskip}}}}
+    % \ifthenelse{\equal{\fkbook@supervisor}{}}{\vfill\includegraphics[width=3cm,
+    %   keepaspectratio=true]{logo.pdf}\vspace{\baselineskip}}{\vfill {\small Supervised
+    %     By\\ }{\fkbook@supervisor\footnote{\fkbook@supervisoraffiliation} \vspace{6\baselineskip
+    %       \includegraphics[width=2cm, keepaspectratio=true]{logo.pdf} \vspace{.3\baselineskip}}}}
 
-    {\large \normalfont Last Updated: \today} % Publication year
+    % {\large \normalfont Last Updated: \today} % Publication year
     \vspace{1\baselineskip}
   \end{titlepage}}
 

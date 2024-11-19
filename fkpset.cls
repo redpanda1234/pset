@@ -88,6 +88,12 @@
 % For more bearable referencing
 \RequirePackage{fancyref}
 
+% For referencing things with links
+\RequirePackage[colorlinks=true]{hyperref}
+
+% Use smarter referencing and stuff
+\RequirePackage[capitalise]{cleveref}
+
 % Boxed problem statements
 \RequirePackage{boxedminipage}
 
@@ -103,28 +109,28 @@
 % Default to letters for enumerate formatting
 \setenumerate[0]{label=$($\alph*$)$}
 
-% Check if command exists
-\newcommand{\checkfor}[1]{%
-  \ifcsname#1\endcsname%
-    Command \texttt{\textbackslash#1} is defined already. Choose
-    another macro!
-  \else%
-    Command \texttt{\textbackslash#1} is not defined yet. Go ahead!
-  \fi%
-}
-
 % For units
 % FIXME: Is this really something I use often still?
-\RequirePackage[alsoload=astro, alsoload=hep]{siunitx}
+\RequirePackage{siunitx}
 
-% Problem environment
-\newenvironment{problem}[1][Problem \thesection.]
-{\noindent\begin{center}\begin{boxedminipage}{.95\linewidth}\textbf{#1.}}
-{\end{boxedminipage}\end{center}}
+% Problem environment. Relies on `mdframed' being imported in
+% `fkmath'.
+\theoremstyle{definition}
+\newmdtheoremenv[%
+outerlinewidth = .025,
+leftmargin = .025\linewidth,
+rightmargin = .025\linewidth,
+innerleftmargin = 3,
+innertopmargin = 3,
+splittopskip = \topskip,
+]{newproblem}{Problem}
+\newenvironment{problem}[1][]{\begin{newproblem}[{#1}]~}{\end{newproblem}}
 
+\renewcommand{\qed}{\hfill $\blacksquare$}
 \newenvironment{solution}[1][Solution.]
 {\noindent\begin{center}\begin{adjustwidth}{.05\linewidth}{.05\linewidth}\emph{#1}\ }
 {\qed\end{adjustwidth}\end{center}}
+
 
 \theoremstyle{plain}% default
 \newtheorem{theorem}{Theorem}
@@ -257,6 +263,26 @@
 % Verbose error messages
 \DeclareOption{verbose}{
   \setcounter{errorcontextlines}{999}
+}
+
+% Start indexing of problem numbers at 1
+\stepcounter{section}
+
+\DeclareOption{algs}{
+  \geometry{paperwidth=10.5in, paperheight=11in, lmargin=2in, rmargin=2in}
+
+
+  \fancyhfoffset[E,O]{0pt}
+
+  \renewcommand{\rblock}{}%
+
+  \renewenvironment{problem}[1][Problem \thesection.\ ]
+  {\section*{#1}}
+  {
+
+    \hrulefill
+
+  }
 }
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
