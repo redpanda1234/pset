@@ -69,15 +69,17 @@
 
 % ------------------------ Misc. utilities ------------------------- %
 
-% Check if command exists
-\newcommand{\checkfor}[1]{%
-  \ifcsname#1\endcsname%
-    Command \texttt{\textbackslash#1} is defined already. Choose
-    another macro!
-  \else%
-    Command \texttt{\textbackslash#1} is not defined yet. Go ahead!
-  \fi%
-}
+%%% I'm going to comment this out for now because it's causing build
+%%% for my website. And I don't think I really use it anyways.
+% % Check if command exists
+% \newcommand{\checkfor}[1]{%
+%   \ifcsname#1\endcsname%
+%     Command \texttt{\textbackslash#1} is defined already. Choose
+%     another macro!
+%   \else%
+%     Command \texttt{\textbackslash#1} is not defined yet. Go ahead!
+%   \fi%
+% }
 
 
 
@@ -176,7 +178,7 @@
 % Define lcm command
 \DeclareMathOperator{\lcm}{lcm}
 
-% Diameter of a set 
+% Diameter of a set
 \DeclareMathOperator{\diam}{diam}
 
 % Defeq
@@ -330,9 +332,6 @@
     {\mkern7mu\overline{\vphantom{\intop}\mkern7mu}\mkern-14mu}%
   \int}
 \def\lowint{\mkern3mu\underline{\vphantom{\intop}\mkern7mu}\mkern-10mu\int}
-
-% Diameter of a set
-\DeclareMathOperator*{\diam}{diam}
 
 % Distance (for when a standard metric notation might be confusing)
 \DeclareMathOperator*{\dist}{dist}

@@ -108,7 +108,8 @@
 }
 
 % For units
-\RequirePackage[alsoload=astro, alsoload=hep]{siunitx}
+% \RequirePackage[alsoload=astro, alsoload=hep]{siunitx}
+\RequirePackage{siunitx}
 
 % TODO: Come back and make more robust environments, perhaps with
 % framed boxes and things (tbt)
