@@ -146,6 +146,10 @@
 % \newcommand{\cvdots}{\mathrel{\makebox[\widthof{=}]{\vdots}}}
 \newcommand{\cvdots}{\setbox0\hbox{=}\mathrel{\makebox[\wd0]{\hfil\vdots\hfil}}}
 
+% Put things under other things (e.g., subscripted equals sign)
+%
+% courtesy of this person: https://tex.stackexchange.com/a/228861/245305
+\newcommand\underrel[2]{\mathrel{\mathop{#2}\limits_{#1}}}
 
 % ------------------------ Common Functions ------------------------ %
 
