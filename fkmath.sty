@@ -69,15 +69,17 @@
 
 % ------------------------ Misc. utilities ------------------------- %
 
-% Check if command exists
-\newcommand{\checkfor}[1]{%
-  \ifcsname#1\endcsname%
-    Command \texttt{\textbackslash#1} is defined already. Choose
-    another macro!
-  \else%
-    Command \texttt{\textbackslash#1} is not defined yet. Go ahead!
-  \fi%
-}
+%%% I'm going to comment this out for now because it's causing build
+%%% for my website. And I don't think I really use it anyways.
+% % Check if command exists
+% \newcommand{\checkfor}[1]{%
+%   \ifcsname#1\endcsname%
+%     Command \texttt{\textbackslash#1} is defined already. Choose
+%     another macro!
+%   \else%
+%     Command \texttt{\textbackslash#1} is not defined yet. Go ahead!
+%   \fi%
+% }
 
 
 
@@ -180,6 +182,8 @@
 % Define lcm command
 \DeclareMathOperator{\lcm}{lcm}
 
+% Diameter of a set
+\DeclareMathOperator{\diam}{diam}
 
 % Defeq
 \newcommand{\defeq}{\overset{\text{\tiny def}}{=}}
@@ -272,12 +276,16 @@
 % Projection onto something
 \newcommand{\proj}[3][]{{\opertorname{proj}_{#2}\pn[#1]{#3}}}
 
+% Rank
+\DeclareMathOperator{\rank}{rank}
+
 % Transpose
 \newcommand{\T}{\mathsf{T}}
 
 % trace
 \DeclareMathOperator{\tr}{tr}
 \DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\trace}{trace}
 
 % Boldfaced vectors
 
@@ -329,8 +337,15 @@
   \int}
 \def\lowint{\mkern3mu\underline{\vphantom{\intop}\mkern7mu}\mkern-10mu\int}
 
+% Distance (for when a standard metric notation might be confusing)
+\DeclareMathOperator*{\dist}{dist}
+
 % Uniform convergence
-\newcommand{\uconv}{\xrightarrow{u}}
+\newcommand{\uconv}{\xrightarrow{\ u\ }}
+
+% Weak convergence
+\newcommand{\wconv}{\xrightarrow{\ w\ }}
+\newcommand{\wto}{\xrightarrow{\ w\ }}
 
 % Sequences that increase to a value
 \newcommand{\incto}{\nearrow}
@@ -338,10 +353,11 @@
 
 % Support
 \DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\support}{support}
 
 % Essential supremum / infimum
-\DeclareMathOperator*{\esssup}{ess\,sup}
-\DeclareMathOperator*{\essinf}{ess\,inf}
+\DeclareMathOperator*{\essinf}{ess\ inf}
+\DeclareMathOperator*{\esssup}{ess\ sup}
 
 % ----------------------------- Algebra ---------------------------- %
 
@@ -366,8 +382,7 @@
 
 % General linear group
 \newcommand{\GL}{\mathrm{GL}}
-
-
+\DeclareMathOperator*{\Aut}{Aut}
 
 % ------------------ The Categorical Imperative ;) ----------------- %
 
@@ -554,7 +569,6 @@
 
 % ---------------------- Functional Analysis ----------------------- %
 
-\newcommand{\wconv}{\rightharpoonup}
 
 % -------------------------- Optimization -------------------------- %
 
@@ -609,6 +623,16 @@
 \AddEnumerateCounter{\seteqenum}{\@seteqenum}{$(\subseteq):$}
 \newenvironment{seteqproof}{%
   \begin{enumerate}[label=\seteqenum*, leftmargin=4em]%
+  }{\end{enumerate}}
+
+% Similarly, but for leq geq proofs
+\newcommand*{\lgeqenum}[1]{\expandafter\@lgeqenum\csname c@#1\endcsname}
+\newcommand*{\@lgeqenum}[1]{%
+  \ifcase#1\or {$(\leq):$}\or {$(\geq):$}\else\@ctrerr\fi
+}
+\AddEnumerateCounter{\lgeqenum}{\@lgeqenum}{$(\leq):$}
+\newenvironment{lgeqproof}{%
+  \begin{enumerate}[label=\lgeqenum*, leftmargin=4em]%
   }{\end{enumerate}}
 
 % Similarly, but for inductive proofs.

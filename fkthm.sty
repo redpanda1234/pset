@@ -188,6 +188,16 @@
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{conjecture}[theorem]{Conjecture}
+% See https://tex.stackexchange.com/a/443
+\makeatletter
+\newtheorem*{rep@theorem}{\rep@title}
+\newcommand{\newreptheorem}[2]{%
+\newenvironment{rep#1}[1]{%
+  \def\rep@title{#2 \ref{##1}}%
+ \begin{rep@theorem}}%
+ {\end{rep@theorem}}}
+\makeatother
+\newreptheorem{theorem}{Theorem}
 
 \theoremstyle{definition}
 \newtheorem{question}{Question}
@@ -196,7 +206,15 @@
 \newtheorem*{remark}{Remark}
 \newtheorem*{note}{Note}
 \newtheorem*{notation}{Notation}
-
+\makeatletter
+\newtheorem*{rep@definition}{\rep@title}
+\newcommand{\newrepdefinition}[2]{%
+\newenvironment{rep#1}[1]{%
+  \def\rep@title{#2 \ref{##1}}%
+ \begin{rep@definition}}%
+ {\end{rep@definition}}}
+\makeatother
+\newrepdefinition{definition}{Definition}
 
 
 % \theoremstyle{remark}

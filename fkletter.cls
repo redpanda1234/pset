@@ -69,26 +69,6 @@
 
 % ================================================================== %
 %                                                                    %
-%                          Control Sequences                         %
-%                                                                    %
-% ================================================================== %
-
-
-% ------------------------ Creature Comforts ----------------------- %
-
-% Check if command exists
-\newcommand{\checkfor}[1]{%
-  \ifcsname#1\endcsname%
-    Command \texttt{\textbackslash#1} is defined already. Choose
-    another macro!
-  \else%
-    Command \texttt{\textbackslash#1} is not defined yet. Go ahead!
-  \fi%
-}
-
-
-% ================================================================== %
-%                                                                    %
 %                          Misc. Formattings                         %
 %                                                                    %
 % ================================================================== %
