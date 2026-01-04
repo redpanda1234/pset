@@ -56,7 +56,7 @@
 \RequirePackage{expl3}
 
 % Exclusively for 囧 as contradiction symbol
-\RequirePackage{CJKutf8}
+% \RequirePackage{CJKutf8}
 
 % For spacing of indices when using Einstein notation.
 \RequirePackage{tensor}
@@ -600,7 +600,7 @@
 \newcommand{\contra}{{(\Rightarrow\Leftarrow)}}
 
 % Alt. Contradiction symbol
-\newcommand\jiong{\text{\begin{CJK*}{UTF8}{bsmi}囧\end {CJK*}}}
+% \newcommand\jiong{\text{\begin{CJK*}{UTF8}{bsmi}囧\end {CJK*}}}
 
 
 % The indentation for customized iff labels really grinds my gears.
@@ -678,12 +678,6 @@
 % Useful commands for paired delimiters that'll adjust to fit whatever
 % argument you pass --> e.g. (<something>), [<something else>]
 
-% I spent quite some time trying to get sizes to be optional arguments
-% that I could pass to the commands below, before discovering (to my
-% delight) that somebody had done almost this exact same thing before.
-% I then gleefully copy-pasted the stuff below, which was much less
-% hard-coded than what I had been doing.
-
 % For the source, see https://tex.stackexchange.com/a/1744
 
 % Auto-sized thingies
@@ -698,7 +692,6 @@
 \let\size@biggl\biggl \let\size@biggr\biggr \let\size@biggm\bigg
 \let\size@Biggl\Biggl \let\size@Biggr\Biggr \let\size@Biggm\Bigg
 
-% idk
 \newcommand{\ldelim}{\relax}
 \newcommand{\rdelim}{\relax}
 \newcommand{\mdelim}{\relax}
