@@ -61,6 +61,13 @@
 % For spacing of indices when using Einstein notation.
 \RequirePackage{tensor}
 
+% For nice rules in tabulars
+\RequirePackage{booktabs}
+
+% For an environment allowing long tables (e.g.\ notation tables) to
+% break across pages
+\RequirePackage{longtable}
+
 % ================================================================== %
 %                                                                    %
 %                                Macros!                             %
@@ -110,6 +117,11 @@
 \newcommand{\wt}[1]{{}\widetilde{#1}}
 
 % ------------------------- Spacing Things ------------------------- %
+
+% Not actually a spacing thing, but rather for manually numbering a
+% single equation in an align* environment
+\newcommand{\numberme}{\addtocounter{equation}{1}\tag{\theequation}}
+
 
 % No, not the world's worst programming language. For making a phantom
 % + in the align environment.
@@ -263,6 +275,97 @@
 
 % Inverse fourier transform
 \newcommand{\FTi}[2][]{\ms F^{-1}_{#1}\set{#2}}
+
+% --------------------------- Multi calc --------------------------- %
+\DeclareMathOperator{\vdiv}{div}
+\DeclareMathOperator{\curl}{curl}
+
+\newcommand{\curlmat}[3]{
+  \begin{vmatrix}
+    \mb i & \mb j & \mb k \\[.5em]
+    \dfrac{\partial}{\partial x}
+          & \dfrac{\partial}{\partial y}
+                  & \dfrac{\partial}{\partial z} \\[1em]
+    #1 & #2 & #3
+  \end{vmatrix}
+}
+
+\newcommand{\curlmatexp}[3]{
+  \begin{vmatrix}
+    \dfrac{\partial}{\partial y} & \dfrac{\partial}{\partial z}
+    \\[1em]
+    #2 & #3
+  \end{vmatrix}\mb i
+  -
+  \begin{vmatrix}
+    \dfrac{\partial}{\partial x} & \dfrac{\partial}{\partial z}
+    \\[1em]
+    #1 & #3
+  \end{vmatrix}\mb j
+  +
+  \begin{vmatrix}
+    \dfrac{\partial}{\partial x} & \dfrac{\partial}{\partial y}
+    \\[1em]
+    #1 & #2
+  \end{vmatrix}\mb k
+}
+
+\newcommand{\crossmat}[7][0pt]{
+  \begin{vmatrix}
+    \mb i & \mb j & \mb k \\[#1]
+    #2 & #3 & #4 \\[#1]
+    #5 & #6 & #7
+  \end{vmatrix}
+}
+
+\newcommand{\crossmatexp}[7][0pt]{
+  \begin{vmatrix}
+    #3 & #4 \\[#1]
+    #6 & #7
+  \end{vmatrix}\mb i
+  -
+  \begin{vmatrix}
+    #2 & #4 \\[#1]
+    #5 & #7
+  \end{vmatrix}\mb j
+  +
+  \begin{vmatrix}
+    #2 & #3 \\[#1]
+    #5 & #6
+  \end{vmatrix}\mb k
+}
+
+% \makeatletter
+
+% % Unbroken oval over \idotsint
+% \newcommand\odotsint{\DOTSI\mathop{\mathpalette\odotsint@\relax}\ilimits@}
+% \newcommand\odotsint@[2]{%
+%   \tikz[baseline=(X.base)]{%
+%     \node[inner sep=0pt, outer sep=0pt] (X) {$\m@th#1\idotsint$};
+%     \draw[line width=.08ex]
+%       (X.center) ellipse [x radius=1.95ex, y radius=.78ex];
+%   }%
+% }
+
+% % Broken oval: narrower gaps at top and bottom
+% \newcommand\brokendotsint{\DOTSI\mathop{\mathpalette\brokendotsint@\relax}\ilimits@}
+% \newcommand\brokendotsint@[2]{%
+%   \tikz[baseline=(X.base)]{%
+%     \node[inner sep=0pt, outer sep=0pt] (X) {$\m@th#1\idotsint$};
+
+%     % left half of oval
+%     \draw[line width=.08ex, line cap=round]
+%       (X.center) ++(115:1.95ex and .78ex)
+%       arc[start angle=115,end angle=245,x radius=1.95ex,y radius=.78ex];
+
+%     % right half of oval
+%     \draw[line width=.08ex, line cap=round]
+%       (X.center) ++(295:1.95ex and .78ex)
+%       arc[start angle=295,end angle=425,x radius=1.95ex,y radius=.78ex];
+%   }%
+% }
+
+% \makeatother
 
 
 % ----------------------------- Linalg ----------------------------- %
